@@ -1,0 +1,53 @@
+=== [1] Package policyd-spf ===
+postfix-policyd-spf-python 3.0.4-2
+uid=113(policyd-spf) gid=115(policyd-spf) groups=115(policyd-spf)
+
+=== [2] master.cf: dich vu policyd-spf (spawn qua unix socket) ===
+144:policyd-spf  unix  -       n       n       -       0       spawn
+145-    user=policyd-spf argv=/usr/bin/policyd-spf
+
+=== [3] TestOnly phai = 1 (CHE DO THUC THI) - bay kinh đien ===
+  debugLevel = 1 
+  TestOnly = 1
+  HELO_reject = Fail
+  Mail_From_reject = Fail
+  PermError_reject = False
+  TempError_Defer = False
+  skip_addresses = 127.0.0.0/8,::ffff:127.0.0.0/104,::1
+--- Trich dan man 5 policyd-spf.conf ---
+  TEST OPERATION
+         The policy server can operate in a test only mode. This allows you to see the potential impact of SPF checking
+         in  your mail logs without rejecting mail.  Headers are prepended in messages, but message delivery is not af‐
+         fected. This mode is not enabled by default.  To enable it, set TestOnly = 0.  If you want test operation with
+         no header added, also set Header_Type = None.
+  
+         Note: This option was previously named defaultSeedOnly.  This is still accepted, but logs an error.
+  
+         Default:
+  
+         TestOnly = 1
+  
+  HELO/EHLO CHECKING
+         HELO check rejection policy options are:
+  hien tai: TestOnly = 1
+  => Mail_From_reject = Fail (mac dinh): ket qua SPF Fail -> reject 550 5.7.23
+
+=== [4] main.cf: ghep check_policy_service vao sau reject_unauth_destination ===
+  mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+  policyd-spf_time_limit = 3600
+  smtpd_recipient_restrictions = reject_non_fqdn_recipient, permit_sasl_authenticated, reject_unauth_destination, check_policy_service unix:private/policyd-spf
+
+=== [5] XAC MINH ===
+# time 2026-10-18 11:39:36 UTC - mail2.congtyB.test - sau D-03
+--- postconf ---
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+policyd-spf_time_limit = 3600
+smtpd_recipient_restrictions = reject_non_fqdn_recipient, permit_sasl_authenticated, reject_unauth_destination, check_policy_service unix:private/policyd-spf
+smtpd_relay_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination
+--- master.cf service ---
+policyd-spf unix -       n       n       -       0       spawn user=policyd-spf argv=/usr/bin/policyd-spf
+--- dich vu ---
+active
+--- SPF record cua congtyB.test da ton tai chua (tren vm-dns) ---
+congtyB.test.		300	IN	TXT	"ATM-INT1482 Topic03 mail lab - congtyB.test (RFC6761 TLD)"
+congtyB.test.		300	IN	TXT	"v=spf1 ip4:10.30.0.30 mx -all"

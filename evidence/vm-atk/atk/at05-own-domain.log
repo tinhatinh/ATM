@@ -1,0 +1,100 @@
+############### Gia mao postmaster@congtyA.test gui cho chinh admin@congtyA.test (qua mail1) ###############
+# swaks --server mail1.congtyA.test --from postmaster@congtyA.test --to admin@congtyA.test
+=== Trying mail1.congtyA.test:25...
+=== Connected to mail1.congtyA.test.
+<-  220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+ -> EHLO mail.evidence.test
+<-  250-mail1.congtyA.test
+<-  250-PIPELINING
+<-  250-SIZE 10240000
+<-  250-VRFY
+<-  250-ETRN
+<-  250-AUTH PLAIN LOGIN
+<-  250-ENHANCEDSTATUSCODES
+<-  250-8BITMIME
+<-  250-DSN
+<-  250-SMTPUTF8
+<-  250 CHUNKING
+ -> MAIL FROM:<postmaster@congtyA.test>
+<-  250 2.1.0 Ok
+ -> RCPT TO:<admin@congtyA.test>
+<-  250 2.1.5 Ok
+ -> DATA
+<-  354 End data with <CR><LF>.<CR><LF>
+ -> Date: Sun, 18 Oct 2026 09:10:20 +0000
+ -> To: admin@congtyA.test
+ -> From: IT Support <postmaster@congtyA.test>
+ -> Subject: [AT-05] Gia mao postmaster@congtyA.test gui cho chinh admin@congtyA.test (qua mail1)
+ -> Message-Id: <20261018091020.004027@vm-atk>
+ -> X-Mailer: swaks v20240103.0 jetmore.org/john/code/swaks/
+ -> X-Lab-Mark: AT-05
+ -> 
+ -> Thua anh/chu,
+ -> 
+ -> Em la Admin - Phong CNTT Cong ty Alpha. Em dang xu ly ho so kip tien do,
+ -> nho anh/chu kiem tra giup em lenh chuyen khoan 480.000.000d vao tai khoan
+ -> 1029384756 (AlphaBank - Cong ty Alpha) truoc 11h30 hom nay.
+ -> 
+ -> Anh/chu khong can goi lai cho em, em trong cuoc hop voi doi tac.
+ -> Xac nhan lai bang email nay giup em.
+ -> 
+ -> Tran trong,
+ -> Admin - Phong CNTT
+ -> 
+ -> 
+ -> .
+<-  250 2.0.0 Ok: queued as 53662A1D8F
+ -> QUIT
+<-  221 2.0.0 Bye
+=== Connection closed with remote host.
+
+############### Gia mao ketoan@congtyB.test (domain ben GUI) gui cho giamdoc@congtyA.test (qua mail1) ###############
+# swaks --server mail1.congtyA.test --from ketoan@congtyB.test --to giamdoc@congtyA.test
+=== Trying mail1.congtyA.test:25...
+=== Connected to mail1.congtyA.test.
+<-  220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+ -> EHLO mail.evidence.test
+<-  250-mail1.congtyA.test
+<-  250-PIPELINING
+<-  250-SIZE 10240000
+<-  250-VRFY
+<-  250-ETRN
+<-  250-AUTH PLAIN LOGIN
+<-  250-ENHANCEDSTATUSCODES
+<-  250-8BITMIME
+<-  250-DSN
+<-  250-SMTPUTF8
+<-  250 CHUNKING
+ -> MAIL FROM:<ketoan@congtyB.test>
+<-  250 2.1.0 Ok
+ -> RCPT TO:<giamdoc@congtyA.test>
+<-  250 2.1.5 Ok
+ -> DATA
+<-  354 End data with <CR><LF>.<CR><LF>
+ -> Date: Sun, 18 Oct 2026 09:10:20 +0000
+ -> To: giamdoc@congtyA.test
+ -> From: Ke toan Beta <ketoan@congtyB.test>
+ -> Subject: [AT-05] Gia mao ketoan@congtyB.test (domain ben GUI) gui cho giamdoc@congtyA.test (qua mail1)
+ -> Message-Id: <20261018091020.004028@vm-atk>
+ -> X-Mailer: swaks v20240103.0 jetmore.org/john/code/swaks/
+ -> X-Lab-Mark: AT-05
+ -> 
+ -> Thua anh/chu,
+ -> 
+ -> Em la Admin - Phong CNTT Cong ty Alpha. Em dang xu ly ho so kip tien do,
+ -> nho anh/chu kiem tra giup em lenh chuyen khoan 480.000.000d vao tai khoan
+ -> 1029384756 (AlphaBank - Cong ty Alpha) truoc 11h30 hom nay.
+ -> 
+ -> Anh/chu khong can goi lai cho em, em trong cuoc hop voi doi tac.
+ -> Xac nhan lai bang email nay giup em.
+ -> 
+ -> Tran trong,
+ -> Admin - Phong CNTT
+ -> 
+ -> 
+ -> .
+<-  250 2.0.0 Ok: queued as 69558A1D8F
+ -> QUIT
+<-  221 2.0.0 Bye
+=== Connection closed with remote host.
+

@@ -1,0 +1,72 @@
+# 2026-10-20 20:08:07 UTC - sau khi reload zone congtyB.test (serial 2026102001)
+congtyB.test.		300	IN	SOA	ns1.congtyA.test. hostmaster.congtyB.test. 2026102001 3600 600 1209600 300
+--- moi ban ghi TXT trong zone congtyB.test ---
+congtyB.test.		300	IN	TXT	"v=spf1 ip4:10.30.0.30 mx -all"
+congtyB.test.		300	IN	TXT	"ATM-INT1482 Topic03 mail lab - congtyB.test (RFC6761 TLD)"
+--- _dmarc.congtyB.test TXT ---
+--- mail._domainkey.congtyB.test TXT ---
+--- toan bo noi dung TXT (dig dang day du, khong cat ngan) ---
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 congtyB.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+congtyB.test.		300	IN	TXT	"ATM-INT1482 Topic03 mail lab - congtyB.test (RFC6761 TLD)"
+congtyB.test.		300	IN	TXT	"v=spf1 ip4:10.30.0.30 mx -all"
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 _dmarc.congtyB.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 mail._domainkey.congtyB.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+# 2026-10-20 20:15:04 UTC - sau khi reload zone congtyB.test (serial 2026102002)
+congtyB.test.		300	IN	SOA	ns1.congtyA.test. hostmaster.congtyB.test. 2026102002 3600 600 1209600 300
+--- moi ban ghi TXT trong zone congtyB.test ---
+congtyB.test.		300	IN	TXT	"v=spf1 ip4:10.30.0.30 mx -all"
+congtyB.test.		300	IN	TXT	"ATM-INT1482 Topic03 mail lab - congtyB.test (RFC6761 TLD)"
+--- _dmarc.congtyB.test TXT ---
+--- mail._domainkey.congtyB.test TXT ---
+mail._domainkey.congtyB.test. 300 IN	TXT	"v=DKIM1; h=sha256; k=rsa; s=email; " "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAopDA5E3MrrT+lKvEV5RRcquPIHF8TvDaqCKqkco2zAb1EUC4Xx0oMtJ2SVh4ci2PTRVRWzOe7I1yOTQm3STTxwZ3QWXdu+KXc1Zt2KrmZD8ZQPykkogccmW2WyGBMQ8ZJvBnBHFoQ54nMN4JrL6wHneEqkt1yCO77bcS9OJvLoPW6PMJFISbyZGqLGwQ7ZL8rlw56hdlyw5Jk/" "XwL6Qq5IUT9enM8Mj0nOzONFBwk8XQf7AbRsWuPanFZL/P8W9p6hjMXIYjE1nbdRfSmRJM6GEiun/XaROVIEYbqU6RZtPhOJv67gR52lrSH2xp9Gj07LiOoSVPAb9+WKN/t5XhRwIDAQAB"
+--- toan bo noi dung TXT (dig dang day du, khong cat ngan) ---
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 congtyB.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+congtyB.test.		300	IN	TXT	"v=spf1 ip4:10.30.0.30 mx -all"
+congtyB.test.		300	IN	TXT	"ATM-INT1482 Topic03 mail lab - congtyB.test (RFC6761 TLD)"
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 _dmarc.congtyB.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 mail._domainkey.congtyB.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+mail._domainkey.congtyB.test. 300 IN	TXT	"v=DKIM1; h=sha256; k=rsa; s=email; " "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAopDA5E3MrrT+lKvEV5RRcquPIHF8TvDaqCKqkco2zAb1EUC4Xx0oMtJ2SVh4ci2PTRVRWzOe7I1yOTQm3STTxwZ3QWXdu+KXc1Zt2KrmZD8ZQPykkogccmW2WyGBMQ8ZJvBnBHFoQ54nMN4JrL6wHneEqkt1yCO77bcS9OJvLoPW6PMJFISbyZGqLGwQ7ZL8rlw56hdlyw5Jk/" "XwL6Qq5IUT9enM8Mj0nOzONFBwk8XQf7AbRsWuPanFZL/P8W9p6hjMXIYjE1nbdRfSmRJM6GEiun/XaROVIEYbqU6RZtPhOJv67gR52lrSH2xp9Gj07LiOoSVPAb9+WKN/t5XhRwIDAQAB"
+# 2026-10-20 20:15:44 UTC - sau khi reload zone congtyB.test (serial 2026102003)
+congtyB.test.		300	IN	SOA	ns1.congtyA.test. hostmaster.congtyB.test. 2026102003 3600 600 1209600 300
+--- moi ban ghi TXT trong zone congtyB.test ---
+congtyB.test.		300	IN	TXT	"ATM-INT1482 Topic03 mail lab - congtyB.test (RFC6761 TLD)"
+congtyB.test.		300	IN	TXT	"v=spf1 ip4:10.30.0.30 mx -all"
+--- _dmarc.congtyB.test TXT ---
+_dmarc.congtyB.test.	300	IN	TXT	"v=DMARC1; p=reject; sp=none; adkim=r; aspf=r; pct=100; fo=1; rua=mailto:dmarc-reports@congtyB.test"
+--- mail._domainkey.congtyB.test TXT ---
+mail._domainkey.congtyB.test. 300 IN	TXT	"v=DKIM1; h=sha256; k=rsa; s=email; " "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAopDA5E3MrrT+lKvEV5RRcquPIHF8TvDaqCKqkco2zAb1EUC4Xx0oMtJ2SVh4ci2PTRVRWzOe7I1yOTQm3STTxwZ3QWXdu+KXc1Zt2KrmZD8ZQPykkogccmW2WyGBMQ8ZJvBnBHFoQ54nMN4JrL6wHneEqkt1yCO77bcS9OJvLoPW6PMJFISbyZGqLGwQ7ZL8rlw56hdlyw5Jk/" "XwL6Qq5IUT9enM8Mj0nOzONFBwk8XQf7AbRsWuPanFZL/P8W9p6hjMXIYjE1nbdRfSmRJM6GEiun/XaROVIEYbqU6RZtPhOJv67gR52lrSH2xp9Gj07LiOoSVPAb9+WKN/t5XhRwIDAQAB"
+--- toan bo noi dung TXT (dig dang day du, khong cat ngan) ---
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 congtyB.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+congtyB.test.		300	IN	TXT	"v=spf1 ip4:10.30.0.30 mx -all"
+congtyB.test.		300	IN	TXT	"ATM-INT1482 Topic03 mail lab - congtyB.test (RFC6761 TLD)"
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 _dmarc.congtyB.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+_dmarc.congtyB.test.	300	IN	TXT	"v=DMARC1; p=reject; sp=none; adkim=r; aspf=r; pct=100; fo=1; rua=mailto:dmarc-reports@congtyB.test"
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 mail._domainkey.congtyB.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+mail._domainkey.congtyB.test. 300 IN	TXT	"v=DKIM1; h=sha256; k=rsa; s=email; " "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAopDA5E3MrrT+lKvEV5RRcquPIHF8TvDaqCKqkco2zAb1EUC4Xx0oMtJ2SVh4ci2PTRVRWzOe7I1yOTQm3STTxwZ3QWXdu+KXc1Zt2KrmZD8ZQPykkogccmW2WyGBMQ8ZJvBnBHFoQ54nMN4JrL6wHneEqkt1yCO77bcS9OJvLoPW6PMJFISbyZGqLGwQ7ZL8rlw56hdlyw5Jk/" "XwL6Qq5IUT9enM8Mj0nOzONFBwk8XQf7AbRsWuPanFZL/P8W9p6hjMXIYjE1nbdRfSmRJM6GEiun/XaROVIEYbqU6RZtPhOJv67gR52lrSH2xp9Gj07LiOoSVPAb9+WKN/t5XhRwIDAQAB"

@@ -1,0 +1,46 @@
+# time 2026-10-18 09:07:55 UTC - may vm-mail2 - hop thu cua ketoan
+--- [1] Danh sach thu trong Maildir/new ---
+total 12
+-rw------- 1 ketoan ketoan 627 Oct 18 08:57 1792313860.V802I10348aM79122.vm-mail2
+-rw------- 1 ketoan ketoan 758 Oct 18 09:03 1792314235.V802I10348bM3940.vm-mail2
+-rw------- 1 ketoan ketoan 967 Oct 18 09:07 1792314465.V802I10348cM490342.vm-mail2
+
+--- [2] Toan bo dau de cua thu moi nhat: 1792314465.V802I10348cM490342.vm-mail2 ---
+  Return-Path: <admin@congtyA.test>
+  X-Original-To: ketoan@congtyB.test
+  Delivered-To: ketoan@congtyB.test
+  Received: from mail1.congtyA.test (atk.darkside.test [10.30.0.40])
+  	by mail2.congtyB.test (Postfix) with ESMTP id 745AE103489
+  	for <ketoan@congtyB.test>; Sun, 18 Oct 2026 09:07:45 +0000 (UTC)
+  Date: Sun, 18 Oct 2026 09:07:44 +0000
+  To: ketoan@congtyB.test
+  From: Admin <admin@congtyA.test>
+  Subject: [KHAN] Yeu cau chuyen khoan ngay hom nay
+  Message-Id: <20261018090744.004011@vm-atk>
+  X-Mailer: swaks v20240103.0 jetmore.org/john/code/swaks/
+  Reply-To: "Admin" <attacker@darkside.test>
+  X-Lab-Mark: AT-04-SPOOF
+
+
+--- [3] Cac dau de dinh danh (phai VANG o Giai doan 1) ---
+# Authentication-Results:
+0
+# Received-SPF:
+0
+# DKIM-Signature:
+0
+# DMARC-Result / Authentication-Results dkim=:
+0
+
+--- [4] Header quan sat duoc tu MUA (nguoi nhan thay dieu gi) ---
+# From        : From: Admin <admin@congtyA.test>
+# Reply-To    : Reply-To: "Admin" <attacker@darkside.test>
+# Subject     : Subject: [KHAN] Yeu cau chuyen khoan ngay hom nay
+# Received    : duoi cung (may nao thuc phat)
+  Received: from mail1.congtyA.test (atk.darkside.test [10.30.0.40])
+
+--- [5] Log postfix + dovecot chung minh phat thanh cong ---
+# grep queueid/noi dung trong /var/log/mail.log (15 dong cuoi lien quan ketoan)
+2026-10-18T08:57:40.082525+00:00 vm-mail2 postfix/local[1913]: 10021103489: to=<ketoan@congtyB.test>, relay=local, delay=0.02, delays=0.01/0.01/0/0, dsn=2.0.0, status=sent (delivered to maildir)
+2026-10-18T09:03:55.006624+00:00 vm-mail2 postfix/local[1924]: F0701103489: to=<ketoan@congtyB.test>, relay=local, delay=0.03, delays=0.02/0.01/0/0, dsn=2.0.0, status=sent (delivered to maildir)
+2026-10-18T09:07:45.495559+00:00 vm-mail2 postfix/local[1933]: 745AE103489: to=<ketoan@congtyB.test>, relay=local, delay=0.02, delays=0.01/0.01/0/0, dsn=2.0.0, status=sent (delivered to maildir)

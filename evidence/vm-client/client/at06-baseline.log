@@ -1,0 +1,70 @@
+=== Trying mail1.congtyA.test:587...
+=== Connected to mail1.congtyA.test.
+<-  220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+ -> EHLO vm-client
+<-  250-mail1.congtyA.test
+<-  250-PIPELINING
+<-  250-SIZE 10485760
+<-  250-ETRN
+<-  250-STARTTLS
+<-  250-ENHANCEDSTATUSCODES
+<-  250-8BITMIME
+<-  250-DSN
+<-  250-SMTPUTF8
+<-  250 CHUNKING
+ -> STARTTLS
+<-  220 2.0.0 Ready to start TLS
+=== TLS started with cipher TLSv1.3:TLS_AES_256_GCM_SHA384:256
+=== TLS client certificate not requested and not sent
+=== TLS no client certificate set
+=== TLS peer[0]   subject=[/C=VN/O=Cong ty Alpha/CN=mail1.congtyA.test]
+===               commonName=[mail1.congtyA.test], subjectAltName=[DNS:mail1.congtyA.test, DNS:mail.congtyA.test, IP Address:10.30.0.20] notAfter=[2029-01-22T19:57:05Z]
+=== TLS peer certificate failed CA verification (unable to get local issuer certificate), passed host verification (using host mail1.congtyA.test to verify)
+ ~> EHLO vm-client
+<~  250-mail1.congtyA.test
+<~  250-PIPELINING
+<~  250-SIZE 10485760
+<~  250-ETRN
+<~  250-AUTH PLAIN LOGIN
+<~  250-ENHANCEDSTATUSCODES
+<~  250-8BITMIME
+<~  250-DSN
+<~  250-SMTPUTF8
+<~  250 CHUNKING
+ ~> AUTH LOGIN
+<~  334 VXNlcm5hbWU6
+ ~> Z2lhbWRvYw==
+<~  334 UGFzc3dvcmQ6
+ ~> TGFiQDIwMjY=
+<~  235 2.7.0 Authentication successful
+ ~> MAIL FROM:<giamdoc@congtyA.test>
+<~  250 2.1.0 Ok
+ ~> RCPT TO:<ketoan@congtyB.test>
+<~  250 2.1.5 Ok
+ ~> DATA
+<~  354 End data with <CR><LF>.<CR><LF>
+ ~> Date: Tue, 20 Oct 2026 20:19:34 +0000
+ ~> To: ketoan@congtyB.test
+ ~> From: giamdoc@congtyA.test
+ ~> Subject: [AT-06 baseline] Qua TLS - khong nghe duoc
+ ~> Message-Id: <20261020201934.005587@vm-client>
+ ~> X-Mailer: swaks v20240103.0 jetmore.org/john/code/swaks/
+ ~> X-Lab-Mark: AT-06-BASELINE
+ ~> 
+ ~> Thua anh Admin,
+ ~> 
+ ~> Em xac nhan da nhan duoc yeu cau chuyen khoan theo so hop dong
+ ~> HD-2026-0713-STB-123 va da lap lenh chuyen khoan tri gia
+ ~> 480.000.000 VND toi tai khoan so 9999999999 tai Ngan hang AlphaBank.
+ ~> 
+ ~> Uu tien cho em xin xac nhan lai bang email nay truoc 11h30 nhe anh.
+ ~> 
+ ~> Tran trong,
+ ~> Ke toan Cong ty Beta
+ ~> 
+ ~> 
+ ~> .
+<~  250 2.0.0 Ok: queued as 1DB9FA1D4A
+ ~> QUIT
+<~  221 2.0.0 Bye
+=== Connection closed with remote host.

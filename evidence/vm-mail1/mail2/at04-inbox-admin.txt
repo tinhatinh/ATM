@@ -1,0 +1,41 @@
+# time 2026-10-18 09:10:37 UTC - may vm-mail1 - hop thu cua admin
+--- [1] Danh sach thu trong Maildir/new ---
+total 4
+-rw------- 1 admin admin 972 Oct 18 09:10 1792314621.V802Ia1d91M360791.vm-mail1
+
+--- [2] Toan bo dau de cua thu moi nhat: 1792314621.V802Ia1d91M360791.vm-mail1 ---
+  Return-Path: <postmaster@congtyA.test>
+  X-Original-To: admin@congtyA.test
+  Delivered-To: admin@congtyA.test
+  Received: from mail.evidence.test (atk.darkside.test [10.30.0.40])
+  	by mail1.congtyA.test (Postfix) with ESMTP id 53662A1D8F
+  	for <admin@congtyA.test>; Sun, 18 Oct 2026 09:10:21 +0000 (UTC)
+  Date: Sun, 18 Oct 2026 09:10:20 +0000
+  To: admin@congtyA.test
+  From: IT Support <postmaster@congtyA.test>
+  Subject: [AT-05] Gia mao postmaster@congtyA.test gui cho chinh admin@congtyA.test (qua mail1)
+  Message-Id: <20261018091020.004027@vm-atk>
+  X-Mailer: swaks v20240103.0 jetmore.org/john/code/swaks/
+  X-Lab-Mark: AT-05
+
+
+--- [3] Cac dau de dinh danh (phai VANG o Giai doan 1) ---
+# Authentication-Results:
+0
+# Received-SPF:
+0
+# DKIM-Signature:
+0
+# DMARC-Result / Authentication-Results dkim=:
+0
+
+--- [4] Header quan sat duoc tu MUA (nguoi nhan thay dieu gi) ---
+# From        : From: IT Support <postmaster@congtyA.test>
+# Reply-To    : (khong co)
+# Subject     : Subject: [AT-05] Gia mao postmaster@congtyA.test gui cho chinh admin@congtyA.test (qua mail1)
+# Received    : duoi cung (may nao thuc phat)
+  Received: from mail.evidence.test (atk.darkside.test [10.30.0.40])
+
+--- [5] Log postfix + dovecot chung minh phat thanh cong ---
+# grep queueid/noi dung trong /var/log/mail.log (15 dong cuoi lien quan admin)
+2026-10-18T09:10:21.370591+00:00 vm-mail1 postfix/local[2201]: 53662A1D8F: to=<admin@congtyA.test>, relay=local, delay=0.03, delays=0.01/0.01/0/0.01, dsn=2.0.0, status=sent (delivered to maildir)

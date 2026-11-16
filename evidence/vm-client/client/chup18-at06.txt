@@ -1,0 +1,129 @@
+=== [0] DIEU KIEN: mail1:587 phai dang quang ba STARTTLS (sau d02b) ===
+  220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+  250-mail1.congtyA.test
+  250-PIPELINING
+  250-SIZE 10485760
+  250-ETRN
+  250-STARTTLS
+  250-AUTH PLAIN LOGIN
+  250-ENHANCEDSTATUSCODES
+  250-8BITMIME
+  250-DSN
+  250-SMTPUTF8
+  250 CHUNKING
+
+=== [1] DOI CHIEU: ket noi TRUC TIEP mail1:587, YEU CAU TLS (swaks --tls) ===
+ ~> Subject: [AT-06 baseline] Qua TLS - khong nghe duoc
+ ~> Message-Id: <20261018113658.008342@vm-client>
+ ~> X-Mailer: swaks v20240103.0 jetmore.org/john/code/swaks/
+ ~> X-Lab-Mark: AT-06-BASELINE
+ ~> 
+ ~> Thua anh Admin,
+ ~> 
+ ~> Em xac nhan da nhan duoc yeu cau chuyen khoan theo so hop dong
+ ~> HD-2026-0713-STB-123 va da lap lenh chuyen khoan tri gia
+ ~> 480.000.000 VND toi tai khoan so 9999999999 tai Ngan hang AlphaBank.
+ ~> 
+ ~> Uu tien cho em xin xac nhan lai bang email nay truoc 11h30 nhe anh.
+ ~> 
+ ~> Tran trong,
+ ~> Ke toan Cong ty Beta
+ ~> 
+ ~> 
+ ~> .
+<~  250 2.0.0 Ok: queued as 1FDB8A1D97
+ ~> QUIT
+<~  221 2.0.0 Bye
+=== Connection closed with remote host.
+  -> Du lieu di trong duong dan TLS, pcap khong the doc duoc noi dung.
+
+=== [2] TAN CONG: cung thu do, gui QUA PROXY 10.30.0.40:2525 (opportunistic TLS) ===
+=== Trying 10.30.0.40:2525...
+=== Connected to 10.30.0.40.
+<-  220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+ -> EHLO vm-client
+<-  250-mail1.congtyA.test
+<-  250-PIPELINING
+<-  250-SIZE 10485760
+<-  250-ETRN
+<-  250-AUTH PLAIN LOGIN
+<-  250-ENHANCEDSTATUSCODES
+<-  250-8BITMIME
+<-  250-DSN
+<-  250-SMTPUTF8
+<-  250 CHUNKING
+*** Host did not advertise STARTTLS
+ -> AUTH LOGIN
+<-  334 VXNlcm5hbWU6
+ -> Z2lhbWRvYw==
+<-  334 UGFzc3dvcmQ6
+ -> TGFiQDIwMjY=
+<-  235 2.7.0 Authentication successful
+ -> MAIL FROM:<giamdoc@congtyA.test>
+<-  250 2.1.0 Ok
+ -> RCPT TO:<ketoan@congtyB.test>
+<-  250 2.1.5 Ok
+ -> DATA
+<-  354 End data with <CR><LF>.<CR><LF>
+ -> Date: Sun, 18 Oct 2026 11:37:00 +0000
+ -> To: ketoan@congtyB.test
+ -> From: giamdoc@congtyA.test
+ -> Subject: [AT-06 attack] Hop dong HD-2026-0713-STB-123
+ -> Message-Id: <20261018113700.008347@vm-client>
+ -> X-Mailer: swaks v20240103.0 jetmore.org/john/code/swaks/
+ -> X-Lab-Mark: AT-06-STRIPPED
+ -> 
+ -> Thua anh Admin,
+ -> 
+ -> Em xac nhan da nhan duoc yeu cau chuyen khoan theo so hop dong
+ -> HD-2026-0713-STB-123 va da lap lenh chuyen khoan tri gia
+ -> 480.000.000 VND toi tai khoan so 9999999999 tai Ngan hang AlphaBank.
+ -> 
+ -> Uu tien cho em xin xac nhan lai bang email nay truoc 11h30 nhe anh.
+ -> 
+ -> Tran trong,
+ -> Ke toan Cong ty Beta
+ -> 
+ -> 
+ -> .
+<-  250 2.0.0 Ok: queued as 72597A1D9D
+ -> QUIT
+<-  221 2.0.0 Bye
+=== Connection closed with remote host.
+
+=== [3] Phan tich bao goi tren chinh may client (cong 2525) ===
+# time 2026-10-18 11:37:03 UTC - pcap /root/evidence/client/at06-downgrade.pcap (swaks exit code = 0)
+--- Client co nhin thay STARTTLS khong? ---
+  so dong chua STARTTLS trong bao goi: 0
+--- Phan hoi EHLO ma client nhan duoc tu proxy ---
+  250-SIZE 10485760
+  250-ETRN
+  250-AUTH PLAIN LOGIN
+  250-ENHANCEDSTATUSCODES
+  250-8BITMIME
+  250-DSN
+  250-SMTPUTF8
+  250 CHUNKING
+--- AUTH + mat khau ban ro ---
+  250-AUTH PLAIN LOGIN
+  ........AUTH LOGIN
+  ........334 VXNlcm5hbWU6
+  ........334 UGFzc3dvcmQ6
+  Subject: [AT-06 attack] Hop dong HD-2026-0713-STB-123
+  X-Lab-Mark: AT-06-STRIPPED
+  480.000.000 VND toi tai khoan so 9999999999 tai Ngan hang AlphaBank.
+--- Ma hoi dap (2 duoc phat / 5 bi tu choi) ---
+  250-SIZE 10485760
+  250-ETRN
+  250-AUTH PLAIN LOGIN
+  250-ENHANCEDSTATUSCODES
+  250-8BITMIME
+  250-DSN
+  250-SMTPUTF8
+  250 CHUNKING
+
+
+
+KET LUAN AT-06: Opportunistic TLS (security_level = may) KHONG chong duoc downgrade.
+Phong thu: defense/d02b-tls.sh encrypt (smtpd_tls_security_level=encrypt + verify),
+sau do chay lai at06 + v04 -> phien khong TLS bi mail1 TU CHOI.

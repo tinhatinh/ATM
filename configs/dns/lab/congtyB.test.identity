@@ -1,0 +1,6 @@
+; -------------------------------------------------------------------
+; Ban ghi dinh danh cua congtyB.test (duoc $INCLUDE trong zone).
+; Giai doan 1: rong. Phong thu phia Beta dung lenh d03/d05 voi tham so
+; congtyB.test de day SPF + DMARC cua chinh no (can cho chieu thu - gui
+; nguoc lai Alpha o buoc kiem thenh v06).
+; -------------------------------------------------------------------

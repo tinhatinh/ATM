@@ -1,0 +1,41 @@
+# time 2026-10-18 11:40:36 UTC - DNS kiem dinh danh (ns1.congtyA.test)
+
+===== 1. DINH TUYEN (A / MX / PTR) =====
+congtyA.test A                                 
+mail1.congtyA.test A                           10.30.0.20|
+congtyA.test MX                                10 mail1.congtyA.test.|
+congtyB.test MX                                10 mail2.congtyB.test.|
+PTR 10.30.0.20                                 mail1.congtyA.test.|
+PTR 10.30.0.30                                 mail2.congtyB.test.|
+
+===== 2. SPF (RFC 7208) =====
+congtyA.test TXT                               "ATM-INT1482 Topic03 mail lab - congtyA.test (RFC6761 TLD)"|"v=spf1 ip4:10.30.0.20 mx -all"|
+congtyB.test TXT                               "ATM-INT1482 Topic03 mail lab - congtyB.test (RFC6761 TLD)"|"v=spf1 ip4:10.30.0.30 mx -all"|
+
+===== 3. DKIM (RFC 6376) - selector 'mail' =====
+mail._domainkey.congtyA.test TXT               "v=DKIM1; h=sha256; k=rsa; s=email; " "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlAnEEa+7ilssjRhzrhMl00ygiK/s7nKIs4sjnHVqW/8VlFbaawy0GY4BIgM7mU065oACM2SlnmNtsnVB5H0O99Cv/ifl/0x0ddjEmtC4+wnHEMA/ZZQeTqw1AYuYruhWuN0BuiKXQB6d/YWF1qhtc0bO5AFuq3XZxp/LNu+OjtLZvKIWHs7ewZHMy331TuAbSoYKedm22rZAtp" "VU76zfMtVMooMbSEiA3qK2H8Z7Sak57xc1qcLG1KUCaNqlHyqg0JNlSZ6VcE/HqZdbSVDhRFIrYLbJnITkbOG+NeyqKOXix8k7BQkliV50Hbxt77TTOycQN431dbrDNeuzTTigowIDAQAB"|
+mail._domainkey.congtyB.test TXT               "v=DKIM1; h=sha256; k=rsa; s=email; " "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk7CDYtslhrP1fR/WPqP5CuYjvGvg9yp3u2B6bInJ/NbXkyimiJGunNat50TygW+KmMesq17nLv8k9aCUIXuUHD+iP2+e9GjnfLHxYUejh3n2QF5TLO+88iwtF89HCU0aClKs+dTV3HWuJMKkLvuP9eq2t4Qw9mc8vVodSWk+SlGlbrXwrGVp7Mr6OEWsE1rktW2Cyh5plNkc7V" "QYHOytKIF1iR5+poQThhYPFtBtgytLI2s/DbC2EpYXy0sgG5lRsCH05jx4Xim4+5CzbOjBhKN+1+56DikbF34FVpKRgUptRJFYIDj+HQhZWoMMgN+JtyeEOsEZkSsXaKW+pC2XqwIDAQAB"|
+
+===== 4. DMARC (RFC 7489) =====
+_dmarc.congtyA.test TXT                        "v=DMARC1; p=reject; sp=none; adkim=r; aspf=r; pct=100; fo=1; rua=mailto:dmarc-reports@congtyA.test"|
+_dmarc.congtyB.test TXT                        "v=DMARC1; p=reject; sp=none; adkim=r; aspf=r; pct=100; fo=1; rua=mailto:dmarc-reports@congtyB.test"|
+
+===== 5. Serial cua zone (moi lan sua phai tang) =====
+congtyA.test SOA-serial                        300
+congtyB.test SOA-serial                        300
+darkside.test SOA-serial                       300
+
+===== 6. Kiem tra AM (negative test) =====
+  _dmarc.khong-ton-tai.test  -> status: REFUSED
+  recursion (google.com)     -> status: REFUSED
+flags: qr rd
+
+===== DANH GIA =====
+  PASS  congtyA.test                               chua "v=spf1"
+  PASS  congtyB.test                               chua "v=spf1"
+  PASS  mail._domainkey.congtyA.test               chua "v=DKIM1"
+  PASS  mail._domainkey.congtyB.test               chua "v=DKIM1"
+  PASS  _dmarc.congtyA.test                        chua "v=DMARC1"
+  PASS  _dmarc.congtyB.test                        chua "v=DMARC1"
+  => Bo ba ban ghi SPF/DKIM/DMARC da san su dung cho phong thu.
+  Ket qua luu: /root/evidence/dns/v01-dns-records.txt

@@ -1,0 +1,59 @@
+=== [1] Lay chung chi tu vm-dns cho mail1.congtyA.test ===
+  da tai: lab-ca.crt, mail1.congtyA.test.crt, mail1.congtyA.test.key
+subject=C = VN, O = Cong ty Alpha, CN = mail1.congtyA.test
+notBefore=Oct 18 09:36:57 2026 GMT
+notAfter=Jan 20 09:36:57 2029 GMT
+X509v3 Subject Alternative Name: 
+    DNS:mail1.congtyA.test, DNS:mail.congtyA.test, IP Address:10.30.0.20
+
+=== [2] Cau hinh Postfix TLS (che do: may) ===
+
+=== [3] Cau hinh Dovecot (IMAP/IMAPS) ===
+
+=== [4] XAC MINH ===
+# time 2026-10-18 09:49:50 UTC - mail1.congtyA.test - mode may
+--- postconf ---
+smtp_tls_CAfile = /etc/ssl/certs/lab-ca.crt
+smtp_tls_loglevel = 1
+smtp_tls_protocols = !SSLv2,!SSLv3,!TLSv1,!TLSv1.1
+smtp_tls_security_level = may
+--- dovecot (dung -a: 'ssl = yes' trung gia tri mac dinh cua goi nen -n an no) ---
+disable_plaintext_auth = no
+mail_location = maildir:~/Maildir
+protocols = imap
+ssl = yes
+ssl_min_protocol = TLSv1.2
+--- cong nghe TLS ---
+LISTEN 0      100          0.0.0.0:587       0.0.0.0:*          
+LISTEN 0      100          0.0.0.0:25        0.0.0.0:*          
+LISTEN 0      100          0.0.0.0:993       0.0.0.0:*          
+LISTEN 0      100             [::]:587          [::]:*          
+LISTEN 0      100             [::]:25           [::]:*          
+LISTEN 0      100             [::]:993          [::]:*          
+--- EHLO cua mail1.congtyA.test co xuat hien STARTTLS? ---
+220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+250-mail1.congtyA.test
+250-PIPELINING
+250-SIZE 10240000
+250-VRFY
+250-ETRN
+250-STARTTLS
+250-AUTH PLAIN LOGIN
+250-ENHANCEDSTATUSCODES
+250-8BITMIME
+250-DSN
+250-SMTPUTF8
+250 CHUNKING
+--- Bat tay TLS voi chinh no (openssl s_client) ---
+  subject=C = VN, O = Cong ty Alpha, CN = mail1.congtyA.test
+  issuer=C = VN, O = PTIT INT1482 ATM Lab, CN = Lab Mail Root CA
+  New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+  Verify return code: 0 (ok)
+
+Doc ket qua:
+  - 'Verify return code: 0 (ok)' + 'issuer= ... Lab Mail Root CA'  -> chu chung hop le.
+  - 'Protocol: TLSv1.3' -> kenh da duoc ma hoa (khong ai doc duoc noi dung).
+  - Sau 'sudo bash defense/d02b-tls.sh encrypt' thi chay lai AT-06:
+      vm-client:  sudo bash attacks/at06-starttls-strip.sh
+    -> swaks --tls-optional bi mail1 TU CHOI (khong cho phep phien khong TLS),
+       swaks --tls thi proxy khong con duoc trong duong dan. Ghi nguyen van ma 5xx.

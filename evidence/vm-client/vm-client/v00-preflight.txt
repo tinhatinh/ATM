@@ -1,0 +1,62 @@
+################ V-00 preflight 2026-10-13 02:52:43 UTC ################
+--- 1. Ket noi IP (host-only 10.30.0.0/24) ---
+  10.30.0.10     MAT
+  10.30.0.20     OK
+  10.30.0.30     OK
+  10.30.0.40     OK
+  10.30.0.50     OK
+--- 2. Phong van cua dich vu (ncat -z) ---
+  10.30.0.10 port 53    dong
+  10.30.0.20 port 25    dong
+  10.30.0.20 port 587   dong
+  10.30.0.20 port 143   dong
+  10.30.0.20 port 993   dong
+  10.30.0.30 port 25    dong
+  10.30.0.30 port 587   dong
+  10.30.0.30 port 143   dong
+  10.30.0.30 port 993   dong
+  10.30.0.40 port 2525  dong
+--- 3. Phan giai ten mien (can DNS dang live) ---
+  MX A   : ;; communications error to 10.30.0.10#53: timed out ;; communications error to 10.30.0.10#53: timed out ;; communications error to 10.30.0.10#53: timed out  ; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 congtyA.test MX +short ; (1 server found) ;; global options: +cmd ;; no servers could be reached 
+  MX B   : ;; communications error to 10.30.0.10#53: timed out ;; communications error to 10.30.0.10#53: timed out ;; communications error to 10.30.0.10#53: timed out  ; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 congtyB.test MX +short ; (1 server found) ;; global options: +cmd ;; no servers could be reached 
+  mail1 A: ;; communications error to 10.30.0.10#53: timed out
+;; communications error to 10.30.0.10#53: timed out
+;; communications error to 10.30.0.10#53: timed out
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 mail1.congtyA.test A +short
+; (1 server found)
+;; global options: +cmd
+;; no servers could be reached
+  mail2 A: ;; communications error to 10.30.0.10#53: timed out
+;; communications error to 10.30.0.10#53: timed out
+;; communications error to 10.30.0.10#53: timed out
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 mail2.congtyB.test A +short
+; (1 server found)
+;; global options: +cmd
+;; no servers could be reached
+--- 4. Dong ho (anh huong toi cert va DKIM t=) ---
+  UTC local: 2026-10-13 02:53:44
+--- 5. Trang thai dinh danh DNS ---
+  SPF congtyA.test   : (khong co)
+  DMARC congtyA.test   : ;; communications error to 10.30.0.10#53
+;; communications error to 10.30.0.10#53
+;; communications error to 10.30.0.10#53
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubun
+; (1 server found)
+;; global options: +cmd
+;; no servers could be reached
+(khong co)
+  DKIM congtyA.test  : (khong co)
+  SPF congtyB.test   : (khong co)
+  DMARC congtyB.test   : ;; communications error to 10.30.0.10#53
+;; communications error to 10.30.0.10#53
+;; communications error to 10.30.0.10#53
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubun
+; (1 server found)
+;; global options: +cmd
+;; no servers could be reached
+(khong co)
+  DKIM congtyB.test  : (khong co)

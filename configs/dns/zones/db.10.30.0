@@ -1,0 +1,20 @@
+$TTL 300
+$ORIGIN 0.30.10.in-addr.arpa.
+; ===================================================================
+; Reverse zone 10.30.0.0/24 -> PTR
+; Đai dien cho buoc "kiem tra ptr" cua SPF (RFC 7208) va giup đoc log de.
+; ===================================================================
+@           IN  SOA ns1.congtyA.test. hostmaster.congtyA.test. (
+                  2026100601 ; serial
+                      3600   ; refresh
+                       600   ; retry
+                   1209600   ; expire
+                     300 )   ; minimum
+
+@           IN  NS      ns1.congtyA.test.
+
+10          IN  PTR     ns1.congtyA.test.
+20          IN  PTR     mail1.congtyA.test.
+30          IN  PTR     mail2.congtyB.test.
+40          IN  PTR     atk.darkside.test.
+50          IN  PTR     client.congtyA.test.

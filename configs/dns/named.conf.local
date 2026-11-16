@@ -1,0 +1,36 @@
+// ===================================================================
+// /etc/bind/named.conf.local  -  cac zone cua lab Topic 03
+// Authoritative-only, khong recursion, chi phuc vu 10.30.0.0/24.
+// ===================================================================
+
+zone "congtyA.test" {
+    type master;
+    file "/var/lib/bind/db.congtyA.test";
+    allow-query     { 10.30.0.0/24; 127.0.0.1; };
+    allow-transfer  { none; };
+    notify          no;
+};
+
+zone "congtyB.test" {
+    type master;
+    file "/var/lib/bind/db.congtyB.test";
+    allow-query     { 10.30.0.0/24; 127.0.0.1; };
+    allow-transfer  { none; };
+    notify          no;
+};
+
+zone "darkside.test" {
+    type master;
+    file "/var/lib/bind/db.darkside.test";
+    allow-query     { 10.30.0.0/24; 127.0.0.1; };
+    allow-transfer  { none; };
+    notify          no;
+};
+
+zone "0.30.10.in-addr.arpa" {
+    type master;
+    file "/var/lib/bind/db.10.30.0";
+    allow-query     { 10.30.0.0/24; 127.0.0.1; };
+    allow-transfer  { none; };
+    notify          no;
+};

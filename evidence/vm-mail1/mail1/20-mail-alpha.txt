@@ -1,0 +1,41 @@
+# time 2026-10-13 03:10:40 UTC - role alpha - mail1.congtyA.test
+--- cong nghe: ss -ltnp ---
+LISTEN 0      100          0.0.0.0:25        0.0.0.0:*    users:(("master",pid=9378,fd=13))                      
+LISTEN 0      100          0.0.0.0:143       0.0.0.0:*    users:(("dovecot",pid=9541,fd=34))                     
+LISTEN 0      100          0.0.0.0:587       0.0.0.0:*    users:(("master",pid=9378,fd=18))                      
+LISTEN 0      100             [::]:25           [::]:*    users:(("master",pid=9378,fd=14))                      
+LISTEN 0      100             [::]:143          [::]:*    users:(("dovecot",pid=9541,fd=35))                     
+LISTEN 0      100             [::]:587          [::]:*    users:(("master",pid=9378,fd=19))                      
+--- postconf -n ---
+disable_vrfy_command = no
+home_mailbox = Maildir/
+mailbox_command =
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+mydomain = congtyA.test
+myhostname = mail1.congtyA.test
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 10.30.0.0/24
+myorigin = $mydomain
+non_smtpd_milters =
+relay_domains =
+smtp_tls_security_level = none
+smtpd_helo_required = no
+smtpd_milters =
+smtpd_recipient_restrictions = permit_mynetworks
+smtpd_relay_restrictions = permit_mynetworks, permit_sasl_authenticated, defer_unauth_destination
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_path = private/auth
+smtpd_sasl_type = dovecot
+smtpd_sender_restrictions =
+smtpd_tls_auth_only = no
+smtpd_tls_security_level = none
+--- doveconf -n ---
+auth_mechanisms = plain login
+disable_plaintext_auth = no
+mail_location = maildir:~/Maildir
+protocols = imap
+ssl = no
+--- socket SASL ---
+srw-rw---- 1 postfix postfix 0 Oct 13 03:10 /var/spool/postfix/private/auth
+--- nguoi dung ---
+uid=1001(giamdoc) gid=1001(giamdoc) groups=1001(giamdoc)
+uid=1002(admin) gid=1002(admin) groups=1002(admin)

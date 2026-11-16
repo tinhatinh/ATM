@@ -1,0 +1,18 @@
+# time 2026-10-20 20:08:36 UTC - mail1.congtyA.test - sau D-04a (selector: mail)
+--- dich vu ---
+active
+active
+--- milter socket 8891 ---
+LISTEN 0      4096       127.0.0.1:8891      0.0.0.0:*          
+--- phien ban ---
+opendkim: OpenDKIM Filter v2.11.0
+	Compiled with OpenSSL 3.0.13 30 Jan 2024
+	SMFI_VERSION 0x1000001
+--- postconf milter ---
+milter_protocol = 6
+non_smtpd_milters = inet:localhost:8891
+smtpd_milters = inet:localhost:8891
+--- Ban ghi DKIM can cong bo (luu cau nay lai de d04b) ---
+mail._domainkey.congtyA.test.	IN	TXT	( "v=DKIM1; h=sha256; k=rsa; s=email; "
+	  "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzHOKoQBGNTEDxrDQnvcRSminxS0UPOGvGayTorNT0djKGBGawxV/TTwu22/+qNPunvy3hT8/hbRUNrf3jCOi3BuZf0Bjf+2srdV6z7IKGmwsBNNg7X/5nyyY+g/T9rtwnryH91eC5Gw5/9mW4AAg5hHds5l2c/xCRxaJnUsrPXsALkSDFO+0tHFfEaSM77cW5vyahe2fb7qjax"
+	  "xL1hfqJZJsrQrwvus2Kx0jayDUd3mZQhwvTZf3PBK0WHlZ8+z8wLQAgWqMKbiLquVzyen8uUYf5oHD4kJjWQZ6fGftXe22SK0UtZIqsXpwSpzqlUweUSn5IYwNjfsD1+mL8AJngQIDAQAB" )  ; ----- DKIM key mail for congtyA.test

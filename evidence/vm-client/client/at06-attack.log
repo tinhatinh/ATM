@@ -1,0 +1,18 @@
+=== Trying 10.30.0.40:2525...
+=== Connected to 10.30.0.40.
+<-  220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+ -> EHLO vm-client
+<-  250-mail1.congtyA.test
+<-  250-PIPELINING
+<-  250-SIZE 10485760
+<-  250-ETRN
+<-  250-ENHANCEDSTATUSCODES
+<-  250-8BITMIME
+<-  250-DSN
+<-  250-SMTPUTF8
+<-  250 CHUNKING
+*** Host did not advertise STARTTLS
+*** Host did not advertise authentication
+ -> QUIT
+<-  221 2.0.0 Bye
+=== Connection closed with remote host.

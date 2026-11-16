@@ -1,0 +1,23 @@
+################ V-03 replay attacks 2026-10-18 11:42:49 UTC ################
+--- [T1] Open relay: muon gui ho sang domain la (qua mail1:25) ---
+T1 relay-domain-la                 -> 554  (KHOP - da chan bang 554)
+   chi tiet: /root/evidence/atk/v03-T1_relay-domain-la.log
+--- [T2] Gia mao admin@congtyA.test gui cho Beta (AT-04) ---
+T2 spoof-alpha-to-beta             -> 550  (KHOP - da chan bang 550)
+   chi tiet: /root/evidence/atk/v03-T2_spoof-alpha-to-beta.log
+--- [T3] Gia mao chinh domain ben nhan gui cho Alpha (AT-05) ---
+T3 spoof-own-domain                -> 550  (KHOP - da chan bang 550)
+   chi tiet: /root/evidence/atk/v03-T3_spoof-own-domain.log
+--- [T4] SPF pass cho darkside.test nhung Header From cua Alpha (AT-07) ---
+T4 spf-pass-dmarc-fail             -> 550  (KHOP - da chan bang 550)
+   chi tiet: /root/evidence/atk/v03-T4_spf-pass-dmarc-fail.log
+--- [T5] DIEU CHIEM DUONG: thu HOP LE (co AUTH + TLS) van phai di qua ---
+T5 hop le (auth+tls)               -> 250  (KHOP - thu hop le duoc phat)
+   chi tiet: /root/evidence/atk/v03-T5_hop_le_(auth+tls).log
+
+################ BANG TOM TAT ################
+T1 relay-domain-la                 ky_vong=5*  thuc_te=554  KHOP - da chan bang 554
+T2 spoof-alpha-to-beta             ky_vong=5*  thuc_te=550  KHOP - da chan bang 550
+T3 spoof-own-domain                ky_vong=5*  thuc_te=550  KHOP - da chan bang 550
+T4 spf-pass-dmarc-fail             ky_vong=5*  thuc_te=550  KHOP - da chan bang 550
+T5 hop le (auth+tls)               ky_vong=2*  thuc_te=250  KHOP - thu hop le duoc phat

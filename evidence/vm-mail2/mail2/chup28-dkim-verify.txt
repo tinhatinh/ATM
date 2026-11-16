@@ -1,0 +1,10 @@
+[1] Buou thu      : /home/ketoan/Maildir/new/1792323908.V802I10352bM406391.vm-mail2
+    d=congtya.test  s=mail  a=rsa-sha256  c=relaxed/simple
+[2] bh tinh lai   : QUQDHZuOy+yQb0u9VQbRnsgzww026mKrJU2+5fm4sms=
+    bh trong header: QUQDHZuOy+yQb0u9VQbRnsgzww026mKrJU2+5fm4sms=
+    => {KHOP}
+[3] Header da ky  : date, to, from, subject
+[4] Khoa pub mail._domainkey.congtya.test: 392 ky tu base64 (SPKI 294 byte)
+[5] openssl verify: Verified OK
+
+KET LUAN: Chu ky DKIM HOP LE voi khoa da cong bo trong DNS.

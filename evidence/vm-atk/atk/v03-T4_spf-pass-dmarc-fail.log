@@ -1,0 +1,54 @@
+=== Trying 10.30.0.30:25...
+=== Connected to 10.30.0.30.
+<-  220 mail2.congtyB.test ESMTP Postfix (Ubuntu)
+ -> EHLO vm-atk
+<-  250-mail2.congtyB.test
+<-  250-PIPELINING
+<-  250-SIZE 10485760
+<-  250-ETRN
+<-  250-STARTTLS
+<-  250-ENHANCEDSTATUSCODES
+<-  250-8BITMIME
+<-  250-DSN
+<-  250-SMTPUTF8
+<-  250 CHUNKING
+ -> STARTTLS
+<-  220 2.0.0 Ready to start TLS
+=== TLS started with cipher TLSv1.3:TLS_AES_256_GCM_SHA384:256
+=== TLS client certificate not requested and not sent
+=== TLS no client certificate set
+=== TLS peer[0]   subject=[/C=VN/O=Cong ty Beta/CN=mail2.congtyB.test]
+===               commonName=[mail2.congtyB.test], subjectAltName=[DNS:mail2.congtyB.test, DNS:mail.congtyB.test, IP Address:10.30.0.30] notAfter=[2029-01-22T19:57:05Z]
+=== TLS peer certificate failed CA verification (unable to get local issuer certificate), passed host verification (using host 10.30.0.30 to verify)
+ ~> EHLO vm-atk
+<~  250-mail2.congtyB.test
+<~  250-PIPELINING
+<~  250-SIZE 10485760
+<~  250-ETRN
+<~  250-AUTH PLAIN LOGIN
+<~  250-ENHANCEDSTATUSCODES
+<~  250-8BITMIME
+<~  250-DSN
+<~  250-SMTPUTF8
+<~  250 CHUNKING
+ ~> MAIL FROM:<thongbao@darkside.test>
+<~  250 2.1.0 Ok
+ ~> RCPT TO:<ketoan@congtyB.test>
+<~  250 2.1.5 Ok
+ ~> DATA
+<~  354 End data with <CR><LF>.<CR><LF>
+ ~> Date: Tue, 20 Oct 2026 20:20:38 +0000
+ ~> To: ketoan@congtyB.test
+ ~> From: Giam đoc <giamdoc@congtyA.test>
+ ~> Subject: [V03] misaligned
+ ~> Message-Id: <20261020202038.004680@vm-atk>
+ ~> X-Mailer: swaks v20240103.0 jetmore.org/john/code/swaks/
+ ~> 
+ ~> SPF pass cho darkside, khong align voi congtyA
+ ~> 
+ ~> 
+ ~> .
+<~* 550 5.7.1 rejected by DMARC policy for congtyA.test
+ ~> QUIT
+<~  221 2.0.0 Bye
+=== Connection closed with remote host.

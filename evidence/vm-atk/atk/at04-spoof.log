@@ -1,0 +1,19 @@
+=== Trying mail2.congtyB.test:25...
+=== Connected to mail2.congtyB.test.
+<-  220 mail2.congtyB.test ESMTP Postfix (Ubuntu)
+ -> EHLO mail1.congtyA.test
+<-  250-mail2.congtyB.test
+<-  250-PIPELINING
+<-  250-SIZE 10485760
+<-  250-ETRN
+<-  250-STARTTLS
+<-  250-ENHANCEDSTATUSCODES
+<-  250-8BITMIME
+<-  250-DSN
+<-  250-SMTPUTF8
+<-  250 CHUNKING
+ -> MAIL FROM:<admin@congtyA.test>
+<** 530 5.7.0 Must issue a STARTTLS command first
+ -> QUIT
+<-  221 2.0.0 Bye
+=== Connection closed with remote host.

@@ -1,0 +1,23 @@
+# time: 2026-10-13 03:04:19 UTC
+# cmd : dig @10.30.0.10 congtyA.test MX +noall +answer
+congtyA.test.		300	IN	MX	10 mail1.congtyA.test.
+# cmd : dig @10.30.0.10 mail1.congtyA.test A +noall +answer
+mail1.congtyA.test.	300	IN	A	10.30.0.20
+# cmd : dig @10.30.0.10 mail2.congtyB.test A +noall +answer
+mail2.congtyB.test.	300	IN	A	10.30.0.30
+# cmd : dig @10.30.0.10 -x 10.30.0.20 +noall +answer   (PTR)
+20.0.30.10.in-addr.arpa. 300	IN	PTR	mail1.congtyA.test.
+# --- PHAI THAY : khong co ban ghi nao duoi day (chua phong thu) ---
+# cmd : dig @10.30.0.10 TXT _dmarc.congtyA.test +noall +answer
+# cmd : dig @10.30.0.10 TXT congtyA.test +noall +answer   (chi co TXT ghi chu lab, khong co SPF)
+congtyA.test.		300	IN	TXT	"ATM-INT1482 Topic03 mail lab - congtyA.test (RFC6761 TLD)"
+# cmd : dig @10.30.0.10 mail._domainkey.congtyA.test TXT +noall +answer
+# cmd : dig @10.30.0.10 www.google.com +noall +answer   (recursion no -> khong tra loi)
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: REFUSED, id: 62114
+;; flags: qr rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
+;; WARNING: recursion requested but not available
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 8736504d9ae52e53010000006acd9fb3ca235acc8497df42 (good)

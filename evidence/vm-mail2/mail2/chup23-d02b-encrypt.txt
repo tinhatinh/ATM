@@ -1,0 +1,55 @@
+=== [1] Lay chung chi tu vm-dns cho mail2.congtyB.test ===
+  da tai: lab-ca.crt, mail2.congtyB.test.crt, mail2.congtyB.test.key
+subject=C = VN, O = Cong ty Beta, CN = mail2.congtyB.test
+notBefore=Oct 18 11:36:00 2026 GMT
+notAfter=Jan 20 11:36:00 2029 GMT
+X509v3 Subject Alternative Name: 
+    DNS:mail2.congtyB.test, DNS:mail.congtyB.test, IP Address:10.30.0.30
+
+=== [2] Cau hinh Postfix TLS (che do: encrypt) ===
+
+=== [3] Cau hinh Dovecot (IMAP/IMAPS) ===
+
+=== [4] XAC MINH ===
+# time 2026-10-18 11:38:25 UTC - mail2.congtyB.test - mode encrypt
+--- postconf ---
+smtp_tls_CAfile = /etc/ssl/certs/lab-ca.crt
+smtp_tls_loglevel = 2
+smtp_tls_protocols = !SSLv2,!SSLv3,!TLSv1,!TLSv1.1
+smtp_tls_security_level = verify
+smtpd_tls_auth_only = yes
+smtpd_tls_cert_file = /etc/ssl/certs/lab-mail.crt
+smtpd_tls_key_file = /etc/ssl/private/lab-mail.key
+smtpd_tls_loglevel = 1
+smtpd_tls_protocols = !SSLv2,!SSLv3,!TLSv1,!TLSv1.1
+smtpd_tls_security_level = encrypt
+--- dovecot (dung -a: 'ssl = yes' trung gia tri mac dinh cua goi nen -n an no) ---
+disable_plaintext_auth = yes
+mail_location = maildir:~/Maildir
+protocols = imap
+ssl = required
+ssl_min_protocol = TLSv1.2
+--- cong nghe TLS ---
+LISTEN 0      100          0.0.0.0:993       0.0.0.0:*          
+LISTEN 0      100          0.0.0.0:587       0.0.0.0:*          
+LISTEN 0      100          0.0.0.0:25        0.0.0.0:*          
+LISTEN 0      100             [::]:993          [::]:*          
+LISTEN 0      100             [::]:587          [::]:*          
+LISTEN 0      100             [::]:25           [::]:*          
+--- EHLO cua mail2.congtyB.test co xuat hien STARTTLS? ---
+220 mail2.congtyB.test ESMTP Postfix (Ubuntu)
+250-mail2.congtyB.test
+250-PIPELINING
+250-SIZE 10485760
+250-ETRN
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-8BITMIME
+250-DSN
+250-SMTPUTF8
+250 CHUNKING
+--- Bat tay TLS voi chinh no (openssl s_client) ---
+  subject=C = VN, O = Cong ty Beta, CN = mail2.congtyB.test
+  issuer=C = VN, O = PTIT INT1482 ATM Lab, CN = Lab Mail Root CA
+  New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+  Verify return code: 0 (ok)

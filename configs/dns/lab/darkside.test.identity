@@ -1,0 +1,6 @@
+; -------------------------------------------------------------------
+; Ban ghi dinh danh cua darkside.test (attacker domain).
+; Giai doan 1 + 2: rong. Kich ban attacks/at07-dkim-misaligned.sh (uy chon)
+; se day vao day SPF + DKIM cua darkside.test de chung minh: dkim=pass +
+; spf=pass van co the bi tu choi vi DMARC alignment fail.
+; -------------------------------------------------------------------

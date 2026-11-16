@@ -1,0 +1,42 @@
+=== Trying mail1.congtyA.test:587...
+=== Connected to mail1.congtyA.test.
+<-  220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+ -> EHLO vm-client
+<-  250-mail1.congtyA.test
+<-  250-PIPELINING
+<-  250-SIZE 10240000
+<-  250-VRFY
+<-  250-ETRN
+<-  250-AUTH PLAIN LOGIN
+<-  250-ENHANCEDSTATUSCODES
+<-  250-8BITMIME
+<-  250-DSN
+<-  250-SMTPUTF8
+<-  250 CHUNKING
+ -> AUTH LOGIN
+<-  334 VXNlcm5hbWU6
+ -> Z2lhbWRvYw==
+<-  334 UGFzc3dvcmQ6
+ -> TGFiQDIwMjY=
+<-  235 2.7.0 Authentication successful
+ -> MAIL FROM:<giamdoc@congtyA.test>
+<-  250 2.1.0 Ok
+ -> RCPT TO:<ketoan@congtyB.test>
+<-  250 2.1.5 Ok
+ -> DATA
+<-  354 End data with <CR><LF>.<CR><LF>
+ -> Date: Tue, 20 Oct 2026 19:55:03 +0000
+ -> To: ketoan@congtyB.test
+ -> From: giamdoc@congtyA.test
+ -> Subject: Len hop - AT-03 co AUTH tren duong truyen
+ -> Message-Id: <20261020195503.005242@vm-client>
+ -> X-Mailer: swaks v20240103.0 jetmore.org/john/code/swaks/
+ -> 
+ -> Noi dung nay cung di ban ro.
+ -> 
+ -> 
+ -> .
+<-  250 2.0.0 Ok: queued as 51870A1AA5
+ -> QUIT
+<-  221 2.0.0 Bye
+=== Connection closed with remote host.

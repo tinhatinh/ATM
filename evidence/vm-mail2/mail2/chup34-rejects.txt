@@ -1,0 +1,14 @@
+2026-10-18T11:00:01.892186+00:00 vm-mail2 opendmarc[15418]: OpenDMARC Filter v1.4.2 starting ()
+2026-10-18T11:00:01.894694+00:00 vm-mail2 opendmarc[15418]: additional trusted authentication services: mail2.congtyB.test
+2026-10-18T11:00:54.272963+00:00 vm-mail2 policyd-spf[15855]: : 550 5.7.23 Message rejected due to: SPF fail - not authorized. Please see http://www.openspf.net/Why?s=mfrom;id=admin@congtya.test;ip=10.30.0.40;r=congtyb.test
+2026-10-18T11:00:54.565561+00:00 vm-mail2 policyd-spf[15855]: : prepend Received-SPF: None (mailfrom) identity=mailfrom; client-ip=10.30.0.40; helo=vm-atk; envelope-from=thongbao@darkside.test; receiver=congtyb.test 
+2026-10-18T11:00:54.623063+00:00 vm-mail2 opendmarc[15418]: 8C47A1034B7: congtyA.test fail
+2026-10-18T11:00:54.623208+00:00 vm-mail2 postfix/cleanup[15856]: 8C47A1034B7: milter-reject: END-OF-MESSAGE from atk.darkside.test[10.30.0.40]: 5.7.1 rejected by DMARC policy for congtyA.test; from=<thongbao@darkside.test> to=<ketoan@congtyB.test> proto=ESMTP helo=<vm-atk>
+2026-10-18T11:00:55.005366+00:00 vm-mail2 policyd-spf[15855]: : prepend Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=10.30.0.20; helo=mail1.congtya.test; envelope-from=giamdoc@congtya.test; receiver=congtyb.test 
+2026-10-18T11:00:55.165322+00:00 vm-mail2 opendmarc[15418]: 01B991034B7: congtyA.test pass
+2026-10-18T11:01:42.056156+00:00 vm-mail2 policyd-spf[15855]: : 550 5.7.23 Message rejected due to: SPF fail - not authorized. Please see http://www.openspf.net/Why?s=mfrom;id=admin@congtya.test;ip=10.30.0.40;r=congtyb.test
+2026-10-18T11:01:42.381924+00:00 vm-mail2 policyd-spf[15855]: : prepend Received-SPF: None (mailfrom) identity=mailfrom; client-ip=10.30.0.40; helo=vm-atk; envelope-from=thongbao@darkside.test; receiver=congtyb.test 
+2026-10-18T11:01:42.590155+00:00 vm-mail2 opendmarc[15418]: 5DA2A1034B7: congtyA.test fail
+2026-10-18T11:01:42.591926+00:00 vm-mail2 postfix/cleanup[15856]: 5DA2A1034B7: milter-reject: END-OF-MESSAGE from atk.darkside.test[10.30.0.40]: 5.7.1 rejected by DMARC policy for congtyA.test; from=<thongbao@darkside.test> to=<ketoan@congtyB.test> proto=ESMTP helo=<vm-atk>
+2026-10-18T11:01:43.393812+00:00 vm-mail2 policyd-spf[15855]: : prepend Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=10.30.0.20; helo=mail1.congtya.test; envelope-from=giamdoc@congtya.test; receiver=congtyb.test 
+2026-10-18T11:01:43.483724+00:00 vm-mail2 opendmarc[15418]: 60B141034B7: congtyA.test pass

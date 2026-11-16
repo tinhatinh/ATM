@@ -1,0 +1,69 @@
+========================================================================
+ 1) Tren vm-mail2 (10.30.0.30), lay noi dung ban ghi:
+      sudo cat /etc/dkimkeys/mail.txt
+ 2) Tro lai vm-dns, chay lenh duoi day ROI DAN toan bo noi dung o buoc 1,
+    ket thuc bang Ctrl-D:
+      sudo bash /root/lab/defense/dns-add-record.sh congtyB.test --paste
+========================================================================
+Dan toan bo noi dung ban ghi vao day (moi dong la 1 phan cua TXT), ket thuc bang Ctrl-D:
+Da ghi vao /var/lib/bind/lab/congtyB.test.identity:
+  mail._domainkey.congtyB.test.	IN	TXT	( "v=DKIM1; h=sha256; k=rsa; s=email; "
+	  "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk7CDYtslhrP1fR/WPqP5CuYjvGvg9yp3u2B6bInJ/NbXkyimiJGunNat50TygW+KmMesq17nLv8k9aCUIXuUHD+iP2+e9GjnfLHxYUejh3n2QF5TLO+88iwtF89HCU0aClKs+dTV3HWuJMKkLvuP9eq2t4Qw9mc8vVodSWk+SlGlbrXwrGVp7Mr6OEWsE1rktW2Cyh5plNkc7V"
+	  "QYHOytKIF1iR5+poQThhYPFtBtgytLI2s/DbC2EpYXy0sgG5lRsCH05jx4Xim4+5CzbOjBhKN+1+56DikbF34FVpKRgUptRJFYIDj+HQhZWoMMgN+JtyeEOsEZkSsXaKW+pC2XqwIDAQAB" )  ; ----- DKIM key mail for congtyB.test
+--- /var/lib/bind/lab/congtyB.test.identity hien co ---
+  congtyB.test.	IN	TXT	"v=spf1 ip4:10.30.0.30 mx -all"
+  mail._domainkey.congtyB.test.	IN	TXT	( "v=DKIM1; h=sha256; k=rsa; s=email; "
+  	  "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk7CDYtslhrP1fR/WPqP5CuYjvGvg9yp3u2B6bInJ/NbXkyimiJGunNat50TygW+KmMesq17nLv8k9aCUIXuUHD+iP2+e9GjnfLHxYUejh3n2QF5TLO+88iwtF89HCU0aClKs+dTV3HWuJMKkLvuP9eq2t4Qw9mc8vVodSWk+SlGlbrXwrGVp7Mr6OEWsE1rktW2Cyh5plNkc7V"
+  	  "QYHOytKIF1iR5+poQThhYPFtBtgytLI2s/DbC2EpYXy0sgG5lRsCH05jx4Xim4+5CzbOjBhKN+1+56DikbF34FVpKRgUptRJFYIDj+HQhZWoMMgN+JtyeEOsEZkSsXaKW+pC2XqwIDAQAB" )  ; ----- DKIM key mail for congtyB.test
+Serial: 2026101801 -> 2026101802
+
+=== named-checkzone ===
+zone congtyB.test/IN: loaded serial 2026101802
+OK
+
+=== rndc reload ===
+zone reload queued
+active
+
+=== doc lai bang dig (day la bang chung cho bao cao) ===
+# 2026-10-18 10:24:53 UTC - sau khi reload zone congtyB.test (serial 2026101802)
+congtyB.test.		300	IN	SOA	ns1.congtyA.test. hostmaster.congtyB.test. 2026101802 3600 600 1209600 300
+--- moi ban ghi TXT trong zone congtyB.test ---
+congtyB.test.		300	IN	TXT	"v=spf1 ip4:10.30.0.30 mx -all"
+congtyB.test.		300	IN	TXT	"ATM-INT1482 Topic03 mail lab - congtyB.test (RFC6761 TLD)"
+--- _dmarc.congtyB.test TXT ---
+--- mail._domainkey.congtyB.test TXT ---
+mail._domainkey.congtyB.test. 300 IN	TXT	"v=DKIM1; h=sha256; k=rsa; s=email; " "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk7CDYtslhrP1fR/WPqP5CuYjvGvg9yp3u2B6bInJ/NbXkyimiJGunNat50TygW+KmMesq17nLv8k9aCUIXuUHD+iP2+e9GjnfLHxYUejh3n2QF5TLO+88iwtF89HCU0aClKs+dTV3HWuJMKkLvuP9eq2t4Qw9mc8vVodSWk+SlGlbrXwrGVp7Mr6OEWsE1rktW2Cyh5plNkc7V" "QYHOytKIF1iR5+poQThhYPFtBtgytLI2s/DbC2EpYXy0sgG5lRsCH05jx4Xim4+5CzbOjBhKN+1+56DikbF34FVpKRgUptRJFYIDj+HQhZWoMMgN+JtyeEOsEZkSsXaKW+pC2XqwIDAQAB"
+--- toan bo noi dung TXT (dig dang day du, khong cat ngan) ---
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 congtyB.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+congtyB.test.		300	IN	TXT	"ATM-INT1482 Topic03 mail lab - congtyB.test (RFC6761 TLD)"
+congtyB.test.		300	IN	TXT	"v=spf1 ip4:10.30.0.30 mx -all"
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 _dmarc.congtyB.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 mail._domainkey.congtyB.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+mail._domainkey.congtyB.test. 300 IN	TXT	"v=DKIM1; h=sha256; k=rsa; s=email; " "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk7CDYtslhrP1fR/WPqP5CuYjvGvg9yp3u2B6bInJ/NbXkyimiJGunNat50TygW+KmMesq17nLv8k9aCUIXuUHD+iP2+e9GjnfLHxYUejh3n2QF5TLO+88iwtF89HCU0aClKs+dTV3HWuJMKkLvuP9eq2t4Qw9mc8vVodSWk+SlGlbrXwrGVp7Mr6OEWsE1rktW2Cyh5plNkc7V" "QYHOytKIF1iR5+poQThhYPFtBtgytLI2s/DbC2EpYXy0sgG5lRsCH05jx4Xim4+5CzbOjBhKN+1+56DikbF34FVpKRgUptRJFYIDj+HQhZWoMMgN+JtyeEOsEZkSsXaKW+pC2XqwIDAQAB"
+
+=== Doc lai tu DNS (ben ngoai phai thay giong ban vua dan) ===
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 mail._domainkey.congtyB.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+mail._domainkey.congtyB.test. 300 IN	TXT	"v=DKIM1; h=sha256; k=rsa; s=email; " "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk7CDYtslhrP1fR/WPqP5CuYjvGvg9yp3u2B6bInJ/NbXkyimiJGunNat50TygW+KmMesq17nLv8k9aCUIXuUHD+iP2+e9GjnfLHxYUejh3n2QF5TLO+88iwtF89HCU0aClKs+dTV3HWuJMKkLvuP9eq2t4Qw9mc8vVodSWk+SlGlbrXwrGVp7Mr6OEWsE1rktW2Cyh5plNkc7V" "QYHOytKIF1iR5+poQThhYPFtBtgytLI2s/DbC2EpYXy0sgG5lRsCH05jx4Xim4+5CzbOjBhKN+1+56DikbF34FVpKRgUptRJFYIDj+HQhZWoMMgN+JtyeEOsEZkSsXaKW+pC2XqwIDAQAB"
+
+=== Trich xuat chieu dai chuoi p= (ky vong ~392-400 ky tu cho RSA-2048) ===
+  p= co 393 ky tu
+  OK: do dai phu hop voi khoa RSA-2048 base64.
+
+KIEM TRA KY (tren vm-mail2) - so khoa pub trong DNS voi khoa private local:
+    opendkim-testkey -d congtyB.test -s mail -vvv 2>&1 | tail -8
+  - Thanh cong: khong in ra 'key not found'/'unknown key', exit code 0.
+  - That bai thuong do: (a) dan thieu dong chuoi, (b) serial zone chua tang,
+    (c) selector trong /etc/opendkim.conf khac 'mail'.

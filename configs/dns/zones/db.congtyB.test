@@ -1,0 +1,21 @@
+$TTL 300
+$ORIGIN congtyB.test.
+; ===================================================================
+; Zone congtyB.test  -  CONG TY BETA (ben nhan / nha phong thu)
+; ===================================================================
+@           IN  SOA ns1.congtyA.test. hostmaster.congtyB.test. (
+                  2026100601 ; serial
+                      3600   ; refresh
+                       600   ; retry
+                   1209600   ; expire
+                     300 )   ; minimum
+
+@           IN  NS      ns1.congtyA.test.
+ns1         IN  A       10.30.0.10
+mail2       IN  A       10.30.0.30
+@           IN  MX  10  mail2.congtyB.test.
+
+@           IN  TXT     "ATM-INT1482 Topic03 mail lab - congtyB.test (RFC6761 TLD)"
+
+; Ban ghi đinh danh cua Beta (SPF/DKIM/DMARC) - xem ghi chu o zone congtyA.test
+$INCLUDE /var/lib/bind/lab/congtyB.test.identity

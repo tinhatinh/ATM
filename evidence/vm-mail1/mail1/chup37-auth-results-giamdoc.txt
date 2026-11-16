@@ -1,0 +1,26 @@
+So thu trong hop thu giamdoc: 2
+==============================================================================
+FILE: /home/giamdoc/Maildir/new/1792321533.V802Ia1ab2M167384.vm-mail1
+------------------------------------------------------------------------------
+  Return-Path: <ketoan@congtyB.test>
+  Authentication-Results: mail1.congtyA.test; dmarc=pass (p=reject dis=none) header.from=congtyB.test
+  Authentication-Results: mail1.congtyA.test; dkim=fail reason="key not found in DNS" header.d=congtyb.test header.i=@congtyb.test header.a=rsa-sha256 header.s=mail header.b=hKado6hx; dkim-atps=neutral
+  Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=10.30.0.30; helo=mail2.congtyb.test; envelope-from=ketoan@congtyb.test; receiver=congtya.test
+  DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=congtyb.test; s=mail; t=1792321532; bh=MXzqA6XOpJaX1JyL/akhUutwtx1fRY+szFP+1am06Pg=; h=Date:To:From:Subject:From; b=hKado6hxT2f0cj+VUrFjiPG48HYVoGihbjrBNnK4mUBYbC9rhFXdyHzTCs2Dq/dEY z6WQmLYsvgmiY91/OB9ItWOYmCnxYN+gq6p+gvcG1WEY9uNBmzgqfSoTgLat9bNx+V LqAWnVs7Jaxa241ojOcJWCguPuEFh3xWnAD2fXhuwBiFnXba0gqJbBe8VNNy+l77le W8Py3FNGBzxudtW8OYueXbhTrBz0z
+  Date: Sun, 18 Oct 2026 11:05:31 +0000
+  To: giamdoc@congtyA.test
+  From: ketoan@congtyB.test
+  Subject: [V-02b] Chieu nguoc lai Beta -> Alpha
+------------------------------------------------------------------------------
+  KET LUU CO CHE:
+    SPF    = pass     [OK  ]
+    DKIM   = fail     [FAIL]
+    DMARC  = pass     [OK  ]
+    DKIM d= congtyb.test   s= none)
+  Nhan xet:
+    DMARC pass chi can MOT trong hai lop pass -> kiem tra lop con lai bi gi.
+------------------------------------------------------------------------------
+Xac nhan thanh toan tu Cong ty Beta.
+
+
+

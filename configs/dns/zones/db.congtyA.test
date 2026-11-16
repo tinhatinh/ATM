@@ -1,0 +1,29 @@
+$TTL 300
+$ORIGIN congtyA.test.
+; ===================================================================
+; Zone congtyA.test  -  CONG TY ALPHA (ben gui / nan nhan)
+; File nay nam o /var/lib/bind/db.congtyA.test tren vm-dns (10.30.0.10)
+; Serial phai tang moi lan sua zone: YYMMNN + 2 so dem (hom nay 2026100601)
+; ===================================================================
+@           IN  SOA ns1.congtyA.test. hostmaster.congtyA.test. (
+                  2026100601 ; serial
+                      3600   ; refresh (1h)
+                       600   ; retry   (10m)
+                   1209600   ; expire  (14d)
+                     300 )   ; minimum/negative cache
+
+; --- Name server va mail server ---
+@           IN  NS      ns1.congtyA.test.
+ns1         IN  A       10.30.0.10
+mail1       IN  A       10.30.0.20
+@           IN  MX  10  mail1.congtyA.test.
+
+; --- Ghi chu lab (khong phai ban ghi dinh danh) ---
+@           IN  TXT     "ATM-INT1482 Topic03 mail lab - congtyA.test (RFC6761 TLD)"
+
+; ===================================================================
+; Cac ban ghi đinh danh SPF / DKIM / DMARC cua cong ty Alpha.
+; Giai đoan 1 (chua phong thu): file nay chi co comment → mail gia mao chua bi chan.
+; Giai đoan 3: defense/d03-spf.sh, d04-dkim.sh, d05-dmarc.sh ghi noi dung vao file nay.
+; ===================================================================
+$INCLUDE /var/lib/bind/lab/congtyA.test.identity

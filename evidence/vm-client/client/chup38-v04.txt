@@ -1,0 +1,100 @@
+################ V-04 TLS & downgrade 2026-10-18 11:38:51 UTC ################
+--- [1] Lay CA cua lab tu vm-dns ---
+  da tai /tmp/lab-ca.crt (dich vu phat file cua d02a van dang mo)
+
+--- [2] STARTTLS va chu chung tren mail1:25 ---
+  subject=C = VN, O = Cong ty Alpha, CN = mail1.congtyA.test
+  issuer=C = VN, O = PTIT INT1482 ATM Lab, CN = Lab Mail Root CA
+  New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+  Verify return code: 0 (ok)
+  --- mail2:25 ---
+  subject=C = VN, O = Cong ty Beta, CN = mail2.congtyB.test
+  New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+  Verify return code: 0 (ok)
+  --- IMAPS mail2:993 ---
+  New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+  Verify return code: 0 (ok)
+
+--- [3] EHLO co quan bo STARTTLS / AUTH khong ---
+  10.30.0.20:25
+     220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+     250-mail1.congtyA.test
+     250-PIPELINING
+     250-SIZE 10485760
+     250-ETRN
+     250-STARTTLS
+     250-ENHANCEDSTATUSCODES
+     250-8BITMIME
+     250-DSN
+     250-SMTPUTF8
+     250 CHUNKING
+  10.30.0.20:587
+     220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+     250-mail1.congtyA.test
+     250-PIPELINING
+     250-SIZE 10485760
+     250-ETRN
+     250-STARTTLS
+     250-ENHANCEDSTATUSCODES
+     250-8BITMIME
+     250-DSN
+     250-SMTPUTF8
+     250 CHUNKING
+  10.30.0.30:25
+     220 mail2.congtyB.test ESMTP Postfix (Ubuntu)
+     250-mail2.congtyB.test
+     250-PIPELINING
+     250-SIZE 10485760
+     250-ETRN
+     250-STARTTLS
+     250-ENHANCEDSTATUSCODES
+     250-8BITMIME
+     250-DSN
+     250-SMTPUTF8
+     250 CHUNKING
+
+--- [4] THU CAM: AUTH qua kenh KHONG TLS (phai bi tu choi sau d02b encrypt) ---
+  220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+  250-mail1.congtyA.test
+  250-PIPELINING
+  250-SIZE 10485760
+  250-ETRN
+  250-STARTTLS
+  250-ENHANCEDSTATUSCODES
+  250-8BITMIME
+  250-DSN
+  250-SMTPUTF8
+  250 CHUNKING
+  530 5.7.0 Must issue a STARTTLS command first
+  500 5.5.2 Error: command not recognized
+  500 5.5.2 Error: command not recognized
+  Ky vong: doan '235 Authentication succeeded' KHONG xuat hien;
+  thay vao do la dong '538 5.5.1 Error: SMTP authentication is only enabled on TLS secured connections'
+  (hoc '550'/'554') - do smtpd_tls_auth_only=yes + smtpd_tls_security_level=encrypt.
+
+--- [5] THU HA CAP: gui qua proxy 10.30.0.40:2525 (neu dang chay) ---
+=== Trying 10.30.0.40:2525...
+=== Connected to 10.30.0.40.
+<-  220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+ -> EHLO vm-client
+<-  250-mail1.congtyA.test
+<-  250-PIPELINING
+<-  250-SIZE 10485760
+<-  250-ETRN
+<-  250-ENHANCEDSTATUSCODES
+<-  250-8BITMIME
+<-  250-DSN
+<-  250-SMTPUTF8
+<-  250 CHUNKING
+*** Host did not advertise STARTTLS
+*** Host did not advertise authentication
+ -> QUIT
+<-  221 2.0.0 Bye
+=== Connection closed with remote host.
+  swaks exit code = 28
+  Ky vong: proxy van an duoc STARTTLS, NHUNG mail1 tu choi phien khong TLS -> ma 5xx.
+  Doi chieu AT-06 (truoc phong thu): cung lenh nay tung thanh cong 250 queued.
+
+--- [6] Log cua mail1 chung minh phien bi tu choi (xem tren vm-mail1) ---
+  sudo tail -n 40 /var/log/mail.log | grep -E 'TLS|STARTTLS|reject'
+

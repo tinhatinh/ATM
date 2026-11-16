@@ -1,0 +1,19 @@
+
+===== phien moi tu 127.0.0.1:58288, trung gian toi 127.0.0.1:12525 (18:59:43) =====
+18:59:43 THU   -> PROXY : 220 fake-mta.congtyB.test ESMTP Postfix
+18:59:43 KHACH -> PROXY : EHLO lab-client
+18:59:43 THU   -> PROXY : 250-fake-mta
+18:59:43 THU   -> PROXY : 250-PIPELINING
+18:59:43 THU   -> PROXY : 250-SIZE 10485760
+  [STRIP] AN DONG NAY KHONG cho khach thay: 250-STARTTLS
+18:59:43 THU   -> PROXY : 250 HELP
+18:59:44 KHACH -> PROXY : MAIL FROM:<giamdoc@congtyA.test>
+18:59:44 THU   -> PROXY : 250 2.1.0 Ok
+18:59:44 KHACH -> PROXY : RCPT TO:<ketoan@congtyB.test>
+18:59:44 THU   -> PROXY : 250 2.1.0 Ok
+18:59:44 KHACH -> PROXY : DATA
+18:59:44 THU   -> PROXY : 354 End data with <CR><LF>.<CR><LF>
+  [TAMPER] da thay '9999999999' -> '1029384756' trong than thu (111 byte)
+18:59:44 THU   -> PROXY : 250 2.0.0 Ok: queued ABC123
+18:59:45 KHACH -> PROXY : QUIT
+18:59:45 THU   -> PROXY : 221 2.0.0 Bye

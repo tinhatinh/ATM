@@ -1,0 +1,19 @@
+# Chuẩn hoá xuống dòng: repo luôn lưu LF để script chạy được trên Ubuntu
+* text=auto eol=lf
+
+*.sh   text eol=lf
+*.py   text eol=lf
+*.md   text eol=lf
+*.txt  text eol=lf
+*.log  text eol=lf
+*.conf text eol=lf
+*.zone text eol=lf
+
+# File nhị phân - không đụng tới
+*.png  binary
+*.jpg  binary
+*.pdf  binary
+*.docx binary
+*.pptx binary
+*.pcap binary
+*.zip  binary

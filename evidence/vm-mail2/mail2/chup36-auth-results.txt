@@ -1,0 +1,36 @@
+So thu trong hop thu ketoan: 12
+==============================================================================
+FILE: /home/ketoan/Maildir/new/1792321439.V802I1034bbM477666.vm-mail2
+------------------------------------------------------------------------------
+  Return-Path: <giamdoc@congtyA.test>
+  Authentication-Results: mail2.congtyB.test; dmarc=pass (p=reject dis=none) header.from=congtyA.test
+  Authentication-Results: mail2.congtyB.test; dkim=fail reason="key not found in DNS" header.d=congtya.test header.i=@congtya.test header.a=rsa-sha256 header.s=mail header.b=MDHu9ZD5; dkim-atps=neutral
+  Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=10.30.0.20; helo=mail1.congtya.test; envelope-from=giamdoc@congtya.test; receiver=congtyb.test
+  DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=congtya.test; s=mail; t=1792321439; bh=QUQDHZuOy+yQb0u9VQbRnsgzww026mKrJU2+5fm4sms=; h=Date:To:From:Subject:From; b=MDHu9ZD50KtNlnyYoZuKF0ggdLxZHWVghXH7Jau+iHDtI/Vt88Nmgqy3esSfEDTM7 80gF9biE9zBCrFelZqPM0npQU5Vo6HIM8tWp2NI1ho4ikgw9AfpGbvs8KZftEhrL+B KtS/i+HUwFMeeLDsL382Ez9W3jpn0PItg7a0Bi21bP8pHba4epoby1tyk9+WAjcTbw Sf6Q//kU6ilravSG7G4rEqATk3hXx
+  Date: Sun, 18 Oct 2026 11:03:57 +0000
+  To: ketoan@congtyB.test
+  From: Giam đoc Alpha <giamdoc@congtyA.test>
+  Subject: [V-02] Xac nhan hop so hop dong HD-2026-0713-STB-123
+  X-Lab-Mark: V02-HAPPY
+------------------------------------------------------------------------------
+  KET LUU CO CHE:
+    SPF    = khong co trong header [?   ]
+    DKIM   = fail     [FAIL]
+    DMARC  = pass     [OK  ]
+    DKIM d= congtya.test   s= none)
+  Nhan xet:
+    DMARC pass chi can MOT trong hai lop pass -> kiem tra lop con lai bi gi.
+------------------------------------------------------------------------------
+Thua anh Admin,
+
+Em xac nhan da nhan duoc yeu cau chuyen khoan theo so hop dong
+HD-2026-0713-STB-123 va da lap lenh chuyen khoan tri gia
+480.000.000 VND toi tai khoan so 9999999999 tai Ngan hang AlphaBank.
+
+Uu tien cho em xin xac nhan lai bang email nay truoc 11h30 nhe anh.
+
+Tran trong,
+Ke toan Cong ty Beta
+
+
+

@@ -1,0 +1,25 @@
+$TTL 300
+$ORIGIN darkside.test.
+; ===================================================================
+; Zone darkside.test  -  DOMAIN CUA KE TAN CONG (vm-atk, 10.30.0.40)
+; Co y nghia o kich ban AT-07: attacker ky DKIM bang khoa cua CHINH
+; darkside.test → dkim=pass, spf=pass nhung Header From la congtyA.test
+; → DMARC alignment FAIL. Đay la ky thuat phishing that ngoai đoi dung.
+; ===================================================================
+@           IN  SOA ns1.congtyA.test. hostmaster.darkside.test. (
+                  2026100601 ; serial
+                      3600   ; refresh
+                       600   ; retry
+                   1209600   ; expire
+                     300 )   ; minimum
+
+@           IN  NS      ns1.congtyA.test.
+ns1         IN  A       10.30.0.10
+atk         IN  A       10.30.0.40
+mail        IN  A       10.30.0.40
+@           IN  MX  10  mail.darkside.test.
+
+@           IN  TXT     "ATM-INT1482 Topic03 mail lab - attacker domain, CHI DUNG TRONG LAB"
+
+; SPF/DKIM cua darkside do kich ban AT-07 (tuy chon) xuat ban
+$INCLUDE /var/lib/bind/lab/darkside.test.identity

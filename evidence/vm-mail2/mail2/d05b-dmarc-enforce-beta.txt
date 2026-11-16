@@ -1,0 +1,25 @@
+# time 2026-10-20 20:17:33 UTC - mail2.congtyB.test - sau D-05 (he thong phong thu day du)
+--- dich vu ---
+postfix      active
+dovecot      active
+opendkim     active
+opendmarc    active
+--- milter lang nghe ---
+LISTEN 0      4096       127.0.0.1:8893      0.0.0.0:*          
+LISTEN 0      4096       127.0.0.1:8891      0.0.0.0:*          
+--- postconf ---
+milter_default_action = tempfail
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+non_smtpd_milters = inet:localhost:8891, inet:localhost:8893
+smtp_tls_security_level = verify
+smtpd_milters = inet:localhost:8891, inet:localhost:8893
+smtpd_recipient_restrictions = reject_non_fqdn_recipient, permit_sasl_authenticated, reject_unauth_destination, check_policy_service unix:private/policyd-spf
+smtpd_relay_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination
+smtpd_tls_security_level = encrypt
+--- master.cf policyd-spf ---
+policyd-spf unix -       n       n       -       0       spawn user=policyd-spf argv=/usr/bin/policyd-spf
+--- ban ghi DNS ben nhan thay duoc ---
+"v=spf1 ip4:10.30.0.20 mx -all"
+"ATM-INT1482 Topic03 mail lab - congtyA.test (RFC6761 TLD)"
+"v=DMARC1; p=reject; sp=none; adkim=r; aspf=r; pct=100; fo=1; rua=mailto:dmarc-reports@congtyA.test"
+"v=DKIM1; h=sha256; k=rsa; s=email; " "p=MIIBIjANBgkqhkiG9w0

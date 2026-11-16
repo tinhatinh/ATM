@@ -1,0 +1,25 @@
+// ===================================================================
+// /etc/bind/named.conf.options  -  DNS server cua lab (vm-dns)
+// THAY TOAN BO file mac dinh cua Ubuntu (ban goc duoc sao luu thanh
+// named.conf.options.orig trong 10-dns.sh).
+// ===================================================================
+options {
+    directory "/var/cache/bind";
+
+    // Server chi phuc vu 3 zone cua lab + reverse zone. Khong quay vong
+    // Internet (lab cat mang), vi vay tat recursion va tat DNSSEC validation
+    // (zone cua lab ky thu cong, khong co DS chain len root).
+    recursion         no;
+    dnssec-validation no;
+
+    // Chi tra loi 5 may trong lab + localhost.
+    allow-query       { 10.30.0.0/24; 127.0.0.1; };
+    allow-transfer    { none; };
+    allow-recursion   { none; };
+
+    listen-on port 53     { 127.0.0.1; 10.30.0.10; };
+    listen-on-v6 port 53  { none; };
+
+    // Gia tri co ban: log gon, bo nho cache nho (lab chi co 1 GB RAM).
+    max-cache-size    64m;
+};

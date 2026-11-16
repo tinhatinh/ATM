@@ -1,0 +1,55 @@
+==============================================================================
+FILE: /home/ketoan/Maildir/new/1792527821.V802I103538M672016.vm-mail2
+------------------------------------------------------------------------------
+  Return-Path: <giamdoc@congtyA.test>
+  Authentication-Results: mail2.congtyB.test; dmarc=pass (p=reject dis=none) header.from=congtyA.test
+  Authentication-Results: mail2.congtyB.test; dkim=fail reason="key not found in DNS" header.d=congtya.test header.i=@congtya.test header.a=rsa-sha256 header.s=mail header.b=lxaCURYN; dkim-atps=neutral
+  Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=10.30.0.20; helo=mail1.congtya.test; envelope-from=giamdoc@congtya.test; receiver=congtyb.test
+  DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=congtya.test; s=mail; t=1792527768; bh=QUQDHZuOy+yQb0u9VQbRnsgzww026mKrJU2+5fm4sms=; h=Date:To:From:Subject:From; b=lxaCURYNR+PuNUmZlHTgz6WI/5qczmFy8VrqE1HqVdSdy7rMdmNhQq33U1yr5EVV7 LC3CWQ+f012FoL2SVSCoUY7FWvMupb88ONoTsX2kOUsFy/SSlL5lq12oHmDHNYc+BZ d0wBlu9PSLFgK1xHHVu0e6utM0Q0TXydyXLepmIVsrxD9Gsj+3LVLULssZcZclxMv2 Sae1STD78uWjm/lsDoD/oqle07VKD
+  Date: Tue, 20 Oct 2026 20:22:48 +0000
+  To: ketoan@congtyB.test
+  From: Giam đoc Alpha <giamdoc@congtyA.test>
+  Subject: [V-02] Xac nhan hop so hop dong HD-2026-0713-STB-123
+  X-Lab-Mark: V02-HAPPY
+------------------------------------------------------------------------------
+  KET LUU CO CHE:
+    SPF    = pass     [OK  ]
+    DKIM   = fail     [FAIL]
+    DMARC  = pass     [OK  ]
+    DKIM d= congtya.test   s= none)
+  Nhan xet:
+    DMARC pass chi can MOT trong hai lop pass -> kiem tra lop con lai bi gi.
+------------------------------------------------------------------------------
+Thua anh Admin,
+
+Em xac nhan da nhan duoc yeu cau chuyen khoan theo so hop dong
+HD-2026-0713-STB-123 va da lap lenh chuyen khoan tri gia
+480.000.000 VND toi tai khoan so 9999999999 tai Ngan hang AlphaBank.
+
+Uu tien cho em xin xac nhan lai bang email nay truoc 11h30 nhe anh.
+
+Tran trong,
+Ke toan Cong ty Beta
+
+
+
+2026-10-20T20:21:31.444397+00:00 vm-mail2 policyd-spf[15183]: : prepend Received-SPF: None (mailfrom) identity=mailfrom; client-ip=10.30.0.40; helo=vm-atk; envelope-from=thongbao@darkside.test; receiver=congtyb.test 
+2026-10-20T20:21:31.490742+00:00 vm-mail2 opendkim[13757]: 6CF78103535: atk.darkside.test [10.30.0.40] not internal
+2026-10-20T20:21:31.490896+00:00 vm-mail2 opendkim[13757]: 6CF78103535: not authenticated
+2026-10-20T20:21:31.490977+00:00 vm-mail2 opendkim[13757]: 6CF78103535: no signing domain match for 'congtya.test'
+2026-10-20T20:21:31.491055+00:00 vm-mail2 opendkim[13757]: 6CF78103535: no signing subdomain match for 'congtya.test'
+2026-10-20T20:21:31.491211+00:00 vm-mail2 opendkim[13757]: 6CF78103535: no signature data
+2026-10-20T20:21:31.493060+00:00 vm-mail2 opendmarc[14759]: 6CF78103535: congtyA.test fail
+2026-10-20T20:21:31.493215+00:00 vm-mail2 postfix/cleanup[15184]: 6CF78103535: milter-reject: END-OF-MESSAGE from atk.darkside.test[10.30.0.40]: 5.7.1 rejected by DMARC policy for congtyA.test; from=<thongbao@darkside.test> to=<ketoan@congtyB.test> proto=ESMTP helo=<vm-atk>
+2026-10-20T20:21:31.869181+00:00 vm-mail2 policyd-spf[15183]: : prepend Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=10.30.0.20; helo=mail1.congtya.test; envelope-from=giamdoc@congtya.test; receiver=congtyb.test 
+2026-10-20T20:21:31.914551+00:00 vm-mail2 opendkim[13757]: D4869103535: no signing domain match for 'congtya.test'
+2026-10-20T20:21:31.914740+00:00 vm-mail2 opendkim[13757]: D4869103535: no signing subdomain match for 'congtya.test'
+2026-10-20T20:21:31.916668+00:00 vm-mail2 opendkim[13757]: D4869103535: key retrieval failed (s=mail, d=congtya.test): 'mail._domainkey.congtya.test' record not found
+2026-10-20T20:21:31.959913+00:00 vm-mail2 opendmarc[14759]: D4869103535: congtyA.test pass
+2026-10-20T20:21:32.008290+00:00 vm-mail2 postfix/local[15186]: D4869103535: to=<ketoan@congtyB.test>, relay=local, delay=0.14, delays=0.14/0/0/0, dsn=2.0.0, status=sent (delivered to maildir)
+2026-10-20T20:23:41.519597+00:00 vm-mail2 policyd-spf[15190]: : prepend Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=10.30.0.20; helo=mail1.congtya.test; envelope-from=giamdoc@congtya.test; receiver=congtyb.test 
+2026-10-20T20:23:41.573218+00:00 vm-mail2 opendkim[13757]: 81227103535: no signing domain match for 'congtya.test'
+2026-10-20T20:23:41.573366+00:00 vm-mail2 opendkim[13757]: 81227103535: no signing subdomain match for 'congtya.test'
+2026-10-20T20:23:41.575568+00:00 vm-mail2 opendkim[13757]: 81227103535: key retrieval failed (s=mail, d=congtya.test): 'mail._domainkey.congtya.test' record not found
+2026-10-20T20:23:41.620188+00:00 vm-mail2 opendmarc[14759]: 81227103535: congtyA.test pass
+2026-10-20T20:23:41.674896+00:00 vm-mail2 postfix/local[15192]: 81227103535: to=<ketoan@congtyB.test>, relay=local, delay=0.22, delays=0.21/0.01/0/0, dsn=2.0.0, status=sent (delivered to maildir)

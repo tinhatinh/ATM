@@ -1,0 +1,10 @@
+----- congtyA.test -----
+  SPF   : "v=spf1 ip4:10.30.0.20 mx -all"
+"ATM-INT1482 Topic03 mail lab - congtyA.test (RFC6761 TLD)"
+  DKIM  : "v=DKIM1; h=sha256; k=rsa; s=email; " "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCA
+  DMARC : "v=DMARC1; p=reject; sp=none; adkim=r; aspf=r; pct=100; fo=1; rua=mailto:dmarc-reports@congtyA.test"
+----- congtyB.test -----
+  SPF   : "ATM-INT1482 Topic03 mail lab - congtyB.test (RFC6761 TLD)"
+"v=spf1 ip4:10.30.0.30 mx -all"
+  DKIM  : "v=DKIM1; h=sha256; k=rsa; s=email; " "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCA
+  DMARC : "v=DMARC1; p=reject; sp=none; adkim=r; aspf=r; pct=100; fo=1; rua=mailto:dmarc-reports@congtyB.test"

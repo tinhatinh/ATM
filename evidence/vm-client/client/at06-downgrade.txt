@@ -1,0 +1,12 @@
+# time 2026-10-20 20:19:40 UTC - pcap /root/evidence/client/at06-downgrade.pcap (swaks exit code = 28)
+--- Client co nhin thay STARTTLS khong? ---
+  so dong chua STARTTLS trong bao goi: 0
+--- Phan hoi EHLO ma client nhan duoc tu proxy ---
+  250-SIZE 10485760
+  250-ETRN
+  250-ENHANCEDSTATUSCODES
+  250-8BITMIME
+  250-DSN
+  250-SMTPUTF8
+  250 CHUNKING
+--- AUTH + mat khau ban ro ---

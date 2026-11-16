@@ -1,0 +1,95 @@
+=== [0] Thong tin nen (ghi vao bao cao muc 3.6.2) ===
+  May phat : vm-client  127.0.0.1/8
+  MX A     : 10 mail1.congtyA.test.
+  SPF A    : "v=spf1 ip4:10.30.0.20 mx -all"
+  DMARC A  : "v=DMARC1; p=reject; sp=none; adkim=r; aspf=r; pct=100; fo=1
+
+=== [1] Gui thu hop le (AUTH LOGIN + STARTTLS bat buoc) ===
+=== Trying mail1.congtyA.test:587...
+=== Connected to mail1.congtyA.test.
+<-  220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+ -> EHLO client.congtyA.test
+<-  250-mail1.congtyA.test
+<-  250-PIPELINING
+<-  250-SIZE 10485760
+<-  250-ETRN
+<-  250-STARTTLS
+<-  250-ENHANCEDSTATUSCODES
+<-  250-8BITMIME
+<-  250-DSN
+<-  250-SMTPUTF8
+<-  250 CHUNKING
+ -> STARTTLS
+<-  220 2.0.0 Ready to start TLS
+=== TLS started with cipher TLSv1.3:TLS_AES_256_GCM_SHA384:256
+=== TLS client certificate not requested and not sent
+=== TLS no client certificate set
+=== TLS peer[0]   subject=[/C=VN/O=Cong ty Alpha/CN=mail1.congtyA.test]
+===               commonName=[mail1.congtyA.test], subjectAltName=[DNS:mail1.congtyA.test, DNS:mail.congtyA.test, IP Address:10.30.0.20] notAfter=[2029-01-20T11:36:00Z]
+=== TLS peer certificate failed CA verification (unable to get local issuer certificate), passed host verification (using host mail1.congtyA.test to verify)
+ ~> EHLO client.congtyA.test
+<~  250-mail1.congtyA.test
+<~  250-PIPELINING
+<~  250-SIZE 10485760
+<~  250-ETRN
+<~  250-AUTH PLAIN LOGIN
+<~  250-ENHANCEDSTATUSCODES
+<~  250-8BITMIME
+<~  250-DSN
+<~  250-SMTPUTF8
+<~  250 CHUNKING
+ ~> AUTH LOGIN
+<~  334 VXNlcm5hbWU6
+ ~> Z2lhbWRvYw==
+<~  334 UGFzc3dvcmQ6
+ ~> TGFiQDIwMjY=
+<~  235 2.7.0 Authentication successful
+ ~> MAIL FROM:<giamdoc@congtyA.test>
+<~  250 2.1.0 Ok
+ ~> RCPT TO:<ketoan@congtyB.test>
+<~  250 2.1.5 Ok
+ ~> DATA
+<~  354 End data with <CR><LF>.<CR><LF>
+ ~> Date: Sun, 18 Oct 2026 11:45:06 +0000
+ ~> To: ketoan@congtyB.test
+ ~> From: Giam đoc Alpha <giamdoc@congtyA.test>
+ ~> Subject: [V-02] Xac nhan hop so hop dong HD-2026-0713-STB-123
+ ~> Message-Id: <20261018114506.008454@vm-client>
+ ~> X-Mailer: swaks v20240103.0 jetmore.org/john/code/swaks/
+ ~> X-Lab-Mark: V02-HAPPY
+ ~> 
+ ~> Thua anh Admin,
+ ~> 
+ ~> Em xac nhan da nhan duoc yeu cau chuyen khoan theo so hop dong
+ ~> HD-2026-0713-STB-123 va da lap lenh chuyen khoan tri gia
+ ~> 480.000.000 VND toi tai khoan so 9999999999 tai Ngan hang AlphaBank.
+ ~> 
+ ~> Uu tien cho em xin xac nhan lai bang email nay truoc 11h30 nhe anh.
+ ~> 
+ ~> Tran trong,
+ ~> Ke toan Cong ty Beta
+ ~> 
+ ~> 
+ ~> .
+<~  250 2.0.0 Ok: queued as F0D29A1AAD
+ ~> QUIT
+<~  221 2.0.0 Bye
+=== Connection closed with remote host.
+
+  swaks exit code = 0   (0 = thanh cong; 24 = khong RCPT nao duoc chap nhan; 29 = loi TLS)
+
+=== [2] Tim dong tra loi quyet dinh ===
+  <~  250 CHUNKING
+  <~  235 2.7.0 Authentication successful
+  <~  250 2.1.0 Ok
+  <~  250 2.1.5 Ok
+  <~  250 2.0.0 Ok: queued as F0D29A1AAD
+  <~  221 2.0.0 Bye
+
+
+=== [4] CHIEU NGUOC LAI (Beta ky va gui cho Alpha) - van tren vm-client: ===
+    swaks --server mail2.congtyB.test --port 587 --tls --auth LOGIN --auth-user ketoan --auth-password 'Lab@2026' --from 'ketoan@congtyB.test' --to 'giamdoc@congtyA.test' --header 'Subject: [V-02b] Chieu nguoc lai Beta -> Alpha' --body 'Xac nhan thanh toan tu Cong ty Beta.'
+
+KY VONG: '250 2.0.0 Ok: queued' va trong header thu co dong
+  Authentication-Results: mail2.congtyB.test; spf=pass ... dkim=pass ... dmarc=pass
+  Neu dmarc=fail: kiem tra 'Header From' co trung mien voi 'from=' (alignment) khong.

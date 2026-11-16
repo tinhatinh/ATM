@@ -1,0 +1,46 @@
+
+===== phien moi tu 10.30.0.50:50900, trung gian toi 10.30.0.20:587 (09:52:06) =====
+09:52:06 THU   -> PROXY : 220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+09:52:06 KHACH -> PROXY : EHLO vm-client
+09:52:06 THU   -> PROXY : 250-mail1.congtyA.test
+09:52:06 THU   -> PROXY : 250-PIPELINING
+09:52:06 THU   -> PROXY : 250-SIZE 10240000
+09:52:06 THU   -> PROXY : 250-VRFY
+09:52:06 THU   -> PROXY : 250-ETRN
+  [STRIP] AN DONG NAY KHONG cho khach thay: 250-STARTTLS
+09:52:06 THU   -> PROXY : 250-AUTH PLAIN LOGIN
+09:52:06 THU   -> PROXY : 250-ENHANCEDSTATUSCODES
+09:52:06 THU   -> PROXY : 250-8BITMIME
+09:52:06 THU   -> PROXY : 250-DSN
+09:52:06 THU   -> PROXY : 250-SMTPUTF8
+09:52:06 THU   -> PROXY : 250 CHUNKING
+09:52:06 KHACH -> PROXY : AUTH LOGIN
+  [AUTH] co che = LOGIN
+09:52:06 THU   -> PROXY : 334 VXNlcm5hbWU6
+  [AUTH] may thu hoi: 'Username:'
+09:52:06 KHACH -> PROXY : Z2lhbWRvYw==
+  [AUTH-THIEP] USERNAME = 'giamdoc'  (base64: Z2lhbWRvYw==)
+09:52:06 THU   -> PROXY : 334 UGFzc3dvcmQ6
+  [AUTH] may thu hoi: 'Password:'
+09:52:06 KHACH -> PROXY : TGFiQDIwMjY=
+  [AUTH-THIEP] PASSWORD = 'Lab@2026'  (base64: TGFiQDIwMjY=)
+09:52:06 THU   -> PROXY : 235 2.7.0 Authentication successful
+09:52:06 KHACH -> PROXY : MAIL FROM:<giamdoc@congtyA.test>
+09:52:06 THU   -> PROXY : 250 2.1.0 Ok
+09:52:06 KHACH -> PROXY : RCPT TO:<ketoan@congtyB.test>
+09:52:06 THU   -> PROXY : 250 2.1.5 Ok
+09:52:06 KHACH -> PROXY : DATA
+09:52:06 THU   -> PROXY : 354 End data with <CR><LF>.<CR><LF>
+  [TAMPER] da thay '9999999999' -> '1029384756' trong than thu (608 byte)
+09:52:06 THU   -> PROXY : 250 2.0.0 Ok: queued as 1D492A1AA4
+09:52:06 KHACH -> PROXY : QUIT
+09:52:06 THU   -> PROXY : 221 2.0.0 Bye
+
+--- Cac dong chung minh (loc rieng) ---
+  [STRIP] AN DONG NAY KHONG cho khach thay: 250-STARTTLS
+  [AUTH] co che = LOGIN
+  [AUTH] may thu hoi: 'Username:'
+  [AUTH-THIEP] USERNAME = 'giamdoc'  (base64: Z2lhbWRvYw==)
+  [AUTH] may thu hoi: 'Password:'
+  [AUTH-THIEP] PASSWORD = 'Lab@2026'  (base64: TGFiQDIwMjY=)
+  [TAMPER] da thay '9999999999' -> '1029384756' trong than thu (608 byte)

@@ -1,0 +1,78 @@
+# time 2026-10-20 20:24:28 UTC - may mail2.congtyB.test - hop thu cua ketoan
+--- [1] Danh sach thu trong Maildir/new ---
+-rw------- 1 ketoan ketoan  784 Oct 20 19:54 1792526075.V802I10352bM929696.vm-mail2
+-rw------- 1 ketoan ketoan  758 Oct 20 19:55 1792526156.V802I10352cM237849.vm-mail2
+-rw------- 1 ketoan ketoan  967 Oct 20 19:56 1792526173.V802I10352dM395430.vm-mail2
+-rw------- 1 ketoan ketoan 1249 Oct 20 20:01 1792526480.V802I10352fM48677.vm-mail2
+-rw------- 1 ketoan ketoan 1066 Oct 20 20:01 1792526482.V802I103530M194988.vm-mail2
+-rw------- 1 ketoan ketoan 2423 Oct 20 20:20 1792527628.V802I103536M462359.vm-mail2
+-rw------- 1 ketoan ketoan 2071 Oct 20 20:21 1792527692.V802I103537M5701.vm-mail2
+-rw------- 1 ketoan ketoan 2435 Oct 20 20:23 1792527821.V802I103538M672016.vm-mail2
+
+--- [2] Toan bo dau de cua thu moi nhat: 1792527821.V802I103538M672016.vm-mail2 ---
+  Return-Path: <giamdoc@congtyA.test>
+  X-Original-To: ketoan@congtyB.test
+  Delivered-To: ketoan@congtyB.test
+  Authentication-Results: mail2.congtyB.test; dmarc=pass (p=reject dis=none) header.from=congtyA.test
+  Authentication-Results: mail2.congtyB.test;
+  	dkim=fail reason="key not found in DNS" header.d=congtya.test header.i=@congtya.test header.a=rsa-sha256 header.s=mail header.b=lxaCURYN;
+  	dkim-atps=neutral
+  Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=10.30.0.20; helo=mail1.congtya.test; envelope-from=giamdoc@congtya.test; receiver=congtyb.test 
+  Received: from mail1.congtyA.test (mail1.congtyA.test [10.30.0.20])
+  	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+  	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+  	(No client certificate requested)
+  	by mail2.congtyB.test (Postfix) with ESMTPS id 81227103535
+  	for <ketoan@congtyB.test>; Tue, 20 Oct 2026 20:23:41 +0000 (UTC)
+  DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=congtya.test; s=mail;
+  	t=1792527768; bh=QUQDHZuOy+yQb0u9VQbRnsgzww026mKrJU2+5fm4sms=;
+  	h=Date:To:From:Subject:From;
+  	b=lxaCURYNR+PuNUmZlHTgz6WI/5qczmFy8VrqE1HqVdSdy7rMdmNhQq33U1yr5EVV7
+  	 LC3CWQ+f012FoL2SVSCoUY7FWvMupb88ONoTsX2kOUsFy/SSlL5lq12oHmDHNYc+BZ
+  	 d0wBlu9PSLFgK1xHHVu0e6utM0Q0TXydyXLepmIVsrxD9Gsj+3LVLULssZcZclxMv2
+  	 Sae1STD78uWjm/lsDoD/oqle07VKDRsJsNTJLTLbujfZBG2qLSKdRQ/zcrO3Z0FMyE
+  	 YNe/hJkVbHsR0lMOM1IoX6pHu5Qitjn8/jxZPI9F05WA2dBH80G6psnF3ioc9rBIN0
+  	 x7HIqpks13EDg==
+  Received: from client.congtyA.test (client.congtyA.test [10.30.0.50])
+  	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+  	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+  	(No client certificate requested)
+  	by mail1.congtyA.test (Postfix) with ESMTPSA id 61714A1D4B
+  	for <ketoan@congtyB.test>; Tue, 20 Oct 2026 20:22:48 +0000 (UTC)
+  Date: Tue, 20 Oct 2026 20:22:48 +0000
+  To: ketoan@congtyB.test
+  From: Giam đoc Alpha <giamdoc@congtyA.test>
+  Subject: [V-02] Xac nhan hop so hop dong HD-2026-0713-STB-123
+  Message-Id: <20261020202248.005713@vm-client>
+  X-Mailer: swaks v20240103.0 jetmore.org/john/code/swaks/
+  X-Lab-Mark: V02-HAPPY
+
+
+--- [3] Cac dau de dinh danh (phai VANG o Giai doan 1) ---
+# Authentication-Results:
+2
+# Received-SPF:
+1
+# DKIM-Signature:
+1
+# DMARC-Result / Authentication-Results dkim=:
+1
+
+--- [4] Header quan sat duoc tu MUA (nguoi nhan thay dieu gi) ---
+# From        : From: Giam đoc Alpha <giamdoc@congtyA.test>
+# Reply-To    : (khong co)
+# Subject     : Subject: [V-02] Xac nhan hop so hop dong HD-2026-0713-STB-123
+# Received    : duoi cung (may nao thuc phat)
+  Received: from mail1.congtyA.test (mail1.congtyA.test [10.30.0.20])
+  Received: from client.congtyA.test (client.congtyA.test [10.30.0.50])
+
+--- [5] Log postfix + dovecot chung minh phat thanh cong ---
+# grep queueid/noi dung trong /var/log/mail.log (15 dong cuoi lien quan ketoan)
+2026-10-20T19:54:35.932631+00:00 vm-mail2 postfix/local[10466]: DF42D1033FB: to=<ketoan@congtyB.test>, relay=local, delay=0.02, delays=0.01/0.01/0/0, dsn=2.0.0, status=sent (delivered to maildir)
+2026-10-20T19:55:56.240354+00:00 vm-mail2 postfix/local[10466]: 389221033FB: to=<ketoan@congtyB.test>, relay=local, delay=0.01, delays=0.01/0/0/0, dsn=2.0.0, status=sent (delivered to maildir)
+2026-10-20T19:56:13.398369+00:00 vm-mail2 postfix/local[10466]: 5F2311033FB: to=<ketoan@congtyB.test>, relay=local, delay=0.01, delays=0.01/0/0/0, dsn=2.0.0, status=sent (delivered to maildir)
+2026-10-20T20:01:20.051945+00:00 vm-mail2 postfix/local[10745]: 08A7410352E: to=<ketoan@congtyB.test>, relay=local, delay=0.03, delays=0.01/0.01/0/0, dsn=2.0.0, status=sent (delivered to maildir)
+2026-10-20T20:01:22.197343+00:00 vm-mail2 postfix/local[10745]: 2E82410352E: to=<ketoan@congtyB.test>, relay=local, delay=0.01, delays=0/0/0/0, dsn=2.0.0, status=sent (delivered to maildir)
+2026-10-20T20:20:28.466090+00:00 vm-mail2 postfix/local[15186]: 47571103535: to=<ketoan@congtyB.test>, relay=local, delay=0.32, delays=0.31/0.01/0/0, dsn=2.0.0, status=sent (delivered to maildir)
+2026-10-20T20:21:32.008290+00:00 vm-mail2 postfix/local[15186]: D4869103535: to=<ketoan@congtyB.test>, relay=local, delay=0.14, delays=0.14/0/0/0, dsn=2.0.0, status=sent (delivered to maildir)
+2026-10-20T20:23:41.674896+00:00 vm-mail2 postfix/local[15192]: 81227103535: to=<ketoan@congtyB.test>, relay=local, delay=0.22, delays=0.21/0.01/0/0, dsn=2.0.0, status=sent (delivered to maildir)

@@ -1,0 +1,63 @@
+=== [1] Package policyd-spf ===
+postfix-policyd-spf-python 3.0.4-2
+uid=113(policyd-spf) gid=115(policyd-spf) groups=115(policyd-spf)
+
+=== [2] master.cf: dich vu policyd-spf (spawn qua unix socket) ===
+143:policyd-spf  unix  -       n       n       -       0       spawn
+144-    user=policyd-spf argv=/usr/bin/policyd-spf
+
+=== [3] TestOnly phai = 1 (CHE DO THUC THI) - bay kinh đien ===
+  debugLevel = 1 
+  TestOnly = 1
+  HELO_reject = Fail
+  Mail_From_reject = Fail
+  PermError_reject = False
+  TempError_Defer = False
+  skip_addresses = 127.0.0.0/8,::ffff:127.0.0.0/104,::1
+--- Trich dan man 5 policyd-spf.conf ---
+         see  the potential impact of SPF checking in your mail logs without re‐
+         jecting mail.  Headers are prepended in messages, but message  delivery
+         is  not  affected.  This mode is not enabled by default.  To enable it,
+         set TestOnly = 0.  If you want test operation  with  no  header  added,
+         also set Header_Type = None.
+  
+         Note:  This option was previously named defaultSeedOnly.  This is still
+  --
+  
+         Default:
+  
+         TestOnly = 1
+  
+  HELO/EHLO CHECKING
+         HELO check rejection policy options are:
+  hien tai: TestOnly = 1
+  => Mail_From_reject = Fail (mac dinh): ket qua SPF Fail -> reject 550 5.7.23
+
+=== [4] main.cf: ghep check_policy_service vao sau reject_unauth_destination ===
+  mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+  policyd-spf_time_limit = 3600
+  smtpd_recipient_restrictions = reject_non_fqdn_recipient, permit_sasl_authenticated, reject_unauth_destination, check_policy_service unix:private/policyd-spf
+
+=== [5] XAC MINH ===
+# time 2026-10-18 10:16:43 UTC - mail1.congtyA.test - sau D-03
+--- postconf ---
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+policyd-spf_time_limit = 3600
+smtpd_recipient_restrictions = reject_non_fqdn_recipient, permit_sasl_authenticated, reject_unauth_destination, check_policy_service unix:private/policyd-spf
+smtpd_relay_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination
+--- master.cf service ---
+policyd-spf unix -       n       n       -       0       spawn user=policyd-spf argv=/usr/bin/policyd-spf
+--- dich vu ---
+active
+--- SPF record cua congtyA.test da ton tai chua (tren vm-dns) ---
+congtyA.test.		300	IN	TXT	"ATM-INT1482 Topic03 mail lab - congtyA.test (RFC6761 TLD)"
+
+BUOC TIEP THEO (tren vm-dns 10.30.0.10) - xuat ban ban ghi SPF:
+  sudo bash defense/d03b-spf-publish.sh
+
+ROI KIEM CHUNG NGAY (tren vm-atk):
+  sudo bash attacks/at04-spoof-header.sh        -> bi tu choi tai RCPT, ma 550 5.7.23
+  sudo bash attacks/at01-open-relay.sh          -> van khong phai open relay
+Ghi NGUYEN VAN hoi dap SMTP va 3-5 dong cuoi /var/log/mail.log cua vm-mail2.
+KHUYEN: neu muon "chi ghi log khong chan" thi dat TestOnly = 0, tuc che do
+guan sat; o day ta muon CHAN nen gi TestOnly = 1.

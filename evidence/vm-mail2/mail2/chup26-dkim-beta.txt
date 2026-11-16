@@ -1,0 +1,67 @@
+=== [1] Sinh cap khoa (opendkim-genkey thuoc /usr/sbin) ===
+total 12
+-rw------- 1 opendkim opendkim 1704 Oct 18 10:21 mail.private
+-rw-r--r-- 1 opendkim opendkim  525 Oct 18 10:21 mail.txt
+-rw-r--r-- 1 root     root      664 Jun 16  2023 README.PrivateKeys
+Private-Key: (2048 bit, 2 primes)
+modulus:
+    00:93:b0:83:62:db:25:86:b3:f5:7d:1f:d6:3e:a3:
+    f9:0a:e6:23:bc:6b:e0:f7:2a:77:bb:60:7a:6c:89:
+
+=== [2] Danh sach may duoc phep ky (InternalHosts - khong phai TrustedHosts) ===
+# ATM Topic03 - nhung nguoi gui duoc phep nhan chu ky DKIM cua congtyB.test
+127.0.0.1
+mail2.congtyB.test
+10.30.0.50/32
+10.30.0.20/32
+10.30.0.30/32
+
+=== [3] Bo sung /etc/opendkim.conf (giu cac dong mac dinh cua Ubuntu) ===
+37:Socket                   inet:8891@localhost
+  Syslog			yes
+  SyslogSuccess		yes
+  Canonicalization	relaxed/simple
+  OversignHeaders		From
+  UserID			opendkim
+  UMask			007
+  Socket                   inet:8891@localhost
+  PidFile			/run/opendkim/opendkim.pid
+  TrustAnchorFile		/usr/share/dns/root.key
+  Mode                    sv
+  Domain                  congtyB.test
+  Selector                mail
+  KeyFile                 /etc/dkimkeys/mail.private
+  InternalHosts           /etc/opendkim/InternalHosts
+  AutoRestart             Yes
+  AutoRestartRate         10/1h
+  SyslogSuccess           Yes
+  LogWhy                  Yes
+
+=== [4] Khoi dong OpenDKIM + gan milter cho Postfix ===
+
+=== [5] XAC MINH ===
+# time 2026-10-18 10:21:33 UTC - mail2.congtyB.test - sau D-04a (selector: mail)
+--- dich vu ---
+active
+active
+--- milter socket 8891 ---
+LISTEN 0      4096       127.0.0.1:8891      0.0.0.0:*          
+--- phien ban ---
+opendkim: OpenDKIM Filter v2.11.0
+	Compiled with OpenSSL 3.0.13 30 Jan 2024
+	SMFI_VERSION 0x1000001
+--- postconf milter ---
+milter_protocol = 6
+non_smtpd_milters = inet:localhost:8891
+smtpd_milters = inet:localhost:8891
+--- Ban ghi DKIM can cong bo (luu cau nay lai de d04b) ---
+mail._domainkey.congtyB.test.	IN	TXT	( "v=DKIM1; h=sha256; k=rsa; s=email; "
+	  "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk7CDYtslhrP1fR/WPqP5CuYjvGvg9yp3u2B6bInJ/NbXkyimiJGunNat50TygW+KmMesq17nLv8k9aCUIXuUHD+iP2+e9GjnfLHxYUejh3n2QF5TLO+88iwtF89HCU0aClKs+dTV3HWuJMKkLvuP9eq2t4Qw9mc8vVodSWk+SlGlbrXwrGVp7Mr6OEWsE1rktW2Cyh5plNkc7V"
+	  "QYHOytKIF1iR5+poQThhYPFtBtgytLI2s/DbC2EpYXy0sgG5lRsCH05jx4Xim4+5CzbOjBhKN+1+56DikbF34FVpKRgUptRJFYIDj+HQhZWoMMgN+JtyeEOsEZkSsXaKW+pC2XqwIDAQAB" )  ; ----- DKIM key mail for congtyB.test
+
+BUOC TIEP THEO - xuat ban ban ghi DKIM tren vm-dns (10.30.0.10):
+  sudo bash defense/d04b-dkim-publish.sh beta
+Script do se yeu cau DAN noi dung file /etc/dkimkeys/mail.txt o may mail2:
+  sudo cat /etc/dkimkeys/mail.txt
+Sau khi xuat ban, kiem tra mat mail2 bang (khong in ra 'key not found', exit 0 la DKIM OK):
+  opendkim-testkey -d congtyB.test -s mail -vvv 2>&1 | tail -6

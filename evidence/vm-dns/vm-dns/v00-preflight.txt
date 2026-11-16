@@ -1,0 +1,32 @@
+################ V-00 preflight 2026-10-13 03:04:37 UTC ################
+--- 1. Ket noi IP (host-only 10.30.0.0/24) ---
+  10.30.0.10     OK
+  10.30.0.20     OK
+  10.30.0.30     OK
+  10.30.0.40     OK
+  10.30.0.50     OK
+--- 2. Phong van cua dich vu (ncat -z) ---
+  10.30.0.10 port 53    dong
+  10.30.0.20 port 25    dong
+  10.30.0.20 port 587   dong
+  10.30.0.20 port 143   dong
+  10.30.0.20 port 993   dong
+  10.30.0.30 port 25    dong
+  10.30.0.30 port 587   dong
+  10.30.0.30 port 143   dong
+  10.30.0.30 port 993   dong
+  10.30.0.40 port 2525  dong
+--- 3. Phan giai ten mien (can DNS dang live) ---
+  MX A   : 10 mail1.congtyA.test. 
+  MX B   : 10 mail2.congtyB.test. 
+  mail1 A: 10.30.0.20
+  mail2 A: 10.30.0.30
+--- 4. Dong ho (anh huong toi cert va DKIM t=) ---
+  UTC local: 2026-10-13 03:04:37
+--- 5. Trang thai dinh danh DNS ---
+  SPF congtyA.test   : (khong co)
+  DMARC congtyA.test   : 
+  DKIM congtyA.test  : (khong co)
+  SPF congtyB.test   : (khong co)
+  DMARC congtyB.test   : 
+  DKIM congtyB.test  : (khong co)

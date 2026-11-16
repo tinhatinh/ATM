@@ -1,0 +1,58 @@
+Dan toan bo noi dung ban ghi vao day (moi dong la 1 phan cua TXT), ket thuc bang Ctrl-D:
+CANH BAO: /var/lib/bind/lab/congtyA.test.identity da co ban ghi DKIM (p=...). Ghi trung se lam zone co 2 khoa.
+        Kiem tra: grep -n 'p=' /var/lib/bind/lab/congtyA.test.identity   |  xoa dong cu neu can.
+Ban ghi da ton tai trong /var/lib/bind/lab/congtyA.test.identity - khong ghi them.
+--- /var/lib/bind/lab/congtyA.test.identity hien co ---
+  congtyA.test.	IN	TXT	"v=spf1 ip4:10.30.0.20 mx -all"
+  mail._domainkey.congtyA.test.	IN	TXT	( "v=DKIM1; h=sha256; k=rsa; s=email; "
+  	  "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlAnEEa+7ilssjRhzrhMl00ygiK/s7nKIs4sjnHVqW/8VlFbaawy0GY4BIgM7mU065oACM2SlnmNtsnVB5H0O99Cv/ifl/0x0ddjEmtC4+wnHEMA/ZZQeTqw1AYuYruhWuN0BuiKXQB6d/YWF1qhtc0bO5AFuq3XZxp/LNu+OjtLZvKIWHs7ewZHMy331TuAbSoYKedm22rZAtp"
+  	  "VU76zfMtVMooMbSEiA3qK2H8Z7Sak57xc1qcLG1KUCaNqlHyqg0JNlSZ6VcE/HqZdbSVDhRFIrYLbJnITkbOG+NeyqKOXix8k7BQkliV50Hbxt77TTOycQN431dbrDNeuzTTigowIDAQAB" )  ; ----- DKIM key mail for congtyA.test
+  _dmarc.congtyA.test.	IN	TXT	"v=DMARC1; p=reject; sp=none; adkim=r; aspf=r; pct=100; fo=1; rua=mailto:dmarc-reports@congtyA.test"
+Serial: 2026101804 -> 2026101805
+
+=== named-checkzone ===
+zone congtyA.test/IN: loaded serial 2026101805
+OK
+
+=== rndc reload ===
+zone reload queued
+active
+
+=== doc lai bang dig (day la bang chung cho bao cao) ===
+# 2026-10-18 11:41:34 UTC - sau khi reload zone congtyA.test (serial 2026101805)
+congtyA.test.		300	IN	SOA	ns1.congtyA.test. hostmaster.congtyA.test. 2026101805 3600 600 1209600 300
+--- moi ban ghi TXT trong zone congtyA.test ---
+congtyA.test.		300	IN	TXT	"ATM-INT1482 Topic03 mail lab - congtyA.test (RFC6761 TLD)"
+congtyA.test.		300	IN	TXT	"v=spf1 ip4:10.30.0.20 mx -all"
+--- _dmarc.congtyA.test TXT ---
+_dmarc.congtyA.test.	300	IN	TXT	"v=DMARC1; p=reject; sp=none; adkim=r; aspf=r; pct=100; fo=1; rua=mailto:dmarc-reports@congtyA.test"
+--- mail._domainkey.congtyA.test TXT ---
+mail._domainkey.congtyA.test. 300 IN	TXT	"v=DKIM1; h=sha256; k=rsa; s=email; " "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlAnEEa+7ilssjRhzrhMl00ygiK/s7nKIs4sjnHVqW/8VlFbaawy0GY4BIgM7mU065oACM2SlnmNtsnVB5H0O99Cv/ifl/0x0ddjEmtC4+wnHEMA/ZZQeTqw1AYuYruhWuN0BuiKXQB6d/YWF1qhtc0bO5AFuq3XZxp/LNu+OjtLZvKIWHs7ewZHMy331TuAbSoYKedm22rZAtp" "VU76zfMtVMooMbSEiA3qK2H8Z7Sak57xc1qcLG1KUCaNqlHyqg0JNlSZ6VcE/HqZdbSVDhRFIrYLbJnITkbOG+NeyqKOXix8k7BQkliV50Hbxt77TTOycQN431dbrDNeuzTTigowIDAQAB"
+--- toan bo noi dung TXT (dig dang day du, khong cat ngan) ---
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 congtyA.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+congtyA.test.		300	IN	TXT	"v=spf1 ip4:10.30.0.20 mx -all"
+congtyA.test.		300	IN	TXT	"ATM-INT1482 Topic03 mail lab - congtyA.test (RFC6761 TLD)"
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 _dmarc.congtyA.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+_dmarc.congtyA.test.	300	IN	TXT	"v=DMARC1; p=reject; sp=none; adkim=r; aspf=r; pct=100; fo=1; rua=mailto:dmarc-reports@congtyA.test"
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 mail._domainkey.congtyA.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+mail._domainkey.congtyA.test. 300 IN	TXT	"v=DKIM1; h=sha256; k=rsa; s=email; " "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlAnEEa+7ilssjRhzrhMl00ygiK/s7nKIs4sjnHVqW/8VlFbaawy0GY4BIgM7mU065oACM2SlnmNtsnVB5H0O99Cv/ifl/0x0ddjEmtC4+wnHEMA/ZZQeTqw1AYuYruhWuN0BuiKXQB6d/YWF1qhtc0bO5AFuq3XZxp/LNu+OjtLZvKIWHs7ewZHMy331TuAbSoYKedm22rZAtp" "VU76zfMtVMooMbSEiA3qK2H8Z7Sak57xc1qcLG1KUCaNqlHyqg0JNlSZ6VcE/HqZdbSVDhRFIrYLbJnITkbOG+NeyqKOXix8k7BQkliV50Hbxt77TTOycQN431dbrDNeuzTTigowIDAQAB"
+
+=== Doc lai tu DNS (ben ngoai phai thay giong ban vua dan) ===
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.7-Ubuntu <<>> @10.30.0.10 mail._domainkey.congtyA.test TXT +noall +answer +cmd
+; (1 server found)
+;; global options: +cmd
+mail._domainkey.congtyA.test. 300 IN	TXT	"v=DKIM1; h=sha256; k=rsa; s=email; " "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlAnEEa+7ilssjRhzrhMl00ygiK/s7nKIs4sjnHVqW/8VlFbaawy0GY4BIgM7mU065oACM2SlnmNtsnVB5H0O99Cv/ifl/0x0ddjEmtC4+wnHEMA/ZZQeTqw1AYuYruhWuN0BuiKXQB6d/YWF1qhtc0bO5AFuq3XZxp/LNu+OjtLZvKIWHs7ewZHMy331TuAbSoYKedm22rZAtp" "VU76zfMtVMooMbSEiA3qK2H8Z7Sak57xc1qcLG1KUCaNqlHyqg0JNlSZ6VcE/HqZdbSVDhRFIrYLbJnITkbOG+NeyqKOXix8k7BQkliV50Hbxt77TTOycQN431dbrDNeuzTTigowIDAQAB"
+
+=== Trich xuat chieu dai chuoi p= (ky vong ~392-400 ky tu cho RSA-2048) ===
+  p= co 393 ky tu
+  OK: do dai phu hop voi khoa RSA-2048 base64.

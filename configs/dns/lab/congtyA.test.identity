@@ -1,0 +1,8 @@
+; -------------------------------------------------------------------
+; File nay duoc $INCLUDE trong zone congtyA.test.
+; Trang thai GIAI DOAN 1 (chua phong thu): chi co comment, khong co ban ghi nao.
+; Sau khi chay defense/d03-spf.sh, d04-dkim.sh, d05-dmarc.sh thi no se chua:
+;   congtyA.test.                      IN TXT "v=spf1 ip4:10.30.0.20 mx -all"
+;   mail._domainkey.congtyA.test.      IN TXT "v=DKIM1; k=rsa; p=<public key>"
+;   _dmarc.congtyA.test.               IN TXT "v=DMARC1; p=reject; ..."
+; -------------------------------------------------------------------

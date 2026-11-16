@@ -1,0 +1,60 @@
+=== Trying 10.30.0.20:587...
+=== Connected to 10.30.0.20.
+<-  220 mail1.congtyA.test ESMTP Postfix (Ubuntu)
+ -> EHLO vm-atk
+<-  250-mail1.congtyA.test
+<-  250-PIPELINING
+<-  250-SIZE 10485760
+<-  250-ETRN
+<-  250-STARTTLS
+<-  250-ENHANCEDSTATUSCODES
+<-  250-8BITMIME
+<-  250-DSN
+<-  250-SMTPUTF8
+<-  250 CHUNKING
+ -> STARTTLS
+<-  220 2.0.0 Ready to start TLS
+=== TLS started with cipher TLSv1.3:TLS_AES_256_GCM_SHA384:256
+=== TLS client certificate not requested and not sent
+=== TLS no client certificate set
+=== TLS peer[0]   subject=[/C=VN/O=Cong ty Alpha/CN=mail1.congtyA.test]
+===               commonName=[mail1.congtyA.test], subjectAltName=[DNS:mail1.congtyA.test, DNS:mail.congtyA.test, IP Address:10.30.0.20] notAfter=[2029-01-22T19:57:05Z]
+=== TLS peer certificate failed CA verification (unable to get local issuer certificate), passed host verification (using host 10.30.0.20 to verify)
+ ~> EHLO vm-atk
+<~  250-mail1.congtyA.test
+<~  250-PIPELINING
+<~  250-SIZE 10485760
+<~  250-ETRN
+<~  250-AUTH PLAIN LOGIN
+<~  250-ENHANCEDSTATUSCODES
+<~  250-8BITMIME
+<~  250-DSN
+<~  250-SMTPUTF8
+<~  250 CHUNKING
+ ~> AUTH LOGIN
+<~  334 VXNlcm5hbWU6
+ ~> Z2lhbWRvYw==
+<~  334 UGFzc3dvcmQ6
+ ~> TGFiQDIwMjY=
+<~  235 2.7.0 Authentication successful
+ ~> MAIL FROM:<giamdoc@congtyA.test>
+<~  250 2.1.0 Ok
+ ~> RCPT TO:<ketoan@congtyB.test>
+<~  250 2.1.5 Ok
+ ~> DATA
+<~  354 End data with <CR><LF>.<CR><LF>
+ ~> Date: Tue, 20 Oct 2026 20:20:38 +0000
+ ~> To: ketoan@congtyB.test
+ ~> From: giamdoc@congtyA.test
+ ~> Subject: [V03] hop le van duoc phat
+ ~> Message-Id: <20261020202038.004694@vm-atk>
+ ~> X-Mailer: swaks v20240103.0 jetmore.org/john/code/swaks/
+ ~> 
+ ~> Thu that cua nguoi dung that
+ ~> 
+ ~> 
+ ~> .
+<~  250 2.0.0 Ok: queued as D140FA1D4B
+ ~> QUIT
+<~  221 2.0.0 Bye
+=== Connection closed with remote host.

@@ -42,7 +42,7 @@ cốt lõi của MTA:
   tiến trình bên ngoài để kiểm tra chữ ký số, chính sách người gửi và danh tính.
 
 Đề tài dùng Postfix 3.8.6. Postfix được chọn vì kiến trúc phân quyền theo tiến trình và vì cơ chế
-danh sách restriction cho phép quan sát trực tiếp *thứ tự* đánh giá — một yếu tố quyết định hiệu
+danh sách restriction cho phép quan sát trực tiếp *thứ tự* đánh giá, một yếu tố quyết định hiệu
 lực bảo mật, được phân tích ở mục 3.4.
 
 #### Mail Delivery Agent (MDA)
@@ -73,7 +73,7 @@ tệp tin, có thể đọc nguyên văn header và đếm số dòng xác thự
 #### Giao thức truyền thư tín SMTP (RFC 5321)
 
 SMTP hoạt động trên nền TCP, dùng cổng 25 cho quan hệ server-to-server và cổng 587 cho việc đẩy
-thư từ máy khách. Hội thoại SMTP là một chuỗi lệnh — đáp mã số theo trình tự xác định:
+thư từ máy khách. Hội thoại SMTP là một chuỗi lệnh, đáp mã số theo trình tự xác định:
 
 1. **Khởi tạo kết nối.** Client mở socket tới cổng 25. Server chủ động gửi dòng chào:
    `220 mail1.congtyA.test ESMTP Postfix (Ubuntu)`.
@@ -86,12 +86,12 @@ thư từ máy khách. Hội thoại SMTP là một chuỗi lệnh — đáp mã
    đáp `250 2.1.5 Ok` hoặc mã từ chối 5xx.
 5. **Truyền nội dung.** Client gửi `DATA`; server đáp `354 End data with <CR><LF>.<CR><LF>`;
    client truyền khối header và body rồi kết thúc bằng một dòng chứa dấu chấm đơn. Server đáp
-   `250 2.0.0 Ok: queued as <message-id>` — thời điểm bức thư được ghi vào hàng đợi.
+   `250 2.0.0 Ok: queued as <message-id>`, thời điểm bức thư được ghi vào hàng đợi.
 6. **Đóng phiên.** `QUIT` → `221 2.0.0 Bye`.
 
 Nhóm mã phản hồi mang ý nghĩa pháp lý rõ ràng: `2xx` là chấp nhận, `4xx` là tạm thời (gửi lại
 sau), `5xx` là từ chối dứt điểm. Một bức thư bị chặn bằng mã `5xx` ngay tại lệnh `RCPT` sẽ không
-bao giờ được xếp vào hàng đợi, do đó không bao giờ xuất hiện trong hộp thư người nhận — đây là
+bao giờ được xếp vào hàng đợi, do đó không bao giờ xuất hiện trong hộp thư người nhận, đây là
 điểm khác biệt căn bản so với các biện pháp hậu kiểm (đánh dấu spam, lọc sau khi giao).
 
 #### Sự khác biệt giữa Envelope Sender và Header From
@@ -118,7 +118,7 @@ năng thiết lập kết nối TCP tới cổng 25 đều có thể phát đi t
   trúc thư mục.
 * **IMAP4rev1 (RFC 3501, cổng 143/993)** là mô hình đồng bộ hai chiều: hộp thư và cây thư mục nằm
   trên server, client thao tác trên bản chỉ mục. IMAP cho phép tìm kiếm phía server và đánh dấu
-  đã đọc, nhưng cũng khiến server trở thành nơi lưu tập trung toàn bộ nội dung thư — làm tăng giá
+  đã đọc, nhưng cũng khiến server trở thành nơi lưu tập trung toàn bộ nội dung thư, làm tăng giá
   trị của một cặp credential bị đánh cắp.
 
 Cả hai giao thức đều có chế độ bản rõ và chế độ mã hoá. Điểm cần lưu ý về mặt an toàn: IMAP cổng
@@ -138,7 +138,7 @@ DNS không phải dịch vụ phụ trợ mà là một phần của biên phòn
   chỉ IP gửi thư có thực sự thuộc về tên miền mà nó tự khai trong `EHLO` hay không; Postfix dùng
   cơ chế `reject_unknown_client_hostname` và `reject_unknown_hostname` cho việc này.
 
-Trong môi trường thực nghiệm, tên miền cấp cao `.test` được dùng theo RFC 6761 — tên miền cấp cao
+Trong môi trường thực nghiệm, tên miền cấp cao `.test` được dùng theo RFC 6761, tên miền cấp cao
 dành riêng cho thử nghiệm và không bao giờ được phân phối trên Internet thật. Cách chọn này bảo
 đảm tuyệt đối rằng không có suy đoán định tuyến nào hướng ra ngoài, đồng thời lý giải một hệ quả
 kỹ thuật được phân tích ở mục 3.5.5: các resolver đệ quy chuẩn sẽ không bao giờ phân giải được
@@ -158,7 +158,7 @@ một kênh TCP, thay vì dùng một cổng riêng. Trình tự như sau:
 4. Client gửi lại `EHLO` trên kênh đã mã hoá và tiếp tục phiên SMTP. Toàn bộ nội dung sau điểm
    này, kể cả thông tin xác thực, đi qua đường hầm mã hoá.
 
-Đặc điểm thiết kế quan trọng nhất — và cũng là gốc của lỗ hổng hạ cấp — là cơ chế **opportunistic
+Đặc điểm thiết kế quan trọng nhất, và cũng là gốc của lỗ hổng hạ cấp, là cơ chế **opportunistic
 TLS**: nếu phía kia không quảng bá `STARTTLS`, phía gửi được phép tiếp tục bằng bản rõ thay vì
 ngắt kết nối. Thiết kế này sinh ra để bảo đảm tương thích ngược với hạ tầng cũ, nhưng nó chuyển
 toàn bộ quyết định an toàn sang một thông điệp không được bảo vệ.
@@ -172,7 +172,7 @@ nhận) và `smtp_tls_security_level` (phía gửi):
 | `none` | Không cung cấp TLS | Không dùng TLS |
 | `may` | Quảng bá STARTTLS, nhưng chấp nhận phiên bản rõ | Mã hoá nếu bên kia hỗ trợ, không thì gửi bản rõ |
 | `encrypt` | Bắt buộc phiên phải vào TLS trước khi nhận thư | Bắt buộc; không thương lượng được TLS thì huỷ gửi |
-| `verify` | — | Bắt buộc và kiểm chứng chứng chỉ của bên kia theo danh sách CA tin cậy |
+| `verify` |, | Bắt buộc và kiểm chứng chứng chỉ của bên kia theo danh sách CA tin cậy |
 
 Hai tham số bổ trợ quan trọng: `smtpd_tls_auth_only = yes` khiến server chỉ quảng bá `AUTH` khi
 phiên đã nằm trong TLS, loại bỏ khả năng đánh cắp credential trên kênh rõ; và
@@ -227,7 +227,7 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=congtya.test; s=mail;
     b=MDHu9ZD50KtNlnyYoZuKF0ggdLxZHWVghXH7Jau+iHDtI/Vt88Nmgqy3esSfEDTM7...
 ```
 
-Các thẻ đáng chú ý: `a=` là bộ thuật toán chữ ký; `c=relaxed/simple` mô tả cách chuẩn hoá —
+Các thẻ đáng chú ý: `a=` là bộ thuật toán chữ ký; `c=relaxed/simple` mô tả cách chuẩn hoá ,
 header được "làm gọn" (gom khoảng trắng, chuẩn hoá chữ hoa tên trường) còn body giữ nguyên trừ
 các dòng trống ở cuối; `h=` liệt kê trường nào được ký; `t=` là dấu thời gian ký, cho phép từ chối
 chữ ký quá cũ; `l=` (nếu có) giới hạn số byte body được băm; `z=` giữ bản gốc các trường đã ký để

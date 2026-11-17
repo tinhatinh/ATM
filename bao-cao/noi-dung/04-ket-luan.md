@@ -57,7 +57,7 @@ nghiệm, cần được nêu rõ để đánh giá đúng mức khả năng áp
 
 * Bộ thẩm định DKIM của máy chủ nhận không tự truy vấn được khoá công khai trong môi trường cô lập,
   do OpenDKIM liên kết với thư viện phân giải đệ quy riêng và mạng lab không có resolver đệ quy.
-  Chuỗi khoá — chữ ký — bản ghi DNS đã được kiểm chứng hợp lệ bằng một công cụ độc lập cài đặt đúng
+  Chuỗi khoá, chữ ký, bản ghi DNS đã được kiểm chứng hợp lệ bằng một công cụ độc lập cài đặt đúng
   trình tự RFC 6376, nên đây là giới hạn của hạ tầng phân giải chứ không phải của định dạng bản ghi
   hay của thuật toán chữ ký. Hệ quả quan sát được trên header là `dkim=fail reason="key not found in
   DNS"` trong khi `dmarc=pass` vẫn đạt được nhờ SPF alignment.
@@ -91,20 +91,20 @@ nghiệm, cần được nêu rõ để đánh giá đúng mức khả năng áp
 
 **Hướng phát triển của đề tài.** Bốn hướng mở rộng được xác định theo thứ tự ưu tiên.
 
-* Thứ nhất, bổ sung một resolver đệ quy nội bộ trong lab — hoặc bật phân giải đệ quy có kiểm soát
-  trên máy chủ DNS hiện có, hoặc chạy một resolver cục bộ làm điểm hỏi duy nhất cho mọi tiến trình —
+* Thứ nhất, bổ sung một resolver đệ quy nội bộ trong lab, hoặc bật phân giải đệ quy có kiểm soát
+  trên máy chủ DNS hiện có, hoặc chạy một resolver cục bộ làm điểm hỏi duy nhất cho mọi tiến trình ,
   để bộ thẩm định DKIM tự lấy được khoá và `dkim=pass` trở thành kết quả đo được thay vì phải kiểm
   chứng bằng công cụ ngoài.
 * Thứ hai, triển khai MTA-STS kèm TLS-RPT và DANE TLSA trên nền DNSSEC, nhằm đóng triệt để lỗ hổng
   hạ cấp giữa các tổ chức.
 * Thứ ba, khai thác báo cáo DMARC: nhận và phân tích báo cáo tổng hợp từ `rua`, dựng bảng theo dõi
   số lượng thư bị chặn theo ngày và theo nguồn gửi.
-* Thứ tư, mở rộng sang các chuẩn bổ trợ — ARC cho chuỗi chuyển tiếp, BIMI cho biểu tượng đã xác thực
-  — và tích hợp thêm bộ lọc nội dung, quét mã độc, greylisting cùng một webmail có mã hoá đầu cuối
+* Thứ tư, mở rộng sang các chuẩn bổ trợ, ARC cho chuỗi chuyển tiếp, BIMI cho biểu tượng đã xác thực
+ , và tích hợp thêm bộ lọc nội dung, quét mã độc, greylisting cùng một webmail có mã hoá đầu cuối
   để hoàn thiện bức tranh vận hành thực tế.
 
 Nhìn chung, kết quả thực nghiệm khẳng định luận điểm ban đầu: an toàn dịch vụ thư điện tử không đạt
 được bằng một công nghệ đơn lẻ, mà bằng một chuỗi phối hợp chặt chẽ giữa định tuyến (DNS), mã hoá
 đường truyền (STARTTLS), uỷ quyền nguồn gửi (SPF), toàn vẹn nội dung (DKIM) và căn chỉnh định danh
-(DMARC) — trong đó phần khó nhất và cũng quyết định nhất nằm ở cấu hình và quy trình kiểm chứng,
+(DMARC), trong đó phần khó nhất và cũng quyết định nhất nằm ở cấu hình và quy trình kiểm chứng,
 không nằm ở bản thân các thuật toán.

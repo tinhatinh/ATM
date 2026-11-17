@@ -7,17 +7,17 @@ Ký hiệu máy: `D`=vm-dns(10.30.0.10), `M1`=vm-mail1(.20), `M2`=vm-mail2(.30),
 
 ---
 
-## Giai đoạn 0 — Chuẩn bị VMware (Thiện + Tùng)
+## Giai đoạn 0: Chuẩn bị VMware (Thiện + Tùng)
 
 | # | Máy | Người | Việc phải làm | Phải thấy / CHỤP |
 |---|---|---|---|---|
 | 0.1 | Windows | Tùng | VMware → *Edit → Virtual Network Editor* (Run as administrator) → *Add Network* → **VMnet2** → tích **Host-only** | danh sách có `VMnet2 (Host-only)` |
 | 0.2 | Windows | Tùng | Ở VMnet2: bỏ *Use local DHCP service*, đặt *Subnet IP* `10.30.0.0`, *Netmask* `255.255.255.0` → Apply | `CHỤP 01` subnet + host adapter `10.30.0.1` |
-| 0.3 | Windows | Tùng | Tạo 5 VM Ubuntu **24.04.5 LTS server** (2 vCPU · 2 GB · 20 GB): `vm-dns vm-mail1 vm-mail2 vm-atk vm-client`; NIC **tạm để NAT (VMnet8)** để còn tải package. **Thông số từng VM + đáp án mọi màn hình cài đặt: `docs/07-vmware-setup.md`** | `CHỤP 02` 5 VM trong Library |
+| 0.3 | Windows | Tùng | Tạo 5 VM Ubuntu **24.04.5 LTS server** (2 vCPU · 2 GB · 20 GB): `vm-dns vm-mail1 vm-mail2 vm-atk vm-client`; NIC **tạm để NAT (VMnet8)** để còn tải package. **Thông số từng VM + đáp án mọi màn hình cài đặt: `docs/02-vmware-setup.md`** | `CHỤP 02` 5 VM trong Library |
 | 0.4 | Mỗi VM | Mỗi người | Cài Ubuntu: user `ubuntu`, mật khẩu `Lab@2026`, tick *Install OpenSSH server* | `CHỤP 03` màn Identity |
 | 0.5 | Mỗi VM | Mỗi người | `sudo apt update` | có dòng `Get:1 http://archive.ubuntu.com` |
 
-## Giai đoạn 0b — Đưa mã nguồn vào VM và cài package (còn Internet)
+## Giai đoạn 0b: Đưa mã nguồn vào VM và cài package (còn Internet)
 
 | # | Máy | Người | Lệnh | Phải thấy |
 |---|---|---|---|---|
@@ -32,7 +32,7 @@ Ký hiệu máy: `D`=vm-dns(10.30.0.10), `M1`=vm-mail1(.20), `M2`=vm-mail2(.30),
 | 0.14 | M2 | Trung | `CHỤP 04`: output của 0.11 (đủ 5 dịch vụ) | thấy đủ `postfix dovecot opendkim opendmarc policyd-spf` |
 | 0.15 | D | Tùng | Kiểm tra tự test của công cụ MitM: `python3 /root/lab/attacks/selftest-strip-proxy.py` | 5 dòng `PASS`, kết luận `proxy hoat dong dung thiet ke` |
 
-## Giai đoạn 1 — Cắt sang host-only, dựng DNS và mail "trần"
+## Giai đoạn 1: Cắt sang host-only, dựng DNS và mail "trần"
 
 | # | Máy | Người | Lệnh | Phải thấy (chụp rồi đi tiếp) |
 |---|---|---|---|---|
@@ -49,7 +49,7 @@ Ký hiệu máy: `D`=vm-dns(10.30.0.10), `M1`=vm-mail1(.20), `M2`=vm-mail2(.30),
 | 1.11 | C | Quân | `bash /root/lab/verify/v00-preflight.sh` | 5 IP `OK`; cổng 25/587/143 `MO` |
 | 1.12 | Windows | Thiện | Snapshot 5 VM tên `G1-mail-tran` | `CHỤP 07` Snapshot Manager |
 
-## Giai đoạn 2 — TẤN CÔNG (CLO2): kết quả phải là "tấn công ĐƯỢC"
+## Giai đoạn 2: TẤN CÔNG (CLO2): kết quả phải là "tấn công ĐƯỢC"
 
 | # | Máy | Người | Lệnh | Phải thấy |
 |---|---|---|---|---|
@@ -71,9 +71,9 @@ Ký hiệu máy: `D`=vm-dns(10.30.0.10), `M1`=vm-mail1(.20), `M2`=vm-mail2(.30),
 | 2.16 | Windows | Quân | Snapshot `G2-ket-qua-tan-cong`; chép `evidence/` của cả 5 máy về máy | `CHỤP 21` cây thư mục evidence |
 
 > Chốt Giai đoạn 2: **Quân + Danh** điền cột *Kết quả thực tế* của TC06–TC14 (`docs/03-test-cases.md`)
-> và cột *Căn cứ đo được* của R1–R9 (`docs/04-risk-matrix.md`) — **copy từ file evidence**, không nhớ miệng.
+> và cột *Căn cứ đo được* của R1–R9 (`docs/04-risk-matrix.md`), **copy từ file evidence**, không nhớ miệng.
 
-## Giai đoạn 3 — PHÒNG THỦ (CLO3)
+## Giai đoạn 3: PHÒNG THỦ (CLO3)
 
 | # | Máy | Người | Lệnh | Phải thấy |
 |---|---|---|---|---|
@@ -93,7 +93,7 @@ Ký hiệu máy: `D`=vm-dns(10.30.0.10), `M1`=vm-mail1(.20), `M2`=vm-mail2(.30),
 | 3.14 | D | Tùng | `bash /root/lab/verify/v01-dns-records.sh` | 6 dòng `PASS` (SPF×2, DKIM×2, DMARC×2) → `CHỤP 31` |
 | 3.15 | Windows | Thiện | Snapshot `G3-phong-thu` | `CHỤP 32` |
 
-## Giai đoạn 4 — KIỂM CHỨNG: phòng thủ có hiệu lực thật không
+## Giai đoạn 4: KIỂM CHỨNG: phòng thủ có hiệu lực thật không
 
 | # | Máy | Người | Lệnh | Phải thấy |
 |---|---|---|---|---|
@@ -108,13 +108,13 @@ Ký hiệu máy: `D`=vm-dns(10.30.0.10), `M1`=vm-mail1(.20), `M2`=vm-mail2(.30),
 | 4.9 | D | Tùng | `bash /root/lab/defense/d02a-ca.sh stop` | `Da tat dich vu phat file` (đóng kênh chia sẻ private key) |
 | 4.10 | Windows | Danh | `scp -r root@10.30.0.10:/root/evidence ./ev/dns` (tương tự .20 .30 .40 .50) | `CHỤP 40` cây thư mục evidence đầy đủ |
 
-## Giai đoạn 5 — Hoàn thiện hồ sơ
+## Giai đoạn 5: Hoàn thiện hồ sơ
 
 1. **Quân** chốt `docs/04-risk-matrix.md`: mỗi dòng R trỏ đúng file evidence; nếu thực tế khác dự kiến thì **sửa bảng theo thực tế**, không sửa số liệu cho khớp bảng.
 2. **Danh** điền `docs/03-test-cases.md` (cột *Kết quả thực tế* + tên file) và `docs/05-danh-sach-bang-chung.md`.
 3. **Thiện + Trung** viết Phần 1 (cơ sở lý thuyết) và Phần 3 (triển khai) của báo cáo từ chính file trong `configs/`, `install/`, `defense/`.
 4. **Tùng** vẽ lại sơ đồ topology với đúng IP đã chạy + ảnh `CHỤP 01–02` (VMware Network Editor).
-5. Cả nhóm làm slide 15–20 trang, tỉ lệ 30% lý thuyết / 50% demo / 20% kết luận — mỗi ảnh demo lấy từ `CHỤP NN` đã chụp.
+5. Cả nhóm làm slide 15–20 trang, tỉ lệ 30% lý thuyết / 50% demo / 20% kết luận, mỗi ảnh demo lấy từ `CHỤP NN` đã chụp.
 6. Nộp PDF đúng cú pháp: `Bao cao ATM - <Mã lớp> - Nhom <số>.pdf`; kèm link GitHub/Drive trỏ tới thư mục này (thầy khuyến khích file config + kịch bản lab).
 
 ## Sự cố thường gặp (một lệnh để kiểm tra / sửa)

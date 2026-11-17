@@ -29,8 +29,8 @@ tiết số đo được trình bày ở mục 3.3.1.
 #### Giả mạo định danh người gửi (Email Spoofing)
 
 **Cơ chế kỹ thuật.** Xuất phát trực tiếp từ sự bất đối xứng giữa envelope sender và header sender
-đã phân tích ở mục 1.2.2. Máy chủ nhận không có nghĩa vụ — và trong SMTP nguyên thủy là không có
-khả năng — kiểm tra xem địa chỉ hiển thị trong `From:` có thuộc quyền sử dụng của bên đang gửi hay
+đã phân tích ở mục 1.2.2. Máy chủ nhận không có nghĩa vụ, và trong SMTP nguyên thủy là không có
+khả năng, kiểm tra xem địa chỉ hiển thị trong `From:` có thuộc quyền sử dụng của bên đang gửi hay
 không.
 
 **Hệ quả.** Phá vỡ hoàn toàn cơ sở niềm tin của giao tiếp điện tử. Người nhận không còn công cụ kỹ
@@ -47,11 +47,11 @@ họ kiểm soát, chỉ cần thu thập gói tin là đọc được toàn b�
 
 **Đối tượng bị lộ.**
 
-* Nội dung thư và tệp đính kèm — bao gồm hợp đồng, hồ sơ tài chính, thông tin khách hàng.
-* Danh tính người gửi, người nhận, tiêu đề và thời gian gửi — đủ để dựng lại sơ đồ quan hệ của một
+* Nội dung thư và tệp đính kèm, bao gồm hợp đồng, hồ sơ tài chính, thông tin khách hàng.
+* Danh tính người gửi, người nhận, tiêu đề và thời gian gửi, đủ để dựng lại sơ đồ quan hệ của một
   tổ chức (metadata analysis).
 * Thông tin đăng nhập khi MUA xác thực với MTA qua kênh chưa mã hoá. Trường hợp này nghiêm trọng
-  hơn hai trường hợp trên, vì cơ chế `AUTH PLAIN` và `AUTH LOGIN` chỉ là mã hoá Base64 — một phép
+  hơn hai trường hợp trên, vì cơ chế `AUTH PLAIN` và `AUTH LOGIN` chỉ là mã hoá Base64, một phép
   biến đổi mã hoá không khoá, giải mã được bằng một lệnh duy nhất.
 
 **Hệ quả dây chuyền của việc mất credential.** Khác với các lỗ hổng còn lại, đánh cắp credential
@@ -64,7 +64,7 @@ cách chính đáng. Đây là lý do nhóm xếp rủi ro này ở mức cao nh
 Giả mạo danh tính là viên gạch nền cho hai lớp tấn công nghiệp vụ:
 
 * **Business Email Compromise (BEC).** Kẻ tấn công mạo danh lãnh đạo hoặc đối tác, gửi yêu cầu
-  chuyển tiền khẩn cấp tới bộ phận kế toán — bộ phận có động cơ tâm lý để tuân thủ và ít có thói
+  chuyển tiền khẩn cấp tới bộ phận kế toán, bộ phận có động cơ tâm lý để tuân thủ và ít có thói
   quen xác minh chéo. Hiệu quả của tấn công không đến từ khai thác kỹ thuật mà từ việc khai thác
   khoảng trống giữa "thứ máy chủ tin" và "thứ người đọc tin".
 * **Thu thập thông tin đăng nhập (credential harvesting).** Thư mạo danh thông báo tài khoản sắp
@@ -87,7 +87,7 @@ t tả ít nhất.
 Để bảo đảm tương thích ngược với hạ tầng cũ, chuẩn SMTP quy định rằng việc mã hoá là *tùy cơ hội*:
 bên gửi hỏi xem bên nhận có hỗ trợ TLS hay không; nếu có thì thiết lập kênh mã hoá; nếu không thì
 **tiếp tục gửi dưới dạng bản rõ** thay vì ngắt kết nối. Hệ quả là "không mã hoá" trở thành một
-trạng thái hợp lệ và im lặng — không có tín hiệu lỗi nào phát sinh cho người dùng hay cho quản trị
+trạng thái hợp lệ và im lặng, không có tín hiệu lỗi nào phát sinh cho người dùng hay cho quản trị
 viên.
 
 #### Nguyên lý kẻ đứng giữa bóc tách chỉ thị STARTTLS
@@ -100,8 +100,8 @@ chuyển) thực hiện đúng một thao tác: chặn phản hồi `EHLO` của
 2. Server đáp danh sách tính năng, trong đó có `250-STARTTLS`.
 3. Kẻ trung gian xoá dòng đó (hoặc thay bằng một dòng vô nghĩa mà client bỏ qua).
 4. Client kết luận server đích không hỗ trợ TLS.
-5. Theo quy tắc opportunistic, client hạ cấp và truyền toàn bộ nội dung — kể cả thông tin đăng nhập
-   — dưới dạng bản rõ.
+5. Theo quy tắc opportunistic, client hạ cấp và truyền toàn bộ nội dung, kể cả thông tin đăng nhập
+  , dưới dạng bản rõ.
 
 Cuộc tấn công thành công trọn vẹn trong điều kiện *cả hai đầu đều đã cài đặt TLS đầy đủ*. Không có
 cảnh báo nào được hiển thị, không có mã lỗi nào được ghi vào nhật ký, và bằng chứng duy nhất tồn
@@ -144,7 +144,7 @@ Risk = Likelihood (L) x Impact (I),   L va I theo thang 5 bac
 Trong đó **L** được chấm theo *độ phức tạp khai thác quan sát được trong phòng thí nghiệm* chứ
 không theo ước đoán: một tấn công thực hiện được bằng một lệnh duy nhất, không cần chiếm quyền thiết
 bị, không cần tương tác với nạn nhân, được coi là L = 5. **I** được chấm theo mức độ thiệt hại lên
-ba thuộc tính bí mật — toàn vẹn — sẵn dùng, cộng thêm yếu tố tuân thủ và uy tín. Thang phân loại
+ba thuộc tính bí mật, toàn vẹn, sẵn dùng, cộng thêm yếu tố tuân thủ và uy tín. Thang phân loại
 áp dụng: 1–6 là chấp nhận được; 8–14 cần biện pháp kiểm soát; 15–19 là cao; 20–25 là nghiêm trọng,
 bắt buộc xử lý trước khi đưa hệ thống vào khai thác. Ngưỡng chấp nhận của đề tài đặt tại R ≤ 6.
 
@@ -183,7 +183,7 @@ email chủ yếu do *cấu hình và quy trình quản trị* quyết định, 
 ### Kết chương
 
 Chương 2 đã phân tích bốn nhóm lỗ hổng cố hữu của SMTP, đi sâu vào cơ chế tấn công hạ cấp STARTTLS
-— dạng tấn công đánh vào quá trình thương lượng chứ không đánh vào dữ liệu — và lượng hoá chín rủi
+, dạng tấn công đánh vào quá trình thương lượng chứ không đánh vào dữ liệu, và lượng hoá chín rủi
 ro bằng thang 5×5 với căn cứ đo được. Ma trận cho thấy hai rủi ro nghiêm trọng nhất là đánh cắp
 thông tin xác thực và giả mạo người gửi, đồng thời chỉ ra rằng việc xử lý chúng phải theo thứ tự:
 bịt kênh xác thực bản rõ trước, sau đó mới đến ba cơ chế xác thực danh tính. Chương 3 sẽ hiện thực

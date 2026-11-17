@@ -5,7 +5,7 @@
 Thang 5×5 theo hướng tiếp cận ISO/IEC 27005: `Risk = Likelihood (L) × Impact (I)`,
 trong đó **L đánh giá theo độ phức tạp khai thác quan sát được trong lab** (một lệnh swaks
 một bước là L rất cao; cần chiếm quyền host là L thấp), **I đánh giá theo CIA + tuân thủ**.
-Mỗi dòng có cột **Căn cứ đo được** trỏ đúng file bằng chứng — không cho điểm cảm tính.
+Mỗi dòng có cột **Căn cứ đo được** trỏ đúng file bằng chứng, không cho điểm cảm tính.
 
 ```
                 Impact →   1      2       3        4         5
@@ -46,7 +46,7 @@ Mỗi dòng có cột **Căn cứ đo được** trỏ đúng file bằng chứn
 
 Nhận xét: R4/R8 sau kiểm soát vẫn 8–10 chứ không về 0, vi **giới hạn cố hữu của bộ ba**:
 - SPF fail khi chuyển tiếp (forwarding) và khi gửi từ alias domain; giới hạn 10 lần tra vấn DNS.
-- DKIM không ràng buộc `Header From` — chỉ DMARC (alignment) mới làm việc đó.
+- DKIM không ràng buộc `Header From`, chỉ DMARC (alignment) mới làm việc đó.
 - DMARC chỉ bảo vệ domain *bị* giả mạo; kẻ tấn công đổi sang domain la → cần blocklist + rate limit.
 - Chưa triển khai MTA-STS (RFC 8461)/DANE (RFC 7672) nên chống hạ cấp vẫn phụ thuộc cấu hình 2 đầu.
 Những dòng này là nội dung chính của mục 4.2–4.3 trong báo cáo.

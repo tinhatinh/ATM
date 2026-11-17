@@ -19,7 +19,7 @@ tiện:
 Yêu cầu thứ ba và thứ nhất xung đột ở một điểm cụ thể: một hệ thống email "thật" luôn cần phân giải
 tên miền công cộng. Giải pháp được chọn là dùng tên miền cấp cao giả lập `.test` theo RFC 6761 và
 một máy chủ DNS authoritative-only nội bộ, chấp nhận rằng một số hành vi của resolver sẽ khác với
-Internet thật — hệ quả này được phân tích đầy đủ ở mục 3.5.5.
+Internet thật, hệ quả này được phân tích đầy đủ ở mục 3.5.5.
 
 #### Sơ đồ topo
 
@@ -42,7 +42,7 @@ host-only VMnet2 với dải 10.30.0.0/24; DHCP của VMware bị tắt trên d�
 hình tĩnh qua netplan. Máy chủ Windows của vật chủ giữ địa chỉ 10.30.0.1 và không chạy dịch vụ
 thư.
 
-[[BANG|Quy hoạch máy ảo, tài nguyên và dịch vụ — giá trị đọc trực tiếp từ cấu hình máy ảo và từ hệ điều hành khách]]
+[[BANG|Quy hoạch máy ảo, tài nguyên và dịch vụ, giá trị đọc trực tiếp từ cấu hình máy ảo và từ hệ điều hành khách]]
 |Máy ảo|Hostname|FQDN|Địa chỉ tĩnh|vCPU · RAM · đĩa|Dịch vụ chính|Vai trò|
 |---|---|---|---|---|---|---|
 |vm-dns|ns1|ns1.congtyA.test|10.30.0.10|2 · 2048 MB · 20 GB|BIND 9.18.39|DNS authoritative cho ba tên miền thuận và một zone ngược; nơi lưu CA của lab|
@@ -109,7 +109,7 @@ từng bức thư như một tệp tin.
 
 Giai đoạn đầu tiên được cố tình cấu hình ở trạng thái chưa phòng thủ: `mynetworks` bao gồm cả dải
 lab, `smtpd_tls_security_level = none`, danh sách milter để trống và `disable_plaintext_auth = no`.
-Đây là trạng thái giả lập một máy chủ "cho tiện trong nội bộ" — tình huống phổ biến trong các sự cố
+Đây là trạng thái giả lập một máy chủ "cho tiện trong nội bộ", tình huống phổ biến trong các sự cố
 thực tế.
 
 #### CA riêng và chứng chỉ TLS
@@ -127,7 +127,7 @@ không phải dùng chứng chỉ thương mại.
 Sáu kịch bản được thực hiện trong phiên ngày 18/10/2026 từ 08:52 đến 09:10 UTC, riêng kịch bản hạ
 cấp chạy ở 09:52 UTC. Mỗi kịch bản lưu một file bằng chứng riêng trong `/root/evidence`.
 
-#### AT-01 — Xác nhận chuyển tiếp mở
+#### AT-01: Xác nhận chuyển tiếp mở
 
 Kịch bản dùng hai phép đo độc lập để tránh phụ thuộc vào một công cụ: script chuyên dụng của Nmap
 (`smtp-open-relay`, gồm 16 phép thử kết hợp nhiều cặp người gửi/người nhận khác nhau) và một kiểm
@@ -136,11 +136,11 @@ tra thủ công bằng swaks với người nhận thuộc tên miền ngoài la
 [[HINH|h31-open-relay-truoc.png|Kết quả quét chuyển tiếp mở trên cả hai máy chủ thư ở giai đoạn chưa phòng thủ]]
 
 Cả hai MTA đều được kết luận là open relay; phép kiểm tra thủ công xác nhận bằng mã `250 2.1.5 Ok`
-cho một địa chỉ không thuộc bất kỳ tên miền nào của lab. Phép thử thứ ba — `VRFY giamdoc` trả về
-`252 2.0.0 giamdoc` — cho thấy máy chủ còn đóng vai trò một oracle cho phép kẻ tấn công liệt kê
+cho một địa chỉ không thuộc bất kỳ tên miền nào của lab. Phép thử thứ ba, `VRFY giamdoc` trả về
+`252 2.0.0 giamdoc`, cho thấy máy chủ còn đóng vai trò một oracle cho phép kẻ tấn công liệt kê
 tài khoản hợp lệ, phục vụ việc soạn thư lừa đảo trúng đích.
 
-#### AT-02 — Nghe lén nội dung thư trên kênh bản rõ
+#### AT-02: Nghe lén nội dung thư trên kênh bản rõ
 
 Máy chủ được đặt ở `smtpd_tls_security_level = none`, một bức thư chứa số tài khoản ngân hàng được
 gửi đi trong khi máy tấn công thu gói ở cổng 25. Toàn bộ hội thoại xuất hiện nguyên văn, bao gồm cả
@@ -149,10 +149,10 @@ phần thân thư:
 [[HINH|h16-pcap-clear.png|Trích nội dung gói tin bắt được ở cổng 25: envelope, tiêu đề và số tài khoản ngân hàng đọc được trực tiếp]]
 
 Điểm đáng chú ý trong cùng phép đo: bộ đếm số dòng chứa từ khóa `STARTTLS` trong toàn bộ capture
-bằng **0**, tức không có bất kỳ nỗ lực mã hoá nào diễn ra — khác với trường hợp hạ cấp ở AT-06, nơi
+bằng **0**, tức không có bất kỳ nỗ lực mã hoá nào diễn ra, khác với trường hợp hạ cấp ở AT-06, nơi
 nỗ lực mã hoá có tồn tại nhưng bị chặn mất.
 
-#### AT-03 — Đánh cắp thông tin xác thực SMTP
+#### AT-03: Đánh cắp thông tin xác thực SMTP
 
 Ở cổng 587 khi chưa bật `smtpd_tls_auth_only`, máy chủ quảng bá `250-AUTH PLAIN LOGIN` ngay trên
 kênh bản rõ. Kẻ tấn công thu được hai chuỗi Base64 trong phiên và giải mã bằng một lệnh:
@@ -163,7 +163,7 @@ Máy chủ xác nhận `235 2.7.0 Authentication successful` rồi chấp nhận
 công không còn là người ngoài: họ có quyền gửi đúng danh tính của nạn nhân từ chính hạ tầng được uỷ
 quyền, tức là vượt qua mọi kiểm tra dựa trên nguồn gửi.
 
-#### AT-04 và AT-05 — Giả mạo Header From và BEC trong cùng tên miền
+#### AT-04 và AT-05: Giả mạo Header From và BEC trong cùng tên miền
 
 Không tài khoản, không mật khẩu, không TLS; kẻ tấn công chỉ cần khai báo `EHLO mail1.congtyA.test`
 (giả danh máy chủ hợp lệ) và `MAIL FROM:<admin@congtyA.test>`:
@@ -180,16 +180,16 @@ Received: from mail1.congtyA.test (atk.darkside.test [10.30.0.40])
 ```
 
 Dòng `Received` cho thấy máy chủ đã *tin vào* chuỗi `EHLO` giả: tên máy chủ là giả, chỉ địa chỉ IP
-nguồn là thật. Ba bộ đếm header xác thực trong tệp thư đều bằng 0 — hệ thống không hề thực hiện bất
+nguồn là thật. Ba bộ đếm header xác thực trong tệp thư đều bằng 0, hệ thống không hề thực hiện bất
 kỳ kiểm tra định danh nào trước khi phát thư.
 
 [[HINH|h19-inbox-0.png|Hộp thư nạn nhân sau AT-04: ba bộ đếm Authentication-Results, Received-SPF và DKIM-Signature đều bằng 0]]
 
 AT-05 lặp lại đúng kỹ thuật với hai địa chỉ *trong cùng tên miền Alpha* (`postmaster@` và
-`giamdoc@`) và cả hai đều được chấp nhận, mô phỏng đúng kịch bản BEC nội bộ — kịch bản mà người dùng
+`giamdoc@`) và cả hai đều được chấp nhận, mô phỏng đúng kịch bản BEC nội bộ, kịch bản mà người dùng
 được đào tạo nhận biết "người lạ" sẽ không phát hiện ra.
 
-#### AT-06 — Hạ cấp STARTTLS kết hợp sửa nội dung trên đường truyền
+#### AT-06: Hạ cấp STARTTLS kết hợp sửa nội dung trên đường truyền
 
 Đây là kịch bản phức tạp nhất và đòi hỏi viết một proxy trung gian riêng (`attacks/strip_starttls.py`)
 hoạt động ở cổng 2525 trên vm-atk: nhận kết nối từ máy trạm, tự kết nối tới MTA, chuyển tiếp hai
@@ -202,8 +202,8 @@ chứng:
 [[BANG|Cặp phép đo có đối chứng của kịch bản hạ cấp STARTTLS (AT-06)]]
 | Bước | Phép đo | Kết quả thực tế |
 |---|---|---|
-| [0] | `EHLO` trực tiếp cổng 587, không qua proxy | Phản hồi **có** `250-STARTTLS` — điều kiện cần được xác lập |
-| [1] | swaks yêu cầu TLS đi thẳng | `235 2.7.0 Authentication successful`, thư được xếp hàng đợi — kênh TLS thật hoạt động |
+| [0] | `EHLO` trực tiếp cổng 587, không qua proxy | Phản hồi **có** `250-STARTTLS`, điều kiện cần được xác lập |
+| [1] | swaks yêu cầu TLS đi thẳng | `235 2.7.0 Authentication successful`, thư được xếp hàng đợi, kênh TLS thật hoạt động |
 | [2] | swaks tuỳ chọn TLS **qua proxy** | swaks in `*** Host did not advertise STARTTLS`, nhưng vẫn xác thực thành công và thư vẫn được xếp hàng đợi, mã thoát 0 |
 | [3] | Phân tích gói ở cổng 2525 | Số dòng chứa `STARTTLS` = **0**; xuất hiện `334 VXNlcm5hbWU6`, `334 UGFzc3dvcmQ6`, tiêu đề và số tài khoản |
 | [4] | Nhật ký proxy | Ba nhóm hành vi: `[STRIP]`, `[AUTH-THIEP]`, `[TAMPER]` với số byte bị thay đổi |
@@ -221,20 +221,20 @@ Nói cách khác, mã hoá *một phần* đường truyền không bảo vệ �
 Toàn bộ biện pháp được ban hành bằng script, chạy trên cả hai MTA, và được xác nhận lại bằng
 `postconf -n` ngay trong script để tránh tình trạng "sửa file nhưng chưa nạp lại".
 
-#### D-01 — Đóng chuyển tiếp mở và siết chính sách truy cập
+#### D-01: Đóng chuyển tiếp mở và siết chính sách truy cập
 
 [[HINH|h11-relay-dong.png|Chuỗi restriction sau khi ban hành: mynetworks chỉ còn loopback, bổ sung kiểm tra recipient và policy service]]
 
 Ba điểm kỹ thuật đáng lưu ý. Thứ nhất, `mynetworks` được thu về đúng ba dải loopback; mọi quyết định
 chấp nhận thư từ nay dựa trên xác thực hoặc trên chính sách người nhận, không dựa vào vị trí mạng.
 Thứ hai, `smtpd_helo_required = yes` và `disable_vrfy_command = yes` loại bỏ cả hai kênh thu thập
-thông tin của rủi ro R7. Thứ ba — và là điểm sư phạm quan trọng nhất — **thứ tự** trong chuỗi
+thông tin của rủi ro R7. Thứ ba, và là điểm sư phạm quan trọng nhất, **thứ tự** trong chuỗi
 restriction quyết định hiệu lực của các lớp sau: `permit_mynetworks` đứng trước
 `reject_unauth_destination` và trước `check_policy_service`, nên chỉ cần `mynetworks` còn chứa dải
 lab thì bộ lọc SPF *không bao giờ được gọi*. Đây là lỗi cấu hình kinh điển và lab đo được nó một
 cách tường minh.
 
-#### D-02 — Bắt buộc TLS và ngắt khả năng xác thực ngoài mã hoá
+#### D-02: Bắt buộc TLS và ngắt khả năng xác thực ngoài mã hoá
 
 [[HINH|h09-tls-batbuoc.png|Trạng thái tham số TLS của Postfix và Dovecot sau khi ban hành chính sách bắt buộc mã hoá]]
 
@@ -247,7 +247,7 @@ SSLv2/SSLv3/TLSv1/TLSv1.1 bị loại bỏ; phía Dovecot đặt `ssl = required
 Hai tác dụng quan sát được ngay sau khi nạp cấu hình, rất thuận lợi cho trình diễn: danh sách tính
 năng trả về từ `EHLO` trên kênh bản rõ **không còn** dòng `250-AUTH`, và cũng mất luôn `VRFY`.
 
-#### D-03 — Bộ lọc SPF và công tắc thực thi
+#### D-03: Bộ lọc SPF và công tắc thực thi
 
 [[HINH|h12-spf-bo-loc.png|Cấu hình bộ lọc SPF: công tắc thực thi, chính sách từ chối và vị trí trong chuỗi restriction]]
 
@@ -258,13 +258,13 @@ thư được policy cho phép.
 
 Điểm dễ gây nhầm lẫn nhất trong toàn bộ đề tài nằm ở tham số `TestOnly`. Trang man của gói
 `postfix-policyd-spf-python` định nghĩa: *"set TestOnly = 0. If you want test operation with no
-header added"* — tức giá trị `0` mới là chế độ thử không tác động, còn **`TestOnly = 1` là chế độ
+header added"*, tức giá trị `0` mới là chế độ thử không tác động, còn **`TestOnly = 1` là chế độ
 thực thi**. Rất nhiều tài liệu hướng dẫn trên mạng diễn đạt ngược điều này. Nhóm phải đọc trực tiếp
 trang man của gói đang cài để quyết định giá trị cấu hình.
 
 [[HINH|h13-spf-dns.png|Hai bản ghi SPF được công bố và trạng thái bốn dịch vụ trên máy chủ phòng thủ]]
 
-#### D-04 — Sinh khoá RSA, công bố bản ghi và kích hoạt bộ lọc DKIM
+#### D-04: Sinh khoá RSA, công bố bản ghi và kích hoạt bộ lọc DKIM
 
 [[HINH|h10-dkim-key.png|Cấu hình OpenDKIM phía ký: cặp khoá 2048 bit, selector, chế độ sv và danh sách máy nội bộ]]
 
@@ -275,7 +275,7 @@ chỉ người dùng `opendkim` đọc được, khoá công khai được chuy�
 OpenDKIM), và dòng `Socket` trong tệp cấu hình gói dùng ký tự tab nên các phép biến đổi văn bản dựa
 vào khoảng trắng sẽ âm thầm không khớp.
 
-#### D-05 — Chính sách DMARC p=reject và phạm vi áp dụng
+#### D-05: Chính sách DMARC p=reject và phạm vi áp dụng
 
 [[HINH|h14-dmarc-chain.png|Cấu hình OpenDMARC: cổng milter, AuthservID tin cậy, công tắc RejectFailures và override cho cổng submission]]
 
@@ -296,7 +296,7 @@ cổng 587 bị chính MTA của tổ chức mình từ chối, vì địa chỉ
 SPF của tên miền và bức thư chưa được ký. Cách xử lý đúng chuẩn vận hành là giới hạn phạm vi milter
 theo từng dịch vụ: giữ chuỗi đầy đủ cho cổng 25 và đặt override `-o smtpd_milters=inet:localhost:8891`
 cho dịch vụ `submission`, để cổng đẩy thư chỉ ký mà không thẩm định. Sau khi điều chỉnh, thư hợp lệ
-đi qua bình thường trong khi các kịch bản giả mạo vẫn bị chặn — hai mục tiêu đạt được đồng thời.
+đi qua bình thường trong khi các kịch bản giả mạo vẫn bị chặn, hai mục tiêu đạt được đồng thời.
 
 ### Kiểm chứng hiệu lực phòng thủ
 
@@ -314,7 +314,7 @@ trạng thái máy chủ. Kết quả **5/5 khớp kỳ vọng**:
 |T2|Giả mạo `admin@congtyA.test` gửi sang Beta|`250 2.0.0 Ok: queued`|`550 5.7.23 … SPF fail - not authorized`|SPF thực thi tại `RCPT`|
 |T3|Giả mạo `postmaster@congtyA.test` gửi nội bộ Alpha|`250 2.0.0 Ok: queued`|`550 5.7.23 … SPF fail - not authorized`|SPF thực thi, không phân biệt trong/ngoài|
 |T4|SPF đúng của tên miền bên thứ ba, `Header From` thuộc Alpha|`250 2.0.0 Ok: queued`|`550 5.7.1 rejected by DMARC policy for congtyA.test`|DMARC alignment|
-|T5|Thư hợp lệ: đúng tài khoản, có TLS, qua cổng 587|`250 2.0.0 Ok: queued`|`250 2.0.0 Ok: queued`|Không chặn — điều kiện phủ định|
+|T5|Thư hợp lệ: đúng tài khoản, có TLS, qua cổng 587|`250 2.0.0 Ok: queued`|`250 2.0.0 Ok: queued`|Không chặn, điều kiện phủ định|
 
 Cặp kết quả T4 và T5 là phần trả lời trực tiếp cho luận điểm trung tâm của đề tài. T4 chứng minh
 DMARC chặn được trường hợp mà SPF *không* phát hiện: người gửi dùng tên miền của chính mình nên SPF
@@ -348,10 +348,10 @@ Bảng tổng hợp trạng thái xác thực theo từng kịch bản:
 [[BANG|Trạng thái ba lớp xác thực và kết quả phát thư theo bốn kịch bản đo được]]
 |Kịch bản|SPF|DKIM|DMARC|Thư được phát?|
 |---|---|---|---|---|
-|Alpha → Beta, thư hợp lệ|`pass`|`fail` — milter không lấy được khoá (mục 3.5.5)|`pass`|Có|
-|Beta → Alpha, thư hợp lệ|`pass`|`fail` — như trên|`pass (p=reject dis=none)`|Có|
-|Giả mạo từ máy ngoài lab|`fail`|không có chữ ký|`fail`|Không — `550 5.7.23`|
-|Tên miền bên thứ ba, Header From lệch|`pass` cho `darkside.test`|không có chữ ký|`fail` do alignment|Không — `550 5.7.1`|
+|Alpha → Beta, thư hợp lệ|`pass`|`fail`, milter không lấy được khoá (mục 3.5.5)|`pass`|Có|
+|Beta → Alpha, thư hợp lệ|`pass`|`fail`, như trên|`pass (p=reject dis=none)`|Có|
+|Giả mạo từ máy ngoài lab|`fail`|không có chữ ký|`fail`|Không, `550 5.7.23`|
+|Tên miền bên thứ ba, Header From lệch|`pass` cho `darkside.test`|không có chữ ký|`fail` do alignment|Không, `550 5.7.1`|
 
 Hai dòng đầu cho thấy đúng tính chất "đủ một cơ chế là qua" của DMARC: `dmarc=pass` đạt được nhờ
 SPF alignment, còn DKIM chưa đóng góp được trong môi trường lab. Đây là điểm cần được nói rõ thay vì
@@ -364,7 +364,7 @@ chỉ trình bày kết quả `pass`.
 Ba kết quả trong phép đo này. Thứ nhất, xác minh chứng chỉ bằng đúng CA của lab trả
 `Verify return code: 0 (ok)` và phiên thương lượng ở TLSv1.3 trên cả cổng 25, 587 và 993. Thứ hai,
 thử gửi thông tin đăng nhập trên kênh chưa mã hoá bị từ chối bằng mã `530 Must issue a STARTTLS
-command first`. Thứ ba — phép đo quan trọng nhất — khi buộc phiên đi qua proxy ẩn `250-STARTTLS`
+command first`. Thứ ba, phép đo quan trọng nhất, khi buộc phiên đi qua proxy ẩn `250-STARTTLS`
 như ở AT-06, swaks in `*** Host did not advertise STARTTLS` và kết thúc với mã thoát 28: phiên bị
 huỷ thay vì âm thầm hạ cấp. Cùng lệnh này ở giai đoạn 2 từng trả `250 queued`.
 
@@ -381,7 +381,7 @@ trong đó khoá công khai được lấy bằng `dig` (đi qua stub resolver c
 
 Kết quả xác nhận ba điều: giá trị `bh=` tính lại khớp tuyệt đối với giá trị trong header; khoá công
 khai truy vấn từ DNS có độ dài 392 ký tự Base64 tương ứng 294 byte cấu trúc SPKI của RSA-2048; và
-`openssl dgst -sha256 -verify` trả `Verified OK`. Chuỗi khoá riêng — chữ ký — khoá công khai là hợp
+`openssl dgst -sha256 -verify` trả `Verified OK`. Chuỗi khoá riêng, chữ ký, khoá công khai là hợp
 lệ.
 
 Nguyên nhân milter không tự kiểm tra được được xác định bằng ba phép loại trừ:
@@ -402,7 +402,7 @@ Kết luận: OpenDKIM 2.11.0 cùng libunbound trên bản phân phối 24.04, t
 đường ra Internet và dùng tên miền cấp cao giả lập theo RFC 6761, không có đường nào để tự lấy khoá
 công khai. Đây là giới hạn của hạ tầng phân giải trong môi trường cô lập, không phải lỗi của định
 dạng bản ghi hay của thuật toán chữ ký. Hướng khắc phục được nêu trong phần Kết luận: bổ sung một resolver đệ
-quy nội bộ để mọi thành phần — kể cả libunbound — có cùng một điểm hỏi.
+quy nội bộ để mọi thành phần, kể cả libunbound, có cùng một điểm hỏi.
 
 ### Kết quả định lượng tổng hợp
 
@@ -420,7 +420,7 @@ quy nội bộ để mọi thành phần — kể cả libunbound — có cùng 
 |Tính sẵn dùng|Override milter cho `submission`|Thư hợp lệ qua cổng 587|`250 queued`|`250 queued` (không đổi)|
 
 Chín phép đo ở bảng trên cho thấy mỗi lớp phòng thủ được kiểm chứng bằng một đại lượng độc lập, và
-lớp cuối cùng — không chặn nhầm người dùng hợp lệ — là lớp thường bị bỏ qua nhất trong các tài liệu
+lớp cuối cùng, không chặn nhầm người dùng hợp lệ, là lớp thường bị bỏ qua nhất trong các tài liệu
 hướng dẫn triển khai.
 
 ### Kết chương
@@ -432,6 +432,6 @@ với toàn bộ bộ đếm xác thực bằng 0, và một cuộc tấn công 
 số tài khoản trong thân thư. Ở vế phòng thủ, bốn lớp được ban hành bằng script và được kiểm chứng
 bằng cách phát lại đúng các tấn công cũ: năm trên năm tình huống cho kết quả khớp kỳ vọng, trong đó
 tình huống T4 chứng minh vai trò không thể thay thế của DMARC alignment và tình huống T5 chứng minh
-hệ thống không chặn nhầm. Hai phát hiện giá nhất của toàn bộ đề tài — công tắc `TestOnly` mang ngữ
-nghĩa ngược với tên gọi, và phạm vi áp dụng milter theo từng dịch vụ — đều chỉ xuất hiện ở bước kiểm
+hệ thống không chặn nhầm. Hai phát hiện giá nhất của toàn bộ đề tài, công tắc `TestOnly` mang ngữ
+nghĩa ngược với tên gọi, và phạm vi áp dụng milter theo từng dịch vụ, đều chỉ xuất hiện ở bước kiểm
 chứng, không xuất hiện ở bước cấu hình.

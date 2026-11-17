@@ -16,19 +16,19 @@ Ký hiệu máy: `D`=vm-dns(.10) · `M1`=vm-mail1(.20) · `M2`=vm-mail2(.30) · 
 | Hypervisor | VMware Workstation, 5 VM guest `ubuntu-64` | `vmrun list` trên Windows |
 | Mạng | **VMnet2 host-only**, `10.30.0.0/24`, **tắt DHCP**, host giữ `10.30.0.1` | Virtual Network Editor |
 | HĐH | Ubuntu Server **24.04.5 LTS** (cả 5 máy) | `lsb_release -d` |
-| Tài nguyên | D/A/C: 2 vCPU · 2048 MB · 20 GB — M1/M2: 1 vCPU · 1024 MB · 20 GB | `.vmx`: `memsize`, `numvcpus` |
+| Tài nguyên | D/A/C: 2 vCPU · 2048 MB · 20 GB, M1/M2: 1 vCPU · 1024 MB · 20 GB | `.vmx`: `memsize`, `numvcpus` |
 | Interface | `ens33`, IP tĩnh qua **`/etc/netplan/60-lab.yaml`** (file `50-cloud-init.yaml` để nguyên) | `ip -br addr show ens33` |
 | Resolver | `/etc/resolv.conf` → `nameserver 10.30.0.10`, `search congtyA.test congtyB.test`, `options timeout:1 attempts:2` | `cat /etc/resolv.conf` |
 | Phiên bản | postfix **3.8.6**, dovecot **2.3.21**, bind9 **9.18.39**, opendkim **2.11.0~beta2**, opendmarc **1.4.2**, postfix-policyd-spf-python **3.0.4**, swaks **20240103.0**, nmap **7.94**, openssl **3.0.13** | `dpkg-query -W -f='${Version}' <gói>` |
 | Snapshot | `G1-mail-tran` → `G2-ket-qua-tan-cong` → `G3-phong-thu` (đủ 5 máy) | `vmrun listSnapshots <vmx>` |
-| User trong lab | M1: `giamdoc`, `admin` — M2: `ketoan`, `admin` — mật khẩu chung `Lab@2026`, hộp thư `~/Maildir` | `ls ~/Maildir/new` |
+| User trong lab | M1: `giamdoc`, `admin`, M2: `ketoan`, `admin`, mật khẩu chung `Lab@2026`, hộp thư `~/Maildir` | `ls ~/Maildir/new` |
 
-**Tên miền**: `congtyA.test`, `congtyB.test`, `darkside.test` — dùng TLD `.test` theo **RFC 6761**
+**Tên miền**: `congtyA.test`, `congtyB.test`, `darkside.test`, dùng TLD `.test` theo **RFC 6761**
 (dành riêng cho thử nghiệm, Internet thật không bao giờ phân giải được). Đây là lý do mục 6.6 tồn tại.
 
 ---
 
-## 2. DNS — BIND 9.18 (vm-dns)
+## 2. DNS: BIND 9.18 (vm-dns)
 
 Vùng đặt ở **`/var/lib/bind`** (không phải `/etc/bind`) vì AppArmor của bản phân phối chỉ cho phép
 BIND ghi/đọc ở đó. Mỗi vùng có file *identity* riêng để `$INCLUDE`, nhờ đó script `d03b/d04b/d05a`
@@ -72,11 +72,11 @@ phép thử phủ định `dig @10.30.0.10 www.google.com` → **`status: REFUSE
 resolver công cộng).
 
 **Phát triển**: nếu bật `recursion yes; allow-recursion { 10.30.0.0/24; };` thì BIND vừa uy quyền vừa
-đệ quy nội bộ — đây là mấu chốt để OpenDKIM tự lấy được khoá (xem 6.6 và mục 7).
+đệ quy nội bộ, đây là mấu chốt để OpenDKIM tự lấy được khoá (xem 6.6 và mục 7).
 
 ---
 
-## 3. Postfix — trạng thái TRẦN (Giai đoạn 1) so với PHÒNG THỦ (Giai đoạn 3)
+## 3. Postfix: trạng thái TRẦN (Giai đoạn 1) so với PHÒNG THỦ (Giai đoạn 3)
 
 | Tham số | TRẦN (để tấn công thành công) | PHÒNG THỦ (đã ban hành) | Tác dụng của việc đổi |
 |---|---|---|---|
@@ -97,11 +97,11 @@ resolver công cộng).
 | `smtpd_error_sleep_time` / `smtpd_soft_error_limit` / `smtpd_hard_error_limit` | mặc định | `1s` / `10` / `20` (đặt trong `d01-close-relay.sh`) | Giới hạn hành vi gõ cửa liên tục |
 
 **Bẫy thứ tự (phải nhớ khi sửa)**: `permit_mynetworks` đứng trước `reject_unauth_destination` và
-trước `check_policy_service`. Nếu `mynetworks` còn chứa dải lab thì **SPF không bao giờ được gọi** —
+trước `check_policy_service`. Nếu `mynetworks` còn chứa dải lab thì **SPF không bao giờ được gọi** ,
 máy vẫn "chạy bình thường" nhưng lớp SPF vô hình. Chạy lại `d01-close-relay.sh` sau `d03` sẽ xoá mất
 `check_policy_service` (trong script đã ghi chú cảnh báo này).
 
-**master.cf** — hai chỗ phải có:
+**master.cf**, hai chỗ phải có:
 
 ```
 policyd-spf  unix  -  n  n  -  0  spawn
@@ -117,7 +117,7 @@ cổng 587, người dùng hợp lệ gửi từ `10.30.0.50` sẽ bị **chính
 
 ---
 
-## 4. Dovecot — MDA + IMAP + SASL
+## 4. Dovecot: MDA + IMAP + SASL
 
 ```
 mail_location            = maildir:~/Maildir
@@ -134,17 +134,17 @@ unix_listener /var/spool/postfix/private/auth { mode = 0660 user = postfix group
 và `.` (0x2E) > `-` (0x2D), nên tên cũ bị `99-lab.conf` ghi đè ngược. Đây là lỗi làm `ssl = required`
 không có hiệu lực suốt một vòng debug.
 
-**Kiểm**: phải dùng `doveconf -a` (toàn bộ cấu hình đang chạy), **không dùng `doveconf -n`** — vì
+**Kiểm**: phải dùng `doveconf -a` (toàn bộ cấu hình đang chạy), **không dùng `doveconf -n`**, vì
 `ssl = yes` trùng giá trị mặc định của gói nên `-n` ẩn đi, dễ kết luận sai là "chưa bật".
 
 ---
 
 ## 5. Bộ ba xác thực
 
-### 5.1 SPF — `postfix-policyd-spf-python` (`/etc/postfix-policyd-spf-python/policyd-spf.conf`)
+### 5.1 SPF: `postfix-policyd-spf-python` (`/etc/postfix-policyd-spf-python/policyd-spf.conf`)
 
 ```
-TestOnly            = 1     # 1 = THUC THI (chan thu); 0 = chi ghi header — NGUOC ten goi
+TestOnly            = 1     # 1 = THUC THI (chan thu); 0 = chi ghi header , NGUOC ten goi
 Mail_From_reject    = Fail
 HELO_reject         = Fail
 PermError_reject    = False
@@ -156,7 +156,7 @@ debugLevel          = 1
 `TestOnly` là tham số dễ sai nhất toàn bộ đề tài: trang man ghi *"set TestOnly = 0. If you want test
 operation with no header added"* → **`1` mới là chế độ chặn**. Mã từ chối khi fail: `550 5.7.23`.
 
-### 5.2 DKIM — OpenDKIM (`/etc/opendkim.conf`)
+### 5.2 DKIM: OpenDKIM (`/etc/opendkim.conf`)
 
 ```
 Mode                sv
@@ -181,7 +181,7 @@ Hai chỗ hay sai:
 
 `InternalHosts` gồm: loopback, chính MTA, và `10.30.0.50/32` (máy client hợp lệ).
 
-### 5.3 DMARC — OpenDMARC (`/etc/opendmarc.conf`)
+### 5.3 DMARC: OpenDMARC (`/etc/opendmarc.conf`)
 
 ```
 Socket              inet:8893@localhost
@@ -210,7 +210,7 @@ Windows. Mỗi cảnh nói trước 1 câu, gõ lệnh, chỉ vào kết quả, 
 | 0 | Giới thiệu topo | Windows · `vmrun list` | 5 VM đang chạy | "Hai tổ chức email độc lập, một DNS, một máy tấn công, tất cả trong VMnet2 host-only." |
 | 1 | Danh tính đã công bố | `M2` · `bash /root/lab/verify/v01-dns-records.sh` | `6/6 PASS` + 2 dòng `REFUSED` | "SPF, DKIM, DMARC của cả hai miền đều đã publish; DNS từ chối đệ quy nên không có đường ra ngoài." |
 | 2 | Chặn relay | `A` · `nmap -p25 --script smtp-open-relay 10.30.0.20 10.30.0.30` | `Server isn't an open relay, authentication needed` | "Trước đây dòng này là `open relay (16/16 tests)`. Chỉ cần thu hẹp `mynetworks`." |
-| 3 | Chặn giả mạo | `A` · `bash /root/lab/verify/v03-replay-attacks.sh` | bảng `BANG TOM TAT`: T1 `554`, T2/T3/T4 `550`, T5 `250` → `5/5 KHOP` | "Đây là đúng 5 tấn công đã đánh thành công ở Giai đoạn 2. T2/T3 chết vì SPF, T4 chết vì DMARC alignment dù SPF của darkside.test hợp lệ — đó là lý do cần DMARC." |
+| 3 | Chặn giả mạo | `A` · `bash /root/lab/verify/v03-replay-attacks.sh` | bảng `BANG TOM TAT`: T1 `554`, T2/T3/T4 `550`, T5 `250` → `5/5 KHOP` | "Đây là đúng 5 tấn công đã đánh thành công ở Giai đoạn 2. T2/T3 chết vì SPF, T4 chết vì DMARC alignment dù SPF của darkside.test hợp lệ, đó là lý do cần DMARC." |
 | 4 | Không chặn nhầm | `C` · `bash /root/lab/verify/v02-happy-path.sh` | `235 Authentication successful` → `250 2.0.0 Ok: queued as …` | "Người dùng thật vẫn gửi được ở cả hai chiều. Chính sách chặn đúng đối tượng, không chặn bừa." |
 | 5 | Đọc header xác thực | `M2` · `bash /root/lab/verify/v05-auth-results.sh ketoan` | `Received-SPF: Pass … client-ip=10.30.0.20` + `dmarc=pass (p=reject dis=none)` | "Máy chủ nhận tự ghi verdict vào header. DMARC pass ở đây nhờ SPF alignment." |
 | 6 | Chống hạ cấp | `C` · `bash /root/lab/verify/v04-tls-and-downgrade.sh` | `Verify return code: 0 (ok)`, `530 Must issue a STARTTLS command first`, downgrade `exit code = 28` | "AUTH ngoài TLS bị từ chối; khi proxy ẩn STARTTLS thì phiên **chết** thay vì âm thầm gửi bản rõ như ở AT-06." |
@@ -221,7 +221,7 @@ Windows. Mỗi cảnh nói trước 1 câu, gõ lệnh, chỉ vào kết quả, 
 - Proxy MitM log: `[STRIP]` + `[AUTH-THIEP] PASSWORD = 'Lab@2026'` + `[TAMPER] … 608 byte` → nạn nhân nhận số tài khoản đã bị đổi.
 
 **Nếu demo bị lỗi giữa chừng**: `vmrun revertToSnapshot <vmx> "G3-phong-thu"` cho máy liên quan rồi
-`vmrun start <vmx> nogui` — nhanh hơn nhiều so với chạy lại script.
+`vmrun start <vmx> nogui`, nhanh hơn nhiều so với chạy lại script.
 
 ---
 
@@ -231,7 +231,7 @@ Windows. Mỗi cảnh nói trước 1 câu, gõ lệnh, chỉ vào kết quả, 
 |---|---|---|---|
 | 1 | `curl: (22) 404` khi tải chứng chỉ CA | `hostname -f` trả `vm-mail1` (không có domain) nên URL sai | lấy tên từ `postconf -h myhostname`, kèm guard `case "$HOST" in *.*.test)` |
 | 2 | `ssl = required` không có hiệu lực | tên drop-in `99-lab-tls.conf` bị `99-lab.conf` nạp **sau** ghi đè (ASCII `.` > `-`) | đổi tên thành `99-z-tls.conf` |
-| 3 | Kiểm tra TLS báo "chưa bật" dù đã bật | dùng `doveconf -n` — nó ẩn tham số trùng mặc định của gói | dùng `doveconf -a` |
+| 3 | Kiểm tra TLS báo "chưa bật" dù đã bật | dùng `doveconf -n`, nó ẩn tham số trùng mặc định của gói | dùng `doveconf -a` |
 | 4 | `ncat: command not found` trên M1/M2/C | ncat chỉ có ở vm-atk | viết `verify/smtp-probe.py` (chỉ cần python3) |
 | 5 | Evidence không có dòng `smtpd_tls_*` | regex `^smtp(_d)?_tls` không bao giờ khớp `smtpd_tls_` | sửa thành `^smtpd?_tls` |
 | 6 | `policyd-spf --version` treo vô hạn | không có option `--version`; daemon đọc stdin và chờ | dùng `dpkg-query -W -f='...${Version}'` |
@@ -247,7 +247,7 @@ Windows. Mỗi cảnh nói trước 1 câu, gõ lệnh, chỉ vào kết quả, 
 
 ## 8. Hướng phát triển tiếp (nếu muốn "nâng cấp đề tài")
 
-1. **Làm `dkim=pass` thành thật** — hiện header ghi `dkim=fail reason="key not found in DNS"` vì
+1. **Làm `dkim=pass` thành thật**, hiện header ghi `dkim=fail reason="key not found in DNS"` vì
    OpenDKIM liên kết `libunbound.so.8` và tự phân giải **đệ quy lặp từ root**, không đọc
    `/etc/resolv.conf`; trong mạng host-only với TLD `.test` thì không có đường nào tới
    `10.30.0.10` (đã xác nhận bằng `tcpdump port 53`: **0 gói tin**). Cách sửa đúng:
@@ -256,7 +256,7 @@ Windows. Mỗi cảnh nói trước 1 câu, gõ lệnh, chỉ vào kết quả, 
      OpenDKIM vào đó (kèm `val-permissive-mode: yes` vì `.test` không có DNSSEC).
    Sau đó chạy lại `verify/v05-auth-results.sh` để thấy `dkim=pass`.
 2. **MTA-STS (RFC 8461)**: thêm `_mtasts` + host `mta-sts.congtyA.test` chạy HTTPS phục vụ
-   `/.well-known/mta-sts.txt` (`mode = enforce`), rồi đo lại AT-06 — khi đó kể cả MTA chưa cấu hình
+   `/.well-known/mta-sts.txt` (`mode = enforce`), rồi đo lại AT-06, khi đó kể cả MTA chưa cấu hình
    `encrypt` cũng buộc phải TLS.
 3. **DANE/TLSA (RFC 7672)**: cần bật DNSSEC thật cho vùng (`dnssec-signzone`) rồi thêm bản ghi
    `_25._tcp.mail1.congtyA.test TLSA …`.
@@ -264,7 +264,7 @@ Windows. Mỗi cảnh nói trước 1 câu, gõ lệnh, chỉ vào kết quả, 
    (`defense/d00-aliases.sh`); việc còn lại là viết script giải nén `rua.xml.gz` và dựng bảng
    "số thư bị chặn theo ngày/theo nguồn".
 5. **Bổ sung lớp lọc**: `postgrey` (greylisting), `spamassassin` (chấm điểm nội dung), `clamav-milter`
-   (quét tệp đính kèm) — thứ tự milter gợi ý: 8891 → 8893 → spamassassin → clamav.
+   (quét tệp đính kèm), thứ tự milter gợi ý: 8891 → 8893 → spamassassin → clamav.
 6. **ARC** cho chuỗi forward, **BIMI** cho logo đã xác thực.
 7. **CI hoá**: chạy `verify/v01…v05` tự động sau mỗi lần đổi cấu hình và so với `evidence/` chuẩn
    (đã có `evidence-checksums.txt` làm mốc).
@@ -319,9 +319,9 @@ Bản gốc `*.mp4` (mpeg-4 part 2, ~1,2 GB) vẫn nằm cạnh file H.264 nếu
 * Snapshot `G1-mail-tran` **lấy trước khi** nạp khoá SSH vào `/root/.ssh` và trước nhiều bản sửa lỗi
   script → phải cài lại khoá (qua `ubuntu` + `sudo`) và đồng bộ lại `/root/lab` từ repo trước khi quay.
 * `at02-cleartext-sniff.sh` gọi `swaks` trên vm-mail1, nhưng `swaks` chỉ cài ở vm-atk/vm-client.
-  Cảnh nghe lén trong video vì thế chạy tay: `tcpdump` ở mail1 + `swaks` ở client — trực quan hơn.
+  Cảnh nghe lén trong video vì thế chạy tay: `tcpdump` ở mail1 + `swaks` ở client, trực quan hơn.
 * Sau khi bật `smtpd_tls_security_level = encrypt`, kịch bản at04 chết **sớm hơn** SPF: server trả
   `530 Must issue a STARTTLS command first` ngay tại `MAIL FROM`. Muốn thấy mã `550 5.7.23` của SPF
   hoặc `550 5.7.1` của DMARC thì dùng `verify/v03-replay-attacks.sh` (lệnh có `--tls-optional`).
-* Máy không có NTP (mạng cô lập) nên đồng hồ khách đóng băng theo snapshot — đã chỉnh tay bằng
+* Máy không có NTP (mạng cô lập) nên đồng hồ khách đóng băng theo snapshot, đã chỉnh tay bằng
   `date -u -s` ngay trên camera.

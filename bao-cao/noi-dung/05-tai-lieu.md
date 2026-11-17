@@ -36,15 +36,15 @@
 
 [15] Internet Systems Consortium, "BIND 9.18 Administrator Reference Manual", các mục `named.conf.options`, `recursion`, `allow-recursion`, https://bind9.readthedocs.io/, truy cập tháng 10 năm 2026.
 
-[16] The Trusted Domain Project, "OpenDKIM Filter v2.11.0" — trang man `opendkim.conf(5)`, `opendkim-genkey(8)`, `opendkim-testkey(8)`, http://www.opendkim.org/, truy cập tháng 10 năm 2026.
+[16] The Trusted Domain Project, "OpenDKIM Filter v2.11.0", trang man `opendkim.conf(5)`, `opendkim-genkey(8)`, `opendkim-testkey(8)`, http://www.opendkim.org/, truy cập tháng 10 năm 2026.
 
-[17] The Trusted Domain Project, "OpenDMARC" — trang man `opendmarc.conf(5)`, http://www.trusteddomain.org/opendmarc/, truy cập tháng 10 năm 2026.
+[17] The Trusted Domain Project, "OpenDMARC", trang man `opendmarc.conf(5)`, http://www.trusteddomain.org/opendmarc/, truy cập tháng 10 năm 2026.
 
-[18] W. ten Bruijn, "postfix-policyd-spf-python" — trang man `policyd-spf.conf(5)`, mục `TestOnly` và `Mail_From_reject`, https://launchpad.net/postfix-policyd-spf-python, truy cập tháng 10 năm 2026.
+[18] W. ten Bruijn, "postfix-policyd-spf-python", trang man `policyd-spf.conf(5)`, mục `TestOnly` và `Mail_From_reject`, https://launchpad.net/postfix-policyd-spf-python, truy cập tháng 10 năm 2026.
 
-[19] NLnet Labs, "Unbound — documentation" (thư viện phân giải libunbound), https://nlnetlabs.nl/projects/unbound/documentation/, truy cập tháng 10 năm 2026.
+[19] NLnet Labs, "Unbound, documentation" (thư viện phân giải libunbound), https://nlnetlabs.nl/projects/unbound/documentation/, truy cập tháng 10 năm 2026.
 
-[20] J. Jetmore, "swaks — The Swiss Army Knife of SMTP", tài liệu tham số lệnh bản 20240103.0, https://www.jetmore.org/john/code/swaks/, truy cập tháng 10 năm 2026.
+[20] J. Jetmore, "swaks, The Swiss Army Knife of SMTP", tài liệu tham số lệnh bản 20240103.0, https://www.jetmore.org/john/code/swaks/, truy cập tháng 10 năm 2026.
 
 [21] Nmap Project, "Nmap Scripting Engine: smtp-open-relay", "smtp-commands", https://nmap.org/nsedoc/, truy cập tháng 10 năm 2026.
 
@@ -56,7 +56,7 @@
 
 [24] US Cybersecurity and Infrastructure Security Agency (CISA), "Best Practices for Email Security", 2020. https://www.cisa.gov/
 
-[25] Messaging, Malware and Mobile Anti-Abuse Working Group (M3AAWG), "Email Fraud and Abuse — DNS-based Controls", tài liệu dành cho nhà vận hành. https://www.m3aawg.org/
+[25] Messaging, Malware and Mobile Anti-Abuse Working Group (M3AAWG), "Email Fraud and Abuse, DNS-based Controls", tài liệu dành cho nhà vận hành. https://www.m3aawg.org/
 
 [26] Google LLC, "Ensure your SPF, DKIM and DMARC records are set up correctly", Google Workspace Administrator Help. https://support.google.com/a/
 

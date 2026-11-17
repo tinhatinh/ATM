@@ -52,7 +52,7 @@ không tạo ra được hiện tượng giả mạo xuyên tổ chức.
 |---|---|---|---|---|---|---|
 | vm-dns | `ns1` | `ns1.congtyA.test` | 10.30.0.10 | 1 · 1 GB · 20 GB | DNS, Lab CA | bind9 1:9.18.39-0ubuntu0.24.04.7 · bind9-utils · bind9-dnsutils (cùng bản) · openssl 3.0.13-0ubuntu3.16 · tcpdump 4.99.4-3ubuntu4.24.04.1 |
 | vm-mail1 | `mail1` | `mail1.congtyA.test` | 10.30.0.20 | 2 · 2 GB · 20 GB | MTA gửi/nhận Alpha, IMAP, ký + kiểm tra DKIM/SPF/DMARC | postfix 3.8.6-1ubuntu0.1 · dovecot-core/imapd/lmtpd 1:2.3.21+dfsg1-2ubuntu6.5 · opendkim + opendkim-tools 2.11.0~beta2-9build4 · opendmarc 1.4.2-4.1build2 · postfix-policyd-spf-python 3.0.4-2 · mailutils 1:3.17-1.1build3 |
-| vm-mail2 | `mail2` | `mail2.congtyB.test` | 10.30.0.30 | 2 · 2 GB · 20 GB | MTA nhận Beta (nhà phòng thủ) | **giống hệt vm-mail1** — bộ ba phòng thủ bật trên cả hai MTA để chiều Beta→Alpha cũng có `dkim=pass` (TC25) |
+| vm-mail2 | `mail2` | `mail2.congtyB.test` | 10.30.0.30 | 2 · 2 GB · 20 GB | MTA nhận Beta (nhà phòng thủ) | **giống hệt vm-mail1**, bộ ba phòng thủ bật trên cả hai MTA để chiều Beta→Alpha cũng có `dkim=pass` (TC25) |
 | vm-atk | `atk` | `atk.darkside.test` | 10.30.0.40 | 1 · 1 GB · 20 GB | Tấn công, MitM | swaks 20240103.0-1 · nmap + nmap-common + ncat 7.94+git20230807.3be01efb1+dfsg-3build2 · ettercap-text-only 1:0.8.3.1-13build3 · python3 3.12.3 · tcpdump 4.99.4 |
 | vm-client | `client` | `client.congtyA.test` | 10.30.0.50 | 1 · 1 GB · 20 GB | MUA, phân tích gói | mutt 2.2.12-0.1build4 · tshark 4.2.2-1.1build3 · swaks 20240103.0-1 · mailutils 1:3.17-1.1build3 |
 
@@ -62,7 +62,7 @@ Ghi chú về phiên bản (nêu được trong báo cáo, thể hiện cách l�
   của noble nên vẫn đúng.
 - `vm-client` có `postfix 3.8.6` chỉ vì `mailutils` phụ thuộc vào nó; dịch vụ được tắt bằng
   `systemctl disable --now postfix` để client không mở cổng 25 lạ trong ảnh chụp `ss -ltnp`.
-- `dig` có mặt trên **cả 5 máy** (package `bind9-dnsutils`) — cần cho `policyd-spf`, `opendkim`
+- `dig` có mặt trên **cả 5 máy** (package `bind9-dnsutils`), cần cho `policyd-spf`, `opendkim`
   và các script `verify/`.
 
 Cổng làm việc:
@@ -140,4 +140,4 @@ bằng chứng đọc (`cat ~/Maildir/new/*`) là đường dẫn thật, không
 - Không mở NAT/bridged cho bất kỳ VM nào, kể cả để `apt install` → mirror được cài **trước** khi rút mạng
   (script `00-base.sh` có bước kiểm tra và báo rõ nếu thiếu package).
 - Không dùng `.local` (RFC 6762 dành cho mDNS) → toàn bộ lab dùng `.test` (RFC 6761, không bao giờ phân giải ra Internet).
-- SPF `ip4:10.30.0.20` là dải riêng tư theo RFC 1918; trong sản xuất sẽ là IP công cộng của MX — lab ghi rõ điểm khác biệt này trong Phần 4.
+- SPF `ip4:10.30.0.20` là dải riêng tư theo RFC 1918; trong sản xuất sẽ là IP công cộng của MX, lab ghi rõ điểm khác biệt này trong Phần 4.

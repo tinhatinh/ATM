@@ -7,7 +7,7 @@
 > `/root/lab` đã được đồng bộ lại bằng bản script đã sửa (md5 khớp repository).
 
 Mỗi lab dưới đây gồm **3 bước cố định**: (1) tấn công và ghi lại kết quả, (2) vá đúng lỗ hổng đó,
-(3) chạy lại **đúng lệnh cũ** và chỉ ra sự khác biệt. Đừng bỏ bước 3 — đó là phần được chấm.
+(3) chạy lại **đúng lệnh cũ** và chỉ ra sự khác biệt. Đừng bỏ bước 3, đó là phần được chấm.
 
 ---
 
@@ -40,18 +40,18 @@ Phải thấy: 5 IP sống; cổng 53 ở D; 25/587/143 ở M1 và M2; `SPF/DMAR
 
 1. `swaks` chỉ cài ở **A** và **C**, không có ở M1/M2.
 2. Sau khi revert, đồng hồ máy khách có thể lệch vài ngày (mạng cô lập, không NTP). Chỉnh bằng
-   `date -u -s 'YYYY-MM-DD HH:MM:SS'` — lệch nhiều làm chứng chỉ TLS bị báo *not yet valid*.
+   `date -u -s 'YYYY-MM-DD HH:MM:SS'`, lệch nhiều làm chứng chỉ TLS bị báo *not yet valid*.
 3. **Thứ tự vá là bắt buộc**: `d01` đặt lại toàn bộ danh sách restriction, nên chạy `d01` **sau**
    `d03` sẽ xoá mất `check_policy_service` và SPF tê liệt. Tài liệu này đi theo đúng thứ tự an toàn.
 4. **Mã `530` che lấp các verdict phía sau.** Khi `smtpd_tls_security_level = encrypt`, mọi phiên
    bản rõ bị từ chối ngay tại `MAIL FROM` bằng `530 Must issue a STARTTLS command first`, nên không
    bao giờ tới bước đánh giá SPF/DMARC. Muốn thấy `550 5.7.23` (SPF) hay
-   `550 5.7.1 rejected by DMARC policy`, lệnh gửi phải có `--tls-optional` —
+   `550 5.7.1 rejected by DMARC policy`, lệnh gửi phải có `--tls-optional` ,
    `verify/v03-replay-attacks.sh` đã làm sẵn việc này, còn một số script trong `attacks/` thì không.
 
 ---
 
-## LAB 1 — Open relay: máy chủ biến thành trạm phát thư rác
+## LAB 1: Open relay: máy chủ biến thành trạm phát thư rác
 
 ### 1.1 Tấn công (A)
 
@@ -99,11 +99,11 @@ bash /root/lab/attacks/at01-open-relay.sh
 > **Giải thích để trình bày**: `smtpd_relay_restrictions = permit_mynetworks, permit_sasl_authenticated,
 > reject_unauth_destination`. Trước khi vá, mọi máy trong `10.30.0.0/24` khớp `permit_mynetworks`
 > nên chuỗi dừng ở "cho phép". Sau khi thu hẹp `mynetworks` về loopback, lời gọi từ A rơi tới
-> `reject_unauth_destination` và bị chặn ngay tại `RCPT` — thư không bao giờ vào hàng đợi.
+> `reject_unauth_destination` và bị chặn ngay tại `RCPT`, thư không bao giờ vào hàng đợi.
 
 ---
 
-## LAB 2 — Giả mạo người gửi (spoofing) và BEC
+## LAB 2: Giả mạo người gửi (spoofing) và BEC
 
 Làm lab này **trước khi bật TLS bắt buộc**, để nhìn thấy rõ mã từ chối của SPF trên cổng 25.
 
@@ -157,7 +157,7 @@ grep -vE '^\s*#|^\s*$' /etc/postfix-policyd-spf-python/policyd-spf.conf
 ```
 
 `check_policy_service unix:private/policyd-spf` phải xuất hiện **sau** `reject_unauth_destination`,
-và `TestOnly = 1` (**1 mới là chế độ chặn** — tên dễ gây hiểu ngược).
+và `TestOnly = 1` (**1 mới là chế độ chặn**, tên dễ gây hiểu ngược).
 
 ### 2.3 Tấn công lại (A)
 
@@ -168,15 +168,15 @@ bash /root/lab/attacks/at05-spoof-own-domain.sh
 
 **Kết quả mới**: `550 5.7.23 <ketoan@congtyB.test>: Recipient address rejected: Message rejected
 due to: SPF fail - not authorized`. Chạy lại `at04-check-inbox.sh ketoan` trên M2: **không có** thư
-mới trong hộp thư — bị chặn ngay tại `RCPT`, trước khi bức thư kịp vào hàng đợi.
+mới trong hộp thư, bị chặn ngay tại `RCPT`, trước khi bức thư kịp vào hàng đợi.
 
-> **Caveat để trả lời vấn đáp**: SPF chỉ kiểm tra *envelope sender*. Nếu đối thủ gửi từ một tên
+> **Ghi chú**: SPF chỉ kiểm tra *envelope sender*. Nếu đối thủ gửi từ một tên
 > miền **khác** có SPF đúng của chính nó rồi đặt `Header From` là `congtyA.test`, SPF không phát
 > hiện được. Đó là nội dung LAB 7.
 
 ---
 
-## LAB 3 — Nghe lén nội dung thư trên kênh bản rõ
+## LAB 3: Nghe lén nội dung thư trên kênh bản rõ
 
 ### 3.1 Tấn công (hai cửa sổ phối hợp)
 
@@ -230,12 +230,12 @@ grep -a 'Subject:' /root/evidence/mail1/at02-cleartext.txt || echo "KHONG CON DO
 
 **Kết quả mới**: không còn dòng `Subject:`/`MAIL FROM` nào đọc được; chỉ còn dữ liệu TLS đã mã hoá.
 
-> **Nhưng chưa an toàn tuyệt đối**: `may` là *opportunistic* — máy chủ **có** quảng bá STARTTLS
+> **Nhưng chưa an toàn tuyệt đối**: `may` là *opportunistic*, máy chủ **có** quảng bá STARTTLS
 > nhưng nếu quảng bá đó bị chặn mất trên đường truyền, client vẫn gửi bản rõ. LAB 5 chứng minh.
 
 ---
 
-## LAB 4 — Đánh cắp thông tin đăng nhập
+## LAB 4: Đánh cắp thông tin đăng nhập
 
 ### 4.1 Tấn công (C)
 
@@ -268,11 +268,11 @@ Phải thấy `encrypt`, `yes`, `verify`; và danh sách `EHLO` **mất dòng `2
 bash /root/lab/attacks/at03-credential-theft.sh
 ```
 
-**Kết quả mới**: `530 5.7.0 Must issue a STARTTLS command first` — không còn cơ hội lấy credential.
+**Kết quả mới**: `530 5.7.0 Must issue a STARTTLS command first`, không còn cơ hội lấy credential.
 
 ---
 
-## LAB 5 — Hạ cấp STARTTLS và sửa nội dung trên đường truyền
+## LAB 5: Hạ cấp STARTTLS và sửa nội dung trên đường truyền
 
 Đây là lab chứng minh `may` **không đủ**. Máy chủ đang ở chế độ `encrypt` từ LAB 4, nên trước tiên
 hạ về `may` để tái hiện đúng điều kiện tấn công:
@@ -326,7 +326,7 @@ bash /root/lab/defense/d02b-tls.sh encrypt                # M2
 
 Bật proxy ở A, chạy lại `at06-starttls-strip.sh` ở C.
 
-**Kết quả mới**: `swaks exit code = 28` — client không thấy STARTTLS, và vì máy chủ **bắt buộc**
+**Kết quả mới**: `swaks exit code = 28`, client không thấy STARTTLS, và vì máy chủ **bắt buộc**
 TLS nên phiên bị huỷ thay vì âm thầm hạ cấp. Không có thư nào vào hộp nạn nhân.
 
 > **Giới hạn cần nói thẳng**: cách này chỉ buộc được các MTA mà ta đã cấu hình. Trên Internet thật,
@@ -334,7 +334,7 @@ TLS nên phiên bị huỷ thay vì âm thầm hạ cấp. Không có thư nào 
 
 ---
 
-## LAB 6 — DKIM: ký và kiểm tra toàn vẹn nội dung
+## LAB 6: DKIM: ký và kiểm tra toàn vẹn nội dung
 
 ### 6.1 Sinh khoá và bật bộ ký (M1)
 
@@ -389,7 +389,7 @@ toàn vẹn nội dung.
 
 ---
 
-## LAB 7 — DMARC: chặn trường hợp SPF qua mặt được
+## LAB 7: DMARC: chặn trường hợp SPF qua mặt được
 
 ### 7.1 Công bố chính sách và bật thực thi
 
@@ -409,7 +409,7 @@ grep -E 'RejectFailures' /etc/opendmarc.conf               # -> true
 ```
 
 Ba điểm phải đúng: **thứ tự milter** (8891 trước 8893), `RejectFailures true` (mặc định của gói là
-`false` — chỉ đánh giá mà không chặn), và **override cho cổng submission** (nếu thiếu, DMARC chặn
+`false`, chỉ đánh giá mà không chặn), và **override cho cổng submission** (nếu thiếu, DMARC chặn
 nhầm cả người dùng hợp lệ gửi ở cổng 587).
 
 ### 7.2 Tấn công: SPF đúng nhưng mạo danh tên miền khác (A)
@@ -420,7 +420,7 @@ bash /root/lab/attacks/at07-spf-pass-dmarc-fail.sh
 
 **Chú ý thật, không phải lỗi cấu hình**: script `at07` gửi ở cổng 25 **không kèm** `--tls-optional`.
 Vì từ LAB 5 máy chủ đã đặt `smtpd_tls_security_level = encrypt`, phiên bản rõ sẽ bị chặn rất sớm
-bằng `530 Must issue a STARTTLS command first` — **trước cả** bước đánh giá DMARC. Muốn thấy verdict
+bằng `530 Must issue a STARTTLS command first`, **trước cả** bước đánh giá DMARC. Muốn thấy verdict
 của DMARC thì phải cho phiên đi qua TLS trước. Hai cách:
 
 ```bash
@@ -453,7 +453,7 @@ bash /root/lab/verify/v05-auth-results.sh ketoan     # chay o M2
 
 ---
 
-## LAB 8 — Tổng kết: phát lại toàn bộ tấn công một lượt
+## LAB 8: Tổng kết: phát lại toàn bộ tấn công một lượt
 
 ```bash
 bash /root/lab/verify/v01-dns-records.sh        # D   -> 6/6 PASS + 2 phep thu phu dinh REFUSED

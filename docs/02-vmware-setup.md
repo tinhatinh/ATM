@@ -14,7 +14,7 @@ sha256 chính thức của Ubuntu: `97f3d7ffb032c3eb3b23d2c8be9cc76e60c2c1f2c014
 | Client | `vm-client` | 1 | 1 GB | 20 GB thin | VMnet8 | VMnet2 | `vm-client` |
 
 Tổng RAM khi bật cả 5: **7 GB**. Nếu máy chỉ còn ≥ 5 GB free thì chạy theo nhóm:
-- Nhóm A (GĐ0–GĐ1, GĐ3): `vm-dns` + `vm-mail1` + `vm-mail2` (4 GB) — suspend `vm-atk`, `vm-client`.
+- Nhóm A (GĐ0–GĐ1, GĐ3): `vm-dns` + `vm-mail1` + `vm-mail2` (4 GB), suspend `vm-atk`, `vm-client`.
 - Nhóm B (GĐ2 tấn công, GĐ4 kiểm chứng): thêm `vm-atk` (5 GB); `vm-client` bật riêng khi làm AT-03/AT-06/v02.
 Không cần đổi cấu hình, chỉ *Pause/Suspend* VM không dùng (VMware chỉ tính RAM cho VM đang chạy).
 
@@ -24,7 +24,7 @@ Tắt *Memory Trim / ballooning* không cần thiết; điều quan trọng hơn
 
 1. *Typical (recommended)* → Next.
 2. *Installer disc image file (iso)* →/browse tới ISO ở trên → Next. VMware sẽ tự nhận "Ubuntu Linux 5.x or later 64-bit" (cứ để nguyên, không sao).
-3. *Easy Install* hỏi username/password: điền `ubuntu` / `Lab@2026` — nhưng **bỏ qua Easy Install nếu màn hiện ra** bằng cách bấm *Finish* rồi *Edit virtual machine settings* → CD/DVD → *Use ISO image* nếu cần. (Easy Install tự tạo user `ubuntu` đúng ý ta, dùng nó cũng được.)
+3. *Easy Install* hỏi username/password: điền `ubuntu` / `Lab@2026`, nhưng **bỏ qua Easy Install nếu màn hiện ra** bằng cách bấm *Finish* rồi *Edit virtual machine settings* → CD/DVD → *Use ISO image* nếu cần. (Easy Install tự tạo user `ubuntu` đúng ý ta, dùng nó cũng được.)
 4. *Name*: `vm-dns` (tương tự 4 VM còn lại) → chọn vị trí `C:\LabATM\vm-dns`.
 5. *Disk capacity* 20 GB, tick **Store virtual disk as a single file** → *Advanced* → Virtual device node: SATA.
 6. *Customize hardware* → Network → **NAT** (tạm thời) → Finish.
@@ -51,13 +51,13 @@ Sau khi cài xong và chạy `00-apt.sh` (cần Internet): *Settings → Network
 
 ## 4. Đưa project vào VM (sau khi reboot, VM vẫn đang ở NAT)
 
-**Bước 1 — đọc IP do DHCP cấp, ngay trong VM:**
+**Bước 1, đọc IP do DHCP cấp, ngay trong VM:**
 
 ```
 ip -4 addr show
 ```
 
-**Bước 2 — trên Windows (Git Bash/PowerShell), scp với chính IP vừa đọc** (ví dụ máy này nhận `192.168.122.101`):
+**Bước 2, trên Windows (Git Bash/PowerShell), scp với chính IP vừa đọc** (ví dụ máy này nhận `192.168.122.101`):
 
 ```
 scp -r btl-atm-topic03-email-security ubuntu@192.168.122.101:~/lab-upload
@@ -71,7 +71,7 @@ Trong VM:
 sudo -i
 passwd
 ```
-(đặt `Lab@2026` cho root — prompt phải đổi thành `root@vm-…`)
+(đặt `Lab@2026` cho root, prompt phải đổi thành `root@vm-…`)
 
 ```
 mkdir -p /root/lab && cp -r /home/ubuntu/lab-upload/* /root/lab/ && ls /root/lab
@@ -92,7 +92,7 @@ Card ảo của 5 VM là **ens33**; dải VMnet8 của máy này là `192.168.15
 
 Các IP này **chỉ tồn tại ở giai đoạn 0b**. Từ giai đoạn 1, mọi thứ dùng IP lab `10.30.0.10/20/30/40/50`.
 Báo cáo chỉ nêu dải 10.30.0.0/24; dải NAT ghi ở đây để đối chiếu lúc dựng lại lab.
-KHÔNG chạy `apt upgrade`/`pro attach` — mọi tham số đã đối chiếu theo bản GA 24.04.5.
+KHÔNG chạy `apt upgrade`/`pro attach`, mọi tham số đã đối chiếu theo bản GA 24.04.5.
 
 ## 5. Check-list trước khi bấm `00-base.sh` (VM đang NAT, chưa cắt mạng)
 

@@ -10,8 +10,8 @@ sự cố vẫn tiếp tục xảy ra hằng ngày trên diện rộng: giả m�
 dung thư trên đường truyền, lạm dụng máy chủ làm trạm phát thư rác, và đánh cắp thông tin xác
 thực của người dùng.
 
-Bốn cơ chế chuẩn hoá do IETF ban hành — STARTTLS (RFC 3207), SPF (RFC 7208), DKIM (RFC 6376) và
-DMARC (RFC 7489) — được thiết kế để bịt đúng bốn khe hở nói trên, nhưng mỗi cơ chế chỉ trả lời
+Bốn cơ chế chuẩn hoá do IETF ban hành, STARTTLS (RFC 3207), SPF (RFC 7208), DKIM (RFC 6376) và
+DMARC (RFC 7489), được thiết kế để bịt đúng bốn khe hở nói trên, nhưng mỗi cơ chế chỉ trả lời
 một câu hỏi xác định và chỉ có hiệu lực khi được cấu hình đúng. Trên thực tế, phần lớn sự cố email
 của doanh nghiệp không đến từ việc thiếu công nghệ, mà đến từ việc cấu hình sai thứ tự, sai phạm
 vi hoặc hiểu nhầm ngữ nghĩa của tham số. Vì vậy đề tài được chọn không dừng ở mức mô tả lý

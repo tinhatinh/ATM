@@ -6,9 +6,9 @@ Repo gồm báo cáo, mã cấu hình lab, kịch bản tấn công và kiểm c
 
 ## Xem báo cáo
 
-1. [Báo cáo PDF](bao-cao/Bao%20cao%20ATM%20-%20Topic%2003%20-%20nhom%203.pdf) để đọc và chấm.
-2. [Báo cáo Word](bao-cao/Bao%20cao%20ATM%20-%20Topic%2003%20-%20nhom%203.docx) để xem hoặc chỉnh sửa.
-3. [Bản Markdown](bao-cao/Bao-cao-ATM-Topic03.md) để tra cứu nhanh và so sánh thay đổi.
+1. [Báo cáo PDF](bao-cao/Bao%20cao%20ATM%20-%20Topic%2003%20-%20nhom%203.pdf) 
+2. [Báo cáo Word](bao-cao/Bao%20cao%20ATM%20-%20Topic%2003%20-%20nhom%203.docx) 
+3. [Bản Markdown](bao-cao/Bao-cao-ATM-Topic03.md) 
 
 ## Tài liệu theo nội dung
 
